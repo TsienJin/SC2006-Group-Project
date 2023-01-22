@@ -1,6 +1,3 @@
 
 # VS code workspaces
 **/*.code-workspace
-
-# ANY log files
-**/*.log
