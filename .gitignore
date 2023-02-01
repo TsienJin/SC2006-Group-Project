@@ -4,3 +4,7 @@
 
 # ANY log files
 **/*.log
+
+# ANY Environment Files
+**/*.env
+**/.env.*
