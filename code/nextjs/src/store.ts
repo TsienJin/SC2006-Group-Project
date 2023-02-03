@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from '@/components/slice/test'
 import menuReducer from '@/components/slice/menu'
+import sideBarReducer from '@/components/slice/sideBar'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     menu: menuReducer,
+    sideBar: sideBarReducer,
   },
 })
 

@@ -1,7 +1,7 @@
 import { RootState } from "@/store"
 import React from "react"
 import { useSelector } from "react-redux"
-import { AccountItem, AddItem, ExpandItem, FavItem, RouteItem, SearchItem, SettingItem } from "./MenuItems"
+import { AccountItem, AddItem, ExpandItem, FavItem, RouteItem, SearchItem, SettingItem, TestItem } from "./MenuItems"
 import MenuItemWrapper from "./MenuItemWrapper"
 
 
@@ -19,6 +19,7 @@ const Menu = () => {
       <FavItem />
       <SearchItem />
       <AddItem />
+      <TestItem />
     </nav>
   )
 }
