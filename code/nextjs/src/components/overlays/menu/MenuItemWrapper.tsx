@@ -5,8 +5,6 @@ const MenuItemWrapper = ({children, isTop=false,handler=()=>{console.log("no fun
 
   const expState = useSelector((state:RootState) => state.menu.expanded)
 
-
-  // TODO logic for shadow when menu is collapsed
   const expanded = ():string => {
 
 

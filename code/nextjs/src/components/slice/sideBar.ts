@@ -23,11 +23,13 @@ export enum sideBarStatesEnum {
 
 export type sideBarStates = {
   state: sideBarStatesEnum,
+  stack: sideBarStatesEnum[]
 }
 
 
 const initialState:sideBarStates = {
   state: sideBarStatesEnum.None,
+  stack: []
 }
 
 // export const sideBarAction = createAction<sideBarStatesEnum|string|undefined>("SIDEBAR")
@@ -42,11 +44,28 @@ export const sideBarSlice = createSlice({
   reducers: {
     setState: (sideBar, action: PayloadAction<sideBarStatesEnum>) => {
       sideBar.state = action.payload
+    },
+    clearThenAddToStack: (sideBar, action: PayloadAction<sideBarStatesEnum>) => {
+      if(action.payload != sideBarStatesEnum.None){
+        sideBar.stack = [action.payload]
+      } else {
+        sideBar.stack = []
+      }
+    },
+    addToStack: (sideBar, action: PayloadAction<sideBarStatesEnum>) => {
+      if(action.payload != sideBarStatesEnum.None){
+        sideBar.stack.push(action.payload)
+      }
+    },
+    popStack: (sideBar) => {
+      if(sideBar.stack.length){
+        sideBar.stack.pop()
+      }
     }
   }
 })
 
 
-export const { setState } = sideBarSlice.actions
+export const { setState, clearThenAddToStack, addToStack, popStack } = sideBarSlice.actions
 export default sideBarSlice.reducer
 
