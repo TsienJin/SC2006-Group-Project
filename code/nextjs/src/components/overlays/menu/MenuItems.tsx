@@ -1,7 +1,6 @@
 import { toggleExpand } from "@/components/slice/menu"
-import { setState, sideBarDispatch, sideBarStatesEnum } from "@/components/slice/sideBar"
+import { sideBarDispatch, sideBarStatesEnum } from "@/components/slice/sideBar"
 import { RootState } from "@/store"
-import { set } from "immer/dist/internal"
 import { useDispatch, useSelector } from "react-redux"
 import MenuItemWrapper from "./MenuItemWrapper"
 
@@ -9,7 +8,6 @@ import MenuItemWrapper from "./MenuItemWrapper"
 
 
 // function to update side bar and close menu bar
-
 function menuItemClick(dispatch:any, destination: sideBarStatesEnum): void {
   sideBarDispatch(dispatch, destination)
   setTimeout(()=>{
