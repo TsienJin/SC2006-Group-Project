@@ -6,7 +6,7 @@ import { Hoist } from "./types"
 
 
 
-const PasswordGroup = () => {
+const PasswordGroup = ({hoist=(value)=>{}}:{hoist?:Hoist<string>}) => {
 
   const [passVal, setPassVal] = useState<string>("")
   const [cPassVal, setCPassVal] = useState<string>("")
@@ -27,6 +27,7 @@ const PasswordGroup = () => {
       setPassErr("Passwords do not match!")
     } else {
       setPassErr("")
+      hoist(passVal)
     }
 
   },[passVal, cPassVal])
