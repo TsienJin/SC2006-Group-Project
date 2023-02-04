@@ -64,7 +64,7 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
   return(
     <FieldWrapper>
       <div className="relative">
-        <input className={`transition peer w-full border-b-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`}
+        <input className={`transition peer w-full rounded-none border-b-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`}
         onChange={e=>validate(e)} onBlur={()=>usrClicked()} defaultValue={defaultVal} type={type} name={placeholder} placeholder=" "/>
         <label className={`
               transition-all absolute text-shadow opacity-100 -top-4 left-0 font-light text-sm first-letter:uppercase
