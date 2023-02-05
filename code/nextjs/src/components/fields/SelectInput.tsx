@@ -38,7 +38,7 @@ const SelectInput = ({placeholder, options, hoist=()=>{}}:{placeholder:string, o
           {
             options.options.map(item => {
               return(
-                <option value={item.key} disabled={item.disabled}>{item.value}</option>
+                <option value={item.key} disabled={item.disabled} key={item.key}>{item.value}</option>
               )
             })
           }
