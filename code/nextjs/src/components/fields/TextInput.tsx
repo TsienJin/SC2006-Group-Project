@@ -5,7 +5,7 @@ import FieldWrapper from "./FieldWrapper"
 import { Hoist } from "./types"
 
 
-const TextInput = ({placeholder, defaultVal, required=false, type="text", forceErrorMessage="", validateTests=[], hoist=(value)=>{}}:{placeholder:string, defaultVal?:string|number|any, required?:boolean, type?:"text"|"password", forceErrorMessage?:string, validateTests?:ValidateInputText[], hoist?:Hoist<string>}) => {
+const TextInput = ({placeholder, defaultVal, required=false, type="text", forceErrorMessage="", validateTests=[], hoist=(value)=>{}}:{placeholder:string, defaultVal?:string|number|any, required?:boolean, type?:"text"|"password"|"textarea", forceErrorMessage?:string, validateTests?:ValidateInputText[], hoist?:Hoist<string>}) => {
 
   const [usrVal, setUsrVal] = useState<string>("")
   const [hasClicked, setClicked] = useState<boolean>(false)
@@ -13,12 +13,21 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
   const valid = () => (forceErrorMessage.length==0 && errMessage.length==0)
 
 
+
+
+  const _validate = (val:string) => {
+    setUsrVal(val)
+    hoist(val) // update parent state
+  }
+
+
   const validate = (e:ChangeEvent<HTMLInputElement>) => {
-    setUsrVal(e.target.value)
+    _validate(e.target.value)
 
-    // update parent state
-    hoist(e.target.value)
+  }
 
+  const validateArea = (e:ChangeEvent<HTMLTextAreaElement>) => {
+    _validate(e.target.value)
   }
 
   const usrClicked = () => {
@@ -61,11 +70,21 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
 
   },[usrVal, valid, hasClicked])
 
+
+
+  const inputClassName = `transition peer w-full rounded-none border-b-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`
+
   return(
     <FieldWrapper>
       <div className="relative">
-        <input className={`transition peer w-full rounded-none border-b-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`}
-        onChange={e=>validate(e)} onBlur={()=>usrClicked()} defaultValue={defaultVal} type={type} name={placeholder} placeholder=" "/>
+        {
+        type == "textarea"?
+          <textarea className={inputClassName+" min-h-[48px]"}
+          onChange={e=>validateArea(e)} onBlur={()=>usrClicked()} defaultValue={defaultVal} name={placeholder} placeholder=" "/>
+          :
+          <input className={inputClassName}
+          onChange={e=>validate(e)} onBlur={()=>usrClicked()} defaultValue={defaultVal} type={type} name={placeholder} placeholder=" "/>
+        }
         <label className={`
               transition-all absolute text-shadow opacity-100 -top-4 left-0 font-light text-sm first-letter:uppercase
               peer-placeholder-shown:top-1 peer-placeholder-shown:left-0 peer-placeholder-shown:opacity-50
