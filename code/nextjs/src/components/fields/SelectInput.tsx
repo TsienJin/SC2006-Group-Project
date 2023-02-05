@@ -33,7 +33,7 @@ const SelectInput = ({placeholder, options, hoist=()=>{}}:{placeholder:string, o
     <FieldWrapper>
       <div className="SELECTOR_ELEMENT w-full flex flex-row justify-center items-center gap-x-2">
         <label htmlFor={placeholder}>{placeholder}</label>
-        <select name={placeholder} className="w-full focus:outline-none rounded-none border-[1px] border-shadow p-1">
+        <select name={placeholder} className="w-full focus:outline-none rounded-sm border-[1px] border-shadow p-1">
           {options.default != undefined && <option value={options.default.key} disabled={options.default.disabled}>{options.default.value}</option>}
           {
             options.options.map(item => {

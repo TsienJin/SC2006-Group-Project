@@ -1,7 +1,9 @@
+import Button from "@/components/clickeable/Button"
+import Checkbox from "@/components/clickeable/Checkbox"
 import ItemClickable, { ItemIcons } from "@/components/clickeable/Item"
 import Redirect from "@/components/clickeable/Redirect"
 import Tab from "@/components/clickeable/Tab"
-import { Action, link } from "@/components/clickeable/types"
+import { Action, btnColour, link } from "@/components/clickeable/types"
 import BoxTextInput from "@/components/fields/BoxTextInput"
 import FieldContainer from "@/components/fields/FieldContainer"
 import Logo from "@/components/fields/Logo"
@@ -63,6 +65,13 @@ const ExampleScreen = () => {
     target: "_blank"
   }
 
+  const btnColour:btnColour = {
+    bg: "bg-violet",
+    text: "text-offwhite",
+    bgHover: "md:hover:bg-blue-600",
+    textHover: "md:hover:text-text-offwhite"
+  }
+
 
 
   return (
@@ -79,7 +88,9 @@ const ExampleScreen = () => {
         <ItemClickable name="My Fav" icon={ItemIcons.Favourite} />
         <ItemClickable name="Rocket" icon={ItemIcons.Rocket} />
         <Redirect preText="Hello" link={reDir} />
-        <Checkbox />
+        <Checkbox preText="HELLO" link={reDir}/>
+        <Checkbox preText="world" />
+        <Button text="This button" colour={btnColour}/>
       </FieldContainer>
     </>
   )

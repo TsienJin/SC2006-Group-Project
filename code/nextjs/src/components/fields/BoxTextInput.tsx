@@ -74,7 +74,7 @@ const BoxTextInput = ({placeholder, defaultVal, required=false, type="text", for
 
 
 
-  const inputClassName = `transition w-full rounded-none border-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`
+  const inputClassName = `transition rounded-sm w-full rounded-none border-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`
 
   return(
     <FieldWrapper>
