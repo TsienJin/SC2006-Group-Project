@@ -1,6 +1,5 @@
 import HeadComponent from '@/components/seo/HeadComponent'
 import Map from '@/components/mapbox/Map'
-import Overlay from '@/components/overlays/Overlay'
 import Menu from '@/components/overlays/menu/Menu'
 import SideBar from '@/components/overlays/sideBar/SideBar'
 
