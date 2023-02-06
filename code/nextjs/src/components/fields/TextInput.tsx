@@ -72,7 +72,7 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
     if(forceErrorMessage){
       setErrMessage(forceErrorMessage)
     }
-  },[usrVal, valid, hasClicked, forceErrorMessage, required])
+  },[usrVal, hasClicked, forceErrorMessage, required, errMessage])
 
 
 
