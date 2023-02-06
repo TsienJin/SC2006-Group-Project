@@ -1,8 +1,4 @@
-import { FunctionComponent } from "react"
-import { Action } from "./types"
-
-
-
+import {Action} from "./types"
 
 
 export enum ItemIcons {
