@@ -17,7 +17,6 @@ const Checkbox = ({preText, link, checked=false, hoist=()=>{}}:{preText:string, 
     hoist(isChecked)
   }, [isChecked, hoist])
 
-
   return(
     <FieldWrapper>
       <div className="flex flex-row justify-start items-center gap-x-2">
