@@ -1,19 +1,16 @@
-
-import { ValidateInputText } from "@/validation/fields/text"
-import { ChangeEvent, useEffect, useState } from "react"
+import {ValidateInputText} from "@/validation/fields/text"
+import {ChangeEvent, useEffect, useState} from "react"
 import FieldWrapper from "./FieldWrapper"
-import { Hoist } from "./types"
+import {Hoist} from "./types"
 
 
-const TextInput = ({placeholder, defaultVal, required=false, type="text", forceErrorMessage="", validateTests=[], hoist=(value)=>{}}:{placeholder:string, defaultVal?:string|number|any, required?:boolean, type?:"text"|"password"|"textarea", forceErrorMessage?:string, validateTests?:ValidateInputText[], hoist?:Hoist<string>}) => {
+const TextInput = ({placeholder, defaultVal, required=false, type="text", forceErrorMessage="", validateTests=[], hoist=()=>{}}:{placeholder:string, defaultVal?:string|number|any, required?:boolean, type?:"text"|"password"|"textarea", forceErrorMessage?:string, validateTests?:ValidateInputText[], hoist?:Hoist<string>}) => {
 
   const [usrVal, setUsrVal] = useState<string>("")
   const [hasClicked, setClicked] = useState<boolean>(false)
   const [errMessage, setErrMessage] = useState<string>("")
+
   const valid = () => (forceErrorMessage.length==0 && errMessage.length==0)
-
-
-
 
   const _validate = (val:string) => {
     setUsrVal(val)
@@ -67,12 +64,11 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
     if(forceErrorMessage){
       setErrMessage(forceErrorMessage)
     }
-
-  },[usrVal, valid, hasClicked])
-
+  },[usrVal, valid, hasClicked, forceErrorMessage, required])
 
 
-  const inputClassName = `transition peer w-full rounded-none border-b-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`
+
+  const inputClassName = `transition peer w-full bg-transparent rounded-none border-b-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`
 
   return(
     <FieldWrapper>
@@ -86,7 +82,7 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
           onChange={e=>validate(e)} onBlur={()=>usrClicked()} defaultValue={defaultVal} type={type} name={placeholder} placeholder=" "/>
         }
         <label className={`
-              transition-all absolute text-shadow opacity-100 -top-4 left-0 font-light text-sm first-letter:uppercase
+              transition-all absolute text-shadow opacity-100 -top-4 left-0 -z-10 font-light text-sm first-letter:uppercase
               peer-placeholder-shown:top-1 peer-placeholder-shown:left-0 peer-placeholder-shown:opacity-50
               peer-placeholder-shown:font-normal peer-placeholder-shown:text-base
               peer-focus:-top-4  peer-focus:left-0 peer-focus:opacity-100 peer-focus:font-light peer-focus:text-sm
