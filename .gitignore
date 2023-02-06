@@ -1,6 +1,8 @@
 
-# VS code workspaces
+# code workspaces
 **/*.code-workspace
+.idea
+
 
 # ANY log files
 **/*.log
