@@ -16,14 +16,14 @@ const Checkbox = ({preText, link, checked=false, hoist=(value:boolean)=>{}}:{pre
 
   useEffect(()=>{
     hoist(isChecked)
-  }, [isChecked])
+  }, [isChecked, hoist])
 
 
   return(
     <FieldWrapper>
       <div className="flex flex-row justify-start items-center gap-x-2">
         <button className="BOX relative" onClick={toggle}>
-          <div className={`w-4 h-4 border-shadow border-[1.5px] p-[2px] rounded-sm hover:border-shadow`}>
+          <div className={`w-4 h-4 flex flex-col justify-center items-center border-shadow border-[1.5px] p-[2px] rounded-sm hover:border-shadow`}>
             <div className={`w-full h-full transition-all ${isChecked?"bg-shadow":"bg-white"}`}/>
           </div>
         </button>
