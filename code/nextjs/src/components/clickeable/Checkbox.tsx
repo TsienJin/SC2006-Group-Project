@@ -1,9 +1,8 @@
 import Link from "next/link"
 import {useCallback, useState} from "react"
 import FieldWrapper from "../fields/FieldWrapper"
-import { Hoist } from "../fields/types"
-import { link } from "./types"
-
+import {Hoist} from "../fields/types"
+import {link} from "./types"
 
 
 const Checkbox = ({preText, link, checked=false, hoist=()=>{}}:{preText:string, link?:link, checked?:boolean, hoist?:Hoist<boolean>}) => {
@@ -13,11 +12,6 @@ const Checkbox = ({preText, link, checked=false, hoist=()=>{}}:{preText:string, 
   const toggle = () => {
     setChecked(!isChecked)
   }
-
-  // useEffect(()=>{
-  //   hoist(isChecked)
-  // }, [isChecked])
-
 
   useCallback(()=>{
     hoist(isChecked)
@@ -33,7 +27,7 @@ const Checkbox = ({preText, link, checked=false, hoist=()=>{}}:{preText:string, 
           </div>
         </button>
         <div className="TEXT">
-          <span>{preText+" "}</span>
+          <span className={"first-letter:capitalize"}>{preText+" "}</span>
           {link &&
           <Link href={link.url} target={link.target} className="text-violet decoration-1 decoration-solid underline underline-offset-2 decoration-violet">
             {link.text}
