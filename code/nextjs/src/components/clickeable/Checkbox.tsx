@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import {useCallback, useState} from "react"
 import FieldWrapper from "../fields/FieldWrapper"
 import { Hoist } from "../fields/types"
 import { link } from "./types"
 
 
 
-const Checkbox = ({preText, link, checked=false, hoist=(value:boolean)=>{}}:{preText:string, link?:link, checked?:boolean, hoist?:Hoist<boolean>}) => {
+const Checkbox = ({preText, link, checked=false, hoist=()=>{}}:{preText:string, link?:link, checked?:boolean, hoist?:Hoist<boolean>}) => {
 
   const [isChecked, setChecked] = useState<boolean>(checked)
 
@@ -14,7 +14,12 @@ const Checkbox = ({preText, link, checked=false, hoist=(value:boolean)=>{}}:{pre
     setChecked(!isChecked)
   }
 
-  useEffect(()=>{
+  // useEffect(()=>{
+  //   hoist(isChecked)
+  // }, [isChecked])
+
+
+  useCallback(()=>{
     hoist(isChecked)
   }, [isChecked, hoist])
 
