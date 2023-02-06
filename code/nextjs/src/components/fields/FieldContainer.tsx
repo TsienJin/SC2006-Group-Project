@@ -1,4 +1,4 @@
-import { useState } from "react"
+import {useState} from "react"
 import FieldWrapper from "./FieldWrapper"
 
 
@@ -20,7 +20,7 @@ const FieldContainer = ({name, defaultExpand=true, children}:{name:string, defau
           </svg>
         </button>
       </div>
-      <div className={`transition-all overflow-hidden ${isExpand?"max-h-[100vh] opacity-100 pt-2":"max-h-0 opacity-0"}`}>
+      <div className={`transition-all overflow-hidden ${isExpand?"max-h-[500vh] opacity-100 pt-2":"max-h-0 opacity-0"}`}>
         {children}
         {isExpand && <div className="h-[1px] w-full bg-gray-100" />}
       </div>
