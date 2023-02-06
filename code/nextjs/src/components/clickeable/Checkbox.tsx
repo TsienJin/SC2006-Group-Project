@@ -26,8 +26,8 @@ const Checkbox = ({preText, link, checked=false, hoist=()=>{}}:{preText:string, 
             <div className={`w-full h-full transition-all ${isChecked?"bg-shadow":"bg-white"}`}/>
           </div>
         </button>
-        <div className="TEXT">
-          <span className={"first-letter:capitalize"}>{preText+" "}</span>
+        <div className="TEXT first-letter:uppercase">
+          <span className={"first-letter:uppercase"}>{preText+" "}</span>
           {link &&
           <Link href={link.url} target={link.target} className="text-violet decoration-1 decoration-solid underline underline-offset-2 decoration-violet">
             {link.text}
