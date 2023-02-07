@@ -72,11 +72,11 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
     if(forceErrorMessage){
       setErrMessage(forceErrorMessage)
     }
-  },[usrVal, hasClicked, forceErrorMessage, required, errMessage])
+  },[usrVal, hasClicked, forceErrorMessage, required, errMessage]) // eslint-disable-next-line no-use-before-define
 
 
 
-  const inputClassName = `transition peer w-full bg-transparent rounded-none border-b-[1px] p-1 ${valid?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`
+  const inputClassName = `transition peer w-full bg-transparent rounded-none border-b-[1px] p-1 ${valid()?"border-shadow text-shadow":"pr-6 border-rust text-rust"} focus:outline-none focus:bg-gray-50`
 
   return(
     <FieldWrapper>

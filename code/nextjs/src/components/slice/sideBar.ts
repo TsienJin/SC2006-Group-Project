@@ -1,6 +1,7 @@
 import { createAction, createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { useDispatch } from "react-redux"
+import sideBar from "@/components/overlays/sideBar/SideBar";
 
 
 
@@ -52,6 +53,9 @@ export const sideBarSlice = createSlice({
         sideBar.stack = []
       }
     },
+    clearStack: (sideBar)=>{
+      sideBar.stack = []
+    },
     addToStack: (sideBar, action: PayloadAction<sideBarStatesEnum>) => {
       if(action.payload != sideBarStatesEnum.None){
         sideBar.stack.push(action.payload)
@@ -66,6 +70,6 @@ export const sideBarSlice = createSlice({
 })
 
 
-export const { setState, clearThenAddToStack, addToStack, popStack } = sideBarSlice.actions
+export const { setState, clearThenAddToStack, clearStack, addToStack, popStack } = sideBarSlice.actions
 export default sideBarSlice.reducer
 
