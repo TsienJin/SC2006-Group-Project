@@ -8,10 +8,12 @@ import {useEffect, useState} from "react";
 import AccountCreateScreen from "@/components/overlays/sideBar/screens/Account/AccountCreate";
 import AccountForgetPassword from "@/components/overlays/sideBar/screens/Account/AccountForgetPassword";
 import AccountScreen from "@/components/overlays/sideBar/screens/Account/Account";
+import {User} from "@/components/slice/user";
 
 
 const SideBarScreen = () => {
 
+  const userState:User = useSelector((state:RootState) => state.user)
   const sideBarState = useSelector((state:RootState) => state.sideBar.stack)
   const [topState, setTopState] = useState<sideBarStatesEnum>()
 
@@ -22,7 +24,12 @@ const SideBarScreen = () => {
   }, [sideBarState])
 
   switch (topState){
-    case sideBarStatesEnum.Account: return <AccountScreen /> // TODO have logic if user is logged in
+    case sideBarStatesEnum.Account: {
+      if (userState.id){
+        return <AccountScreen />
+      }
+      return <AccountLoginScreen />
+    }
     case sideBarStatesEnum.Test: return <AccountLoginScreen />
     case sideBarStatesEnum.AccountCreate: return <AccountCreateScreen />
     case sideBarStatesEnum.AccountForget: return <AccountForgetPassword />
