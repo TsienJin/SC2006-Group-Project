@@ -20,6 +20,7 @@ const SideBarTop = () => {
       case sideBarStatesEnum.Account:
       case sideBarStatesEnum.AccountLogin:
       case sideBarStatesEnum.AccountCreate:
+      case sideBarStatesEnum.AccountForget:
         return "Account"
 
       case sideBarStatesEnum.Route:

@@ -11,6 +11,7 @@ export enum sideBarStatesEnum {
   Account='account',
   AccountLogin='accountLogin',
   AccountCreate='accountCreate',
+  AccountForget='accountForget',
   Route='route',
   RouteStart='routeStart',
   RouteEnd='routeEnd',

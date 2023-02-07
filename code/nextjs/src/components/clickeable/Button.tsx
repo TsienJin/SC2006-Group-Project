@@ -3,6 +3,14 @@ import { Action, btnColour } from "./types"
 
 
 
+export const buttonColourBlue:btnColour = {
+  bg: "bg-violet",
+  bgHover: "md:hover:bg-blue-600",
+  text: "text-offwhite",
+  textHover: "md:hover:text-offwhite"
+}
+
+
 
 const Button = ({text, colour, padding=true, action=()=>{}}:{text:string, colour:btnColour, padding?:boolean, action?:Action}) => {
   return(

@@ -1,25 +1,23 @@
 import Logo from "@/components/fields/Logo";
 import TextInput from "@/components/fields/TextInput";
-import Button from "@/components/clickeable/Button";
-import {Action, btnColour, link} from "@/components/clickeable/types";
+import Button, {buttonColourBlue} from "@/components/clickeable/Button";
+import {Action} from "@/components/clickeable/types";
 import {useDispatch} from "react-redux";
 import {addToStack, sideBarStatesEnum} from "@/components/slice/sideBar";
 import LocalRedirect from "@/components/clickeable/LocalRedirect";
+import SmallRight from "@/components/clickeable/SmallRight";
 
 
-const AccountScreen = () => {
+const AccountLoginScreen = () => {
 
   const dispatch = useDispatch()
 
-  const buttonColour:btnColour = {
-    bg: "bg-violet",
-    bgHover: "md:hover:bg-blue-600",
-    text: "text-offwhite",
-    textHover: "md:hover:text-offwhite"
-  }
-
   const registerAction:Action = () => {
     dispatch(addToStack(sideBarStatesEnum.AccountCreate))
+  }
+
+  const forgetAction:Action = () => {
+    dispatch(addToStack(sideBarStatesEnum.AccountForget))
   }
 
 
@@ -28,7 +26,8 @@ const AccountScreen = () => {
       <Logo />
       <TextInput placeholder={"Email"} required={true} />
       <TextInput placeholder={"Password"} type={"password"} required={true} />
-      <Button text={"Log in"} colour={buttonColour} />
+      <SmallRight preText={"Forgot password?"} actionText={"Reset here"} action={forgetAction} />
+      <Button text={"Log in"} colour={buttonColourBlue} />
       <LocalRedirect preText={"Create an account"} actionText={"here!"} action={registerAction} />
     </div>
   )
@@ -37,4 +36,4 @@ const AccountScreen = () => {
 
 
 
-export default AccountScreen
+export default AccountLoginScreen
