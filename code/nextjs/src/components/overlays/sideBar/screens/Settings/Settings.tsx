@@ -5,6 +5,9 @@ import {Hoist} from "@/components/fields/types";
 import {useDispatch, useSelector} from "react-redux";
 import {setLang, setToilet, setTraffic} from "@/components/slice/system";
 import {RootState} from "@/store";
+import Tab from "@/components/clickeable/Tab";
+import {Action, link} from "@/components/clickeable/types";
+import TabLink from "@/components/clickeable/TabLink";
 
 
 const SettingScreen = () => {
@@ -32,6 +35,12 @@ const SettingScreen = () => {
     dispatch(setTraffic(value))
   }
 
+  const bugLink:link = {
+    url: '/',
+    target: '_blank',
+    text: 'Report them here'
+  }
+
 
 
   return(
@@ -42,6 +51,9 @@ const SettingScreen = () => {
       <FieldContainer name={"Filter"}>
         <Checkbox preText={"Show toilets"} checked={systemState.showToilet} hoist={toiletHoist}/>
         <Checkbox preText={"Show traffic incidents"} checked={systemState.showTraffic} hoist={trafficHoist}/>
+      </FieldContainer>
+      <FieldContainer name={"Get in Touch"} >
+        <TabLink itemName={"Found a bug?"} link={bugLink} />
       </FieldContainer>
     </div>
   )
