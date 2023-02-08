@@ -25,8 +25,11 @@ export const buttonColourGreen:btnColour = {
 }
 
 
-
 const Button = ({text, colour, padding=true, action=()=>{}}:{text:string, colour:btnColour, padding?:boolean, action?:Action}) => {
+
+
+  // TODO waiting state
+
   return(
     <FieldWrapper xSpace={padding} ySpace={padding}>
       <button className={`w-full h-full p-2 rounded shadow transition-all ${colour.bg} ${colour.text} ${colour.bgHover} ${colour.textHover}`} onClick={action}>

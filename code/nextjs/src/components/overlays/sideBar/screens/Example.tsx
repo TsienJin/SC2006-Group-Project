@@ -38,18 +38,18 @@ const ExampleScreen = () => {
   const selectOptions:SelectInputOptions = {
     options: [
       {
-        key: "Key",
-        value: "Value"
+        value: "Key",
+        text: "Value"
       },
       {
-        key: 'Something new',
-        value: 'Hello',
+        value: 'Something new',
+        text: 'Hello',
         disabled: true
       },
     ],
     default: {
-      key: "Default thing",
-      value: "defaultThing",
+      value: "Default thing",
+      text: "defaultThing",
       disabled: true,
     }
   }

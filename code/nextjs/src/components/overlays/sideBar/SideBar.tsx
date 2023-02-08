@@ -12,6 +12,7 @@ import {User} from "@/components/slice/user";
 import AccountEditName from "@/components/overlays/sideBar/screens/Account/AccountEditName";
 import AccountEditEmail from "@/components/overlays/sideBar/screens/Account/AccountEditEmail";
 import AccountEditPassword from "@/components/overlays/sideBar/screens/Account/AccountEditPassword";
+import SettingScreen from "@/components/overlays/sideBar/screens/Settings/Settings";
 
 
 const SideBarScreen = () => {
@@ -41,6 +42,8 @@ const SideBarScreen = () => {
     case sideBarStatesEnum.AccountEditPassword: return <AccountEditPassword />
     case sideBarStatesEnum.AccountEditEmail: return <AccountEditEmail />
     case sideBarStatesEnum.AccountEditName: return <AccountEditName />
+
+    case sideBarStatesEnum.Settings: return <SettingScreen />
     default: return <ExampleScreen />
   }
 

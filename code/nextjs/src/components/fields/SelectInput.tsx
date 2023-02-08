@@ -1,13 +1,14 @@
-import { useRef } from "react"
+import {useCallback, useRef, useState} from "react"
 import FieldWrapper from "./FieldWrapper"
 import { Hoist } from "./types"
+import {SystemLang} from "@/components/slice/system";
 
 
 
 
-type Option = {
-  key: string,
-  value: string|0|1|2|3|4|5,
+export type Option = {
+  value: string,
+  text: string|0|1|2|3|4|5,
   disabled?: boolean
 }
 
@@ -17,28 +18,40 @@ export type SelectInputOptions = {
 }
 
 
-const SelectInput = ({placeholder, options, hoist=()=>{}}:{placeholder:string, options:SelectInputOptions, hoist?:Hoist<string|number>}) => {
+const SelectInput = ({placeholder, options, hoist=()=>{}}:{placeholder:string, options:SelectInputOptions, hoist?:Hoist<Option>}) => {
 
 
-  const selectRef = useRef<HTMLSelectElement>(null)
+  const [val, setVal] = useState<Option>(options?.default || options?.options[0])
 
+  const handleChange = (value:string) => {
 
-  const hanldeClick = () => {
-    selectRef.current?.click()
+    options.options.forEach(item => {
+      if(item.text == value){
+        setVal(item)
+      }
+    })
+
+    if(value==options?.default?.text){
+      setVal(options.default)
+    }
   }
 
+
+  useCallback(()=>{
+    hoist(val)
+  },[val])
 
 
   return(
     <FieldWrapper>
       <div className="SELECTOR_ELEMENT w-full flex flex-row justify-center items-center gap-x-2">
         <label htmlFor={placeholder}>{placeholder}</label>
-        <select name={placeholder} className="w-full focus:outline-none rounded-sm border-[1px] border-shadow p-1">
-          {options.default != undefined && <option value={options.default.key} disabled={options.default.disabled}>{options.default.value}</option>}
+        <select name={placeholder} onChange={e=>handleChange(e.target.value)} className="w-full focus:outline-none rounded-sm border-[1px] border-shadow p-1">
+          {options.default != undefined && <option value={options.default.value} disabled={options.default.disabled}>{options.default.text}</option>}
           {
             options.options.map(item => {
               return(
-                <option value={item.key} disabled={item.disabled} key={item.key}>{item.value}</option>
+                <option value={item.value} disabled={item.disabled} key={item.value}>{item.text}</option>
               )
             })
           }

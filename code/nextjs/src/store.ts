@@ -3,6 +3,7 @@ import counterReducer from '@/components/slice/test'
 import menuReducer from '@/components/slice/menu'
 import sideBarReducer from '@/components/slice/sideBar'
 import userReducer from '@/components/slice/user'
+import systemReducer from '@/components/slice/system'
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     menu: menuReducer,
     sideBar: sideBarReducer,
     user: userReducer,
+    system: systemReducer
   },
 })
 
