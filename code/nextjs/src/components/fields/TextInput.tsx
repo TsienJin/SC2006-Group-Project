@@ -1,10 +1,10 @@
 import {ValidateInputText} from "@/validation/fields/text"
-import {ChangeEvent, useEffect, useState} from "react"
+import {ChangeEvent, useCallback, useEffect, useState} from "react"
 import FieldWrapper from "./FieldWrapper"
 import {Hoist} from "./types"
 
 
-const TextInput = ({placeholder, defaultVal, required=false, type="text", forceErrorMessage="", validateTests=[], hoist=()=>{}}:{placeholder:string, defaultVal?:string|number|any, required?:boolean, type?:"text"|"password"|"textarea", forceErrorMessage?:string, validateTests?:ValidateInputText[], hoist?:Hoist<string>}) => {
+const TextInput = ({placeholder, defaultVal, required=false, type="text", forceErrorMessage="", validateTests=[], hoist=()=>{}, hoistValid=()=>{}}:{placeholder:string, defaultVal?:string|number|any, required?:boolean, type?:"text"|"password"|"textarea", forceErrorMessage?:string, validateTests?:ValidateInputText[], hoist?:Hoist<string>, hoistValid?:Hoist<boolean>}) => {
 
   const [usrVal, setUsrVal] = useState<string>("")
   const [hasClicked, setClicked] = useState<boolean>(false)
@@ -19,10 +19,16 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
   //   setValid(forceErrorMessage.length==0 && errMessage.length==0)
   // },[forceErrorMessage, errMessage])
 
+  useCallback(()=>{
+    console.log("HERE", usrVal.length>0 && errMessage.length==0)
+    hoistValid(usrVal.length>0 && errMessage.length==0)
+  }, [usrVal, errMessage])
+
 
   const _validate = (val:string) => {
     setUsrVal(val)
-    hoist(val) // update parent state
+    hoist(val)
+    hoistValid(val.length>0 && errMessage.length==0)
   }
 
 

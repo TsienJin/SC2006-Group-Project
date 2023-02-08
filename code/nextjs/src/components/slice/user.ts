@@ -28,11 +28,18 @@ export const userSlice = createSlice({
       state.name = action.payload.name
       state.email = action.payload.email
       state.id = action.payload.email
-    }
+    },
+    updateName: (state, action:PayloadAction<User>) => {
+      state.name = action.payload.name
+    },
+    updateEmail: (state, action:PayloadAction<User>) => {
+      console.log("here")
+      state.email = action.payload.email
+    },
   }
 })
 
 
 
 export default userSlice.reducer
-export const { logout, login } = userSlice.actions
+export const { logout, login, updateName, updateEmail } = userSlice.actions

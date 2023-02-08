@@ -9,6 +9,9 @@ import AccountCreateScreen from "@/components/overlays/sideBar/screens/Account/A
 import AccountForgetPassword from "@/components/overlays/sideBar/screens/Account/AccountForgetPassword";
 import AccountScreen from "@/components/overlays/sideBar/screens/Account/Account";
 import {User} from "@/components/slice/user";
+import AccountEditName from "@/components/overlays/sideBar/screens/Account/AccountEditName";
+import AccountEditEmail from "@/components/overlays/sideBar/screens/Account/AccountEditEmail";
+import AccountEditPassword from "@/components/overlays/sideBar/screens/Account/AccountEditPassword";
 
 
 const SideBarScreen = () => {
@@ -30,9 +33,14 @@ const SideBarScreen = () => {
       }
       return <AccountLoginScreen />
     }
+
     case sideBarStatesEnum.Test: return <AccountLoginScreen />
     case sideBarStatesEnum.AccountCreate: return <AccountCreateScreen />
     case sideBarStatesEnum.AccountForget: return <AccountForgetPassword />
+
+    case sideBarStatesEnum.AccountEditPassword: return <AccountEditPassword />
+    case sideBarStatesEnum.AccountEditEmail: return <AccountEditEmail />
+    case sideBarStatesEnum.AccountEditName: return <AccountEditName />
     default: return <ExampleScreen />
   }
 
@@ -49,10 +57,7 @@ const SideBar = () => {
   const sideBarState = useSelector((state:RootState) => state.sideBar.state)
 
   const showSideBar = ():boolean => {
-    if(sideBarState == sideBarStatesEnum.None){
-      return false
-    }
-    return true
+    return sideBarState != sideBarStatesEnum.None;
   }
 
 

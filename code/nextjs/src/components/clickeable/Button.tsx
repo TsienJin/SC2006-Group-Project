@@ -17,6 +17,13 @@ export const buttonColourRust:btnColour = {
   textHover: "md:hover:text-offwhite"
 }
 
+export const buttonColourGreen:btnColour = {
+  bg: "bg-green-500",
+  bgHover: "md:hover:bg-green-400",
+  text: "text-offwhite",
+  textHover: "md:hover:text-offwhite"
+}
+
 
 
 const Button = ({text, colour, padding=true, action=()=>{}}:{text:string, colour:btnColour, padding?:boolean, action?:Action}) => {
