@@ -4,6 +4,7 @@ import menuReducer from '@/components/slice/menu'
 import sideBarReducer from '@/components/slice/sideBar'
 import userReducer from '@/components/slice/user'
 import systemReducer from '@/components/slice/system'
+import routeReducer from '@/components/slice/route'
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     menu: menuReducer,
     sideBar: sideBarReducer,
     user: userReducer,
-    system: systemReducer
+    system: systemReducer,
+    route: routeReducer
   },
 })
 

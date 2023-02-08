@@ -13,6 +13,9 @@ import AccountEditName from "@/components/overlays/sideBar/screens/Account/Accou
 import AccountEditEmail from "@/components/overlays/sideBar/screens/Account/AccountEditEmail";
 import AccountEditPassword from "@/components/overlays/sideBar/screens/Account/AccountEditPassword";
 import SettingScreen from "@/components/overlays/sideBar/screens/Settings/Settings";
+import RouteScreen from "@/components/overlays/sideBar/screens/Route/Route";
+import RouteEdit from "@/components/overlays/sideBar/screens/Route/RouteEditStart";
+import RouteEditStartScreen from "@/components/overlays/sideBar/screens/Route/RouteEditStart";
 
 
 const SideBarScreen = () => {
@@ -44,6 +47,13 @@ const SideBarScreen = () => {
     case sideBarStatesEnum.AccountEditName: return <AccountEditName />
 
     case sideBarStatesEnum.Settings: return <SettingScreen />
+
+    case sideBarStatesEnum.Route: return <RouteScreen />
+
+    case sideBarStatesEnum.RouteStart:
+    case sideBarStatesEnum.RouteEnd: return <RouteEditStartScreen />
+
+
     default: return <ExampleScreen />
   }
 
