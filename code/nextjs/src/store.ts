@@ -5,6 +5,7 @@ import sideBarReducer from '@/components/slice/sideBar'
 import userReducer from '@/components/slice/user'
 import systemReducer from '@/components/slice/system'
 import routeReducer from '@/components/slice/route'
+import * as process from "process";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     system: systemReducer,
     route: routeReducer
   },
+  devTools: process.env.NODE_ENV != "production",
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
