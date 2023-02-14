@@ -20,9 +20,8 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
   // },[forceErrorMessage, errMessage])
 
   useCallback(()=>{
-    console.log("HERE", usrVal.length>0 && errMessage.length==0)
     hoistValid(usrVal.length>0 && errMessage.length==0)
-  }, [usrVal, errMessage])
+  }, [usrVal, errMessage, hoistValid])
 
 
   const _validate = (val:string) => {

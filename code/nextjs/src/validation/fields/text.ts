@@ -6,6 +6,14 @@ export interface ValidateInputText{
 }
 
 
+export const WTest:ValidateInputText = input => {
+  if(input=='w'){
+    return "W is not allowed"
+  }
+
+  return false
+}
+
 
 // requires a minimum of 8 characters on input field
 export const MinPassLength:ValidateInputText = input => {
@@ -23,10 +31,18 @@ export const PassMinCharNum:ValidateInputText = input => {
 
   const re = new RegExp("^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)")
 
-  if(re.test(input) == false){
+  if(!re.test(input)){
     return "Passwords require at least one alphabet and one digit"
   }
 
   return false
+}
 
+export const Required:ValidateInputText = input => {
+
+  if(!input.length){
+    return "This field is required"
+  }
+
+  return false
 }

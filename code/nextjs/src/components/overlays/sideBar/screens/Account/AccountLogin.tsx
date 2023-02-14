@@ -7,9 +7,11 @@ import {addToStack, clearThenAddToStack, sideBarStatesEnum} from "@/components/s
 import LocalRedirect from "@/components/clickeable/LocalRedirect";
 import SmallRight from "@/components/clickeable/SmallRight";
 import {Hoist} from "@/components/fields/types";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {login, User} from "@/components/slice/user";
 import axios from 'axios'
+import FormWrapper from "@/components/fields/FormWrapper";
+import {Required, WTest} from "@/validation/fields/text";
 
 
 async function sendLogin(email:string, password:string):Promise<User> {
@@ -72,17 +74,28 @@ const AccountLoginScreen = () => {
     }
   }
 
+  const emailValidation = [
+    Required,
+    WTest
+  ]
+
+  const passValidation = [
+    WTest
+  ]
+
 
 
   return(
-    <div className={"pt-[56px]"}>
-      <Logo />
-      <TextInput placeholder={"Email"} required={true} hoist={emailHoist}/>
-      <TextInput placeholder={"Password"} type={"password"} required={true} hoist={passwordHoist}/>
-      <SmallRight preText={"Forgot password?"} actionText={"Reset here"} action={forgetAction} />
-      <Button text={"Log in"} colour={buttonColourBlue} action={formSubmit} />
-      <LocalRedirect preText={"Create an account"} actionText={"here!"} action={createAcc} />
-    </div>
+    <FormWrapper action={()=>formSubmit()}>
+      <div className={"pt-[56px]"}>
+        <Logo />
+        <TextInput placeholder={"Email"} required={true} validateTests={emailValidation} hoist={emailHoist}/>
+        <TextInput placeholder={"Password"} type={"password"} required={true} validateTests={passValidation} hoist={passwordHoist}/>
+        <SmallRight preText={"Forgot password?"} actionText={"Reset here"} action={forgetAction} />
+        <Button text={"Log in"} colour={buttonColourBlue} action={formSubmit} />
+        <LocalRedirect preText={"Create an account"} actionText={"here!"} action={createAcc} />
+      </div>
+    </FormWrapper>
   )
 }
 
