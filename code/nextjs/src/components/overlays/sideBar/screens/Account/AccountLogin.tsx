@@ -20,9 +20,10 @@ async function sendLogin(email:string, password:string):Promise<User> {
   const data = await res.data
 
   return {
-    name: data.name,
-    email: data.email,
-    id: data.id
+    name: data?.name,
+    email: data?.email,
+    id: data?.id,
+    cookie: data?.cookie,
   }
 }
 
