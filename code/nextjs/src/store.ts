@@ -11,6 +11,14 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from "redux-persist";
 
 const allReducers = combineReducers({
   counter: counterReducer,
@@ -21,17 +29,36 @@ const allReducers = combineReducers({
   route: routeReducer
 })
 
-const persistConfig = {
+const persistConfigDev = {
   key: 'root',
   storage,
+  whitelist: [] // to remove in prod
 }
 
-const persistedReducer = persistReducer(persistConfig, allReducers)
+const persistConfigProd = {
+  key: 'root',
+  storage
+}
+
+const persistConfig = () => {
+  if(process.env.NODE_ENV !== 'production'){
+    return persistConfigDev
+  }
+
+  return persistConfigDev
+}
+
+const persistedReducer = persistReducer(persistConfig(), allReducers)
 
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: [thunk]
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      }
+    })
 })
 
 export const persistor = persistStore(store)
