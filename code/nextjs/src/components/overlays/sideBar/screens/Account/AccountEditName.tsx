@@ -33,7 +33,8 @@ const AccountEditName = () => {
     const newUsr = {
       name: name,
       email: globalUser.email,
-      id: globalUser.id
+      id: globalUser.id,
+      cookie: globalUser.cookie,
     }
 
     console.log(isValid)

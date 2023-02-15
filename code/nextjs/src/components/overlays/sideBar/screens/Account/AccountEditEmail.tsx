@@ -33,7 +33,8 @@ const AccountEditEmail = () => {
     const newUsr = {
       name: globalUser.name,
       email: email,
-      id: globalUser.id
+      id: globalUser.id,
+      cookie: globalUser.cookie,
     }
 
     if(isValid){
