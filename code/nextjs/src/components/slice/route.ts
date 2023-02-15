@@ -12,8 +12,8 @@ export type Route = {
 
 
 const initState:Route = {
-  start: "start place",
-  end: "end dest"
+  start: "",
+  end: ""
 }
 
 export const systemSlice = createSlice({
@@ -31,4 +31,4 @@ export const systemSlice = createSlice({
 
 
 export default systemSlice.reducer
-export const {  } = systemSlice.actions
+export const { setStart, setEnd } = systemSlice.actions
