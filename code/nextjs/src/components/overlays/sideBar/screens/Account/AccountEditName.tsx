@@ -1,14 +1,13 @@
 import Button, {buttonColourGreen} from "@/components/clickeable/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store";
-import {popStack, sideBarStatesEnum} from "@/components/slice/sideBar";
+import {popLatest, sideBarStatesEnum} from "@/components/slice/sideBar";
 import {useState} from "react";
 import {updateName, User} from "@/components/slice/user";
 import TextInput from "@/components/fields/TextInput";
 import {Hoist} from "@/components/fields/types";
 import {Action} from "@/components/clickeable/types";
-
-
+import FormWrapper from "@/components/fields/FormWrapper";
 
 
 const AccountEditName = () => {
@@ -43,15 +42,17 @@ const AccountEditName = () => {
       // TODO update DB
       // TODO error case
       dispatch(updateName(newUsr))
-      dispatch(popStack())
+      dispatch(popLatest(sideBarStatesEnum.AccountEditName))
     }
   }
 
   return(
-    <div className={"pt-2"}>
-      <TextInput placeholder={"Update name"} hoist={hoistName} hoistValid={hoistValid} required={true} />
-      <Button text={"Save changes"} colour={buttonColourGreen} action={submit}/>
-    </div>
+    <FormWrapper action={submit}>
+      <div className={"pt-2"}>
+        <TextInput placeholder={"Update name"} defaultVal={globalUser.name} hoist={hoistName} hoistValid={hoistValid} required={true} />
+        <Button text={"Save changes"} colour={buttonColourGreen} action={submit}/>
+      </div>
+    </FormWrapper>
   )
 }
 

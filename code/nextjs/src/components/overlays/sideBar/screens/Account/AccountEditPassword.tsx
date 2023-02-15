@@ -1,15 +1,12 @@
 import Button, {buttonColourGreen} from "@/components/clickeable/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store";
-import {popStack, sideBarStatesEnum} from "@/components/slice/sideBar";
+import {popLatest, sideBarStatesEnum} from "@/components/slice/sideBar";
 import {useState} from "react";
-import {updateName, User} from "@/components/slice/user";
-import TextInput from "@/components/fields/TextInput";
+import {User} from "@/components/slice/user";
 import {Hoist} from "@/components/fields/types";
 import {Action} from "@/components/clickeable/types";
 import PasswordGroup from "@/components/fields/PasswordGroup";
-
-
 
 
 const AccountEditPassword = () => {
@@ -32,7 +29,7 @@ const AccountEditPassword = () => {
 
     if(isValid){
       // TODO update DB
-      dispatch(popStack())
+      dispatch(popLatest(sideBarStatesEnum.AccountEditPassword))
     }
   }
 
