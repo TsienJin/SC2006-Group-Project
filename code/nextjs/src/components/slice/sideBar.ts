@@ -65,15 +65,22 @@ export const sideBarSlice = createSlice({
         sideBar.stack.push(action.payload)
       }
     },
+    // TO DEPRECIATE
     popStack: (sideBar) => {
       if(sideBar.stack.length){
         sideBar.stack.pop()
       }
+    },
+    popLatest: (sideBar, action:PayloadAction<sideBarStatesEnum>) => {
+      const index = sideBar.stack.indexOf(action.payload)
+      if(index > -1){
+        sideBar.stack.splice(index, 1)
+    }
     }
   }
 })
 
 
-export const { setState, clearThenAddToStack, clearStack, addToStack, popStack } = sideBarSlice.actions
+export const { setState, clearThenAddToStack, clearStack, addToStack, popStack, popLatest } = sideBarSlice.actions
 export default sideBarSlice.reducer
 
