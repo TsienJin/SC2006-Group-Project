@@ -4,13 +4,15 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 export type User = {
   name: string,
   email: string,
-  id: string
+  id: string,
+  cookie: string,
 }
 
 const initState:User = {
   name: '',
   email: '',
-  id: ''
+  id: '',
+  cookie: '',
 }
 
 
