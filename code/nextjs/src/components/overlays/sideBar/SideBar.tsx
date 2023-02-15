@@ -78,9 +78,6 @@ const SideBar = () => {
     <div className={`transition-all ${showSideBar()?"opacity-100":"opacity-0 -ml-[100%]"} absolute top-0 left-0 md:bottom-10 max-w-[100vw] w-full md:w-[35vw] md:rounded-br-lg md:overflow-scroll shadow-lg z-20 bg-white`}>
       <SideBarTop />
       <SideBarScreen />
-      <div className="">
-        {sideBarState}
-      </div>
     </div>
   )
 }
