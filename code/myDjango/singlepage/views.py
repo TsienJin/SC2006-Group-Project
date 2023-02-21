@@ -9,11 +9,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 
-
 # Create your views here.
 def index(request):
     return render_nextjs_page_sync(request)
-
 
 @require_POST
 def login_view(request):
@@ -54,3 +52,5 @@ def whoami_view(request):
         return JsonResponse({'isAuthenticated': False})
 
     return JsonResponse({'username': request.user.username})
+
+
