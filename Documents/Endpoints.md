@@ -67,3 +67,24 @@ Logout
 ```
 
 
+
+Create Account
+
+`/account/create`
+
+```json
+// POST Request
+{
+    usrEmail: string,
+    usrName: string,
+    usrPassword: string,
+}
+
+// Response
+{
+    usrEmail: string,
+    usrName: string,
+    usrID: UUID,
+    sessionID: UUID
+}
+```
