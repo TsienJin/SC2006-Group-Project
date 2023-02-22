@@ -8,4 +8,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='api-logout'),
     path('session/', views.session_view, name='api-session'),
     path('whoami/', views.whoami_view, name='api-whoami'),
+    path('test/', views.test, name="test"),
 ]

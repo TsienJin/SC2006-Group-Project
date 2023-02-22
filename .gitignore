@@ -9,4 +9,5 @@
 
 # ANY Environment Files
 **/.env
-**/.env.*
+**/*.env.*
+*.pyc

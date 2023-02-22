@@ -53,4 +53,5 @@ def whoami_view(request):
 
     return JsonResponse({'username': request.user.username})
 
-
+def test(request):
+    return JsonResponse({"hi": ""})
