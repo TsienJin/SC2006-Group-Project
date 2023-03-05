@@ -12,18 +12,45 @@ import {login, User} from "@/components/slice/user";
 import axios from 'axios'
 import FormWrapper from "@/components/fields/FormWrapper";
 import {Required, WTest} from "@/validation/fields/text";
+import {middlewareOptions} from "@/middleware/types";
+import * as process from "process";
+import {postMiddleware} from "@/middleware/middleware";
 
 
-async function sendLogin(email:string, password:string):Promise<User> {
+async function sendLogin(email:string, password:string):Promise<User|false> {
 
   const res = await axios.get('https://jsonplaceholder.typicode.com/users/2')
   const data = await res.data
 
+  const options:middlewareOptions = {
+    endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/login`,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    params: {
+      'emailAddress': email,
+      'password': password
+    }
+  }
+
+  let mRes={
+    usrName: "",
+    usrEmail: "",
+    usrID: "",
+    sessionID:""
+  }
+
+  try{
+    mRes = await postMiddleware(options)
+  } catch (e) {
+    return false
+  }
+
   return {
-    name: data?.name,
-    email: data?.email,
-    id: data?.id,
-    cookie: data?.cookie,
+    name: mRes?.usrName,
+    email: mRes?.usrEmail,
+    id: mRes?.usrID,
+    cookie: mRes?.sessionID,
   }
 }
 
@@ -37,6 +64,7 @@ const AccountLoginScreen = () => {
 
   const [emailErr, setEmailErr] = useState<string>("")
   const [passwordErr, setPasswordErr] = useState<string>("")
+  const [formErr, setFormErr] = useState<string>("")
 
 
   const emailHoist:Hoist<string> = (value) => {
@@ -69,8 +97,13 @@ const AccountLoginScreen = () => {
 
     if(email && password){
       sendLogin(email, password).then(e=>{
-        dispatch(login(e))
-        dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
+        if(e!=false){
+          setFormErr("")
+          dispatch(login(e))
+          dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
+        } else {
+          setFormErr("Invalid login credentials!")
+        }
       })
     }
   }
@@ -88,12 +121,13 @@ const AccountLoginScreen = () => {
 
   return(
     <FormWrapper action={()=>formSubmit()}>
-      <div className={"pt-[56px]"}>
+      <div className={"pt-[56px] w-full"}>
         <Logo />
         <TextInput placeholder={"Email"} required={true} validateTests={emailValidation} hoist={emailHoist}/>
         <TextInput placeholder={"Password"} type={"password"} required={true} validateTests={passValidation} hoist={passwordHoist}/>
         <SmallRight preText={"Forgot password?"} actionText={"Reset here"} action={forgetAction} />
         <Button text={"Log in"} colour={buttonColourBlue} action={formSubmit} />
+        <span className={"flex flex-row justify-center items-center w-full text-center text-sm text-red-500"}>{formErr}</span>
         <LocalRedirect preText={"Create an account"} actionText={"here!"} action={createAcc} />
       </div>
     </FormWrapper>

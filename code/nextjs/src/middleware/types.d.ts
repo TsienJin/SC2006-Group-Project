@@ -1,17 +1,10 @@
 
-
-
-
-
 export type middlewareOptions = {
-  method: "POST" | "GET",
   endpoint: string,
+  headers?:{
+    [key:string]:string,
+  },
   params?: {
     [key:string]:string,
   }
-}
-
-
-export interface middleware {
-  (config:middlewareOptions):Promise<any>
 }
