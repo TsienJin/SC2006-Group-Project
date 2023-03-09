@@ -23,9 +23,10 @@ async function sendLogin(email:string, password:string):Promise<User|false> {
   const data = await res.data
 
   const options:middlewareOptions = {
-    endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/login`,
+    endpoint: `/api/accounts/login`,
     headers: {
-      'Content-Type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data',
+      'Access-Control-Allow-Origin': '*'
     },
     params: {
       'emailAddress': email,
