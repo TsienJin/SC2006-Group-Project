@@ -7,6 +7,9 @@ import {User} from "@/components/slice/user";
 import {Hoist} from "@/components/fields/types";
 import {Action} from "@/components/clickeable/types";
 import PasswordGroup from "@/components/fields/PasswordGroup";
+import {middlewareOptions} from "@/middleware/types";
+import * as process from "process";
+import {postMiddleware} from "@/middleware/middleware";
 
 
 const AccountEditPassword = () => {
@@ -29,6 +32,15 @@ const AccountEditPassword = () => {
 
     if(isValid){
       // TODO update DB
+      const options:middlewareOptions = {
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editpassword`,
+        params: {
+          password: password
+        }
+      }
+
+      postMiddleware(options).then(r => {})
+
       dispatch(popLatest(sideBarStatesEnum.AccountEditPassword))
     }
   }
