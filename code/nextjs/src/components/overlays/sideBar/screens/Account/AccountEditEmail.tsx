@@ -11,6 +11,7 @@ import FormWrapper from "@/components/fields/FormWrapper";
 import {middlewareOptions} from "@/middleware/types";
 import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
+import {ValidateInputText, ValidEmail} from "@/validation/fields/text";
 
 
 const AccountEditEmail = () => {
@@ -54,10 +55,14 @@ const AccountEditEmail = () => {
     }
   }
 
+  const validateTest:ValidateInputText[] = [
+    ValidEmail
+  ]
+
   return(
     <FormWrapper action={submit}>
       <div className={"pt-2"}>
-        <TextInput placeholder={"Update email"} hoist={hoistEmail} defaultVal={globalUser.email} hoistValid={hoistValid} required={true} />
+        <TextInput placeholder={"Update email"} hoist={hoistEmail} defaultVal={globalUser.email} hoistValid={hoistValid} required={true} validateTests={validateTest} />
         <Button text={"Save changes"} colour={buttonColourGreen} action={submit}/>
       </div>
     </FormWrapper>
