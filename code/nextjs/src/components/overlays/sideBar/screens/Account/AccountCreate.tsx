@@ -64,6 +64,7 @@ const AccountCreateScreen = () => {
         },
       }
 
+      // TODO not sure why this is firing twice
       dispatch(addNoti(createNoti(
         `Hello ${name}!`,
         "Your account has been created!"
