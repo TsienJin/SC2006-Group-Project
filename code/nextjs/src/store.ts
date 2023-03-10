@@ -5,6 +5,7 @@ import sideBarReducer from '@/components/slice/sideBar'
 import userReducer from '@/components/slice/user'
 import systemReducer from '@/components/slice/system'
 import routeReducer from '@/components/slice/route'
+import notiReducer from '@/components/slice/notification'
 
 import * as process from "process"
 import thunk from 'redux-thunk'
@@ -26,7 +27,8 @@ const allReducers = combineReducers({
   sideBar: sideBarReducer,
   user: userReducer,
   system: systemReducer,
-  route: routeReducer
+  route: routeReducer,
+  notification: notiReducer
 })
 
 const persistConfigDev = {
