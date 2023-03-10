@@ -1,4 +1,4 @@
-import { MinPassLength, PassMinCharNum } from "@/validation/fields/text"
+import {MinPassLength, PassMinCharNum, ValidateInputText} from "@/validation/fields/text"
 import { useEffect, useState } from "react"
 import TextInput from "./TextInput"
 import { Hoist } from "./types"
@@ -6,7 +6,7 @@ import { Hoist } from "./types"
 
 
 
-const PasswordGroup = ({hoist=(value)=>{}, hoistValid=()=>{}}:{hoist?:Hoist<string>, hoistValid?:Hoist<boolean>}) => {
+const PasswordGroup = ({validateTest=[], hoist=(value)=>{}, hoistValid=()=>{}}:{validateTest?:ValidateInputText[], hoist?:Hoist<string>, hoistValid?:Hoist<boolean>}) => {
 
   const [passVal, setPassVal] = useState<string>("")
   const [cPassVal, setCPassVal] = useState<string>("")
@@ -37,7 +37,7 @@ const PasswordGroup = ({hoist=(value)=>{}, hoistValid=()=>{}}:{hoist?:Hoist<stri
 
   return(
     <>
-      <TextInput placeholder="Password" forceErrorMessage={passErr} required={true} type="password" hoist={passHoist} validateTests={[PassMinCharNum, MinPassLength]} />
+      <TextInput placeholder="Password" forceErrorMessage={passErr} required={true} type="password" hoist={passHoist} validateTests={validateTest} />
       <TextInput placeholder="Confirm Password" forceErrorMessage={passErr} required={true} type="password" hoist={cPassHoist} validateTests={[]} />
     </>
   )
