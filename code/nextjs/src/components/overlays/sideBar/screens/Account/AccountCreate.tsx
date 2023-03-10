@@ -4,7 +4,7 @@ import PasswordGroup from "@/components/fields/PasswordGroup";
 import Button, {buttonColourBlue} from "@/components/clickeable/Button";
 import {Action} from "@/components/clickeable/types";
 import {useDispatch} from "react-redux";
-import {popStack} from "@/components/slice/sideBar";
+import {addToStack, popLatest, popStack, sideBarStatesEnum} from "@/components/slice/sideBar";
 import LocalRedirect from "@/components/clickeable/LocalRedirect";
 import FormWrapper from "@/components/fields/FormWrapper";
 import {useState} from "react";
@@ -12,6 +12,8 @@ import {Hoist} from "@/components/fields/types";
 import {middlewareOptions} from "@/middleware/types";
 import {postMiddleware} from "@/middleware/middleware";
 import * as process from "process";
+import {addNoti, createNoti} from "@/components/slice/notification";
+import {login} from "@/components/slice/user";
 
 
 async function sendCreate(option:middlewareOptions):Promise<any> {
@@ -62,8 +64,25 @@ const AccountCreateScreen = () => {
         },
       }
 
+      dispatch(addNoti(createNoti(
+        `Hello ${name}!`,
+        "Your account has been created!"
+      )))
+
       sendCreate(options).then(r=>{
         console.log(r)
+        if(r?.usrEmail){
+          dispatch(login(
+            {
+              name: r?.usrName,
+              email: r?.usrEmail,
+              id: r?.usrID,
+              cookie: r?.sessionID
+            }
+          ))
+          dispatch(popLatest(sideBarStatesEnum.AccountCreate))
+          dispatch(addToStack(sideBarStatesEnum.Account))
+        }
       })
     }
   }
