@@ -32,7 +32,6 @@ const AccountEditPassword = () => {
   const submit:Action = () => {
 
     if(isValid){
-      // TODO update DB
       const options:middlewareOptions = {
         endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editpassword`,
         params: {

@@ -22,8 +22,6 @@ const AccountEditEmail = () => {
   const [email, setEmail] = useState<string>("")
   const [isValid, setIsValid] = useState<boolean>(false)
 
-  // TODO email valid tests
-
   const hoistEmail:Hoist<string> = (value) => {
     setEmail(value)
   }

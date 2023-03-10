@@ -24,8 +24,6 @@ const AccountEditName = () => {
   const [name, setName] = useState<string>("")
   const [isValid, setIsValid] = useState<boolean>(false)
 
-  // TODO name valid tests
-
   const hoistName:Hoist<string> = (value) => {
     setName(value)
   }
@@ -57,7 +55,6 @@ const AccountEditName = () => {
       }
       postMiddleware(options).then(r=>{console.log(r)})
 
-      // TODO error case
       dispatch(updateName(newUsr))
       dispatch(popLatest(sideBarStatesEnum.AccountEditName))
     }
