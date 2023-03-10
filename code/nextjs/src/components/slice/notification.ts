@@ -1,17 +1,22 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {act} from "react-dom/test-utils";
+
+export enum notiType {
+  Warning = "warning",
+  Notification = "notification"
+}
 
 export type notiContent = {
   id: string,
   title: string,
   text: string,
+  type?: notiType
 }
-
-export function createNoti(title:string, text:string):notiContent {
+export function createNoti(title:notiContent["title"], text:notiContent["text"], type:notiContent["type"]=notiType.Notification):notiContent {
   return {
     id: (Math.random() + 1).toString(36).substring(7),
     title: title,
-    text: text
+    text: text,
+    type: type
   }
 }
 
@@ -21,6 +26,8 @@ export type notiState = {
 
 const initialState:notiState = {
   notifications: [
+    createNoti("Work in progress!", "This website is currently still in development! Bugs may be crawling around!", notiType.Warning),
+    createNoti("Test notification!", "Test!"),
   ]
 }
 
