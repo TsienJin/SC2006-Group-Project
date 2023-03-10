@@ -64,7 +64,6 @@ const AccountCreateScreen = () => {
         },
       }
 
-      // TODO not sure why this is firing twice
       dispatch(addNoti(createNoti(
         `Hello ${name}!`,
         "Your account has been created!"
@@ -95,7 +94,7 @@ const AccountCreateScreen = () => {
         <TextInput placeholder={"Name"} required={true} hoist={nameHoist} hoistValid={setNameValid}/>
         <TextInput placeholder={"Email"} required={true} hoist={emailHoist} hoistValid={setEmailValid}/>
         <PasswordGroup hoist={passwordHoist} hoistValid={setPasswordValid}/>
-        <Button text={"Create account"} colour={buttonColourBlue} action={formSubmit} />
+        <Button text={"Create account"} colour={buttonColourBlue} />
         <LocalRedirect preText={"Already have an account?"} actionText={"Login here!"} action={redirectLogin} />
       </div>
     </FormWrapper>
