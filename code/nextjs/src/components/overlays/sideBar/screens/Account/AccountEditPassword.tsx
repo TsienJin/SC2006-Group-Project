@@ -10,6 +10,7 @@ import PasswordGroup from "@/components/fields/PasswordGroup";
 import {middlewareOptions} from "@/middleware/types";
 import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
+import {MinPassLength, PassMinCharNum, ValidateInputText} from "@/validation/fields/text";
 
 
 const AccountEditPassword = () => {
@@ -45,9 +46,14 @@ const AccountEditPassword = () => {
     }
   }
 
+  const validateTests:ValidateInputText[] = [
+    MinPassLength,
+    PassMinCharNum,
+  ]
+
   return(
     <div className={"pt-2"}>
-      <PasswordGroup hoist={hoistPassword} hoistValid={hoistValid}/>
+      <PasswordGroup hoist={hoistPassword} hoistValid={hoistValid} validateTest={validateTests}/>
       <Button text={"Save changes"} colour={buttonColourGreen} action={submit}/>
     </div>
   )
