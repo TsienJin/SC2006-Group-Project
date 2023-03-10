@@ -8,6 +8,9 @@ import {Hoist} from "@/components/fields/types";
 import {Action} from "@/components/clickeable/types";
 import {popLatest, sideBarStatesEnum} from "@/components/slice/sideBar";
 import FormWrapper from "@/components/fields/FormWrapper";
+import {middlewareOptions} from "@/middleware/types";
+import * as process from "process";
+import {postMiddleware} from "@/middleware/middleware";
 
 
 const AccountEditEmail = () => {
@@ -38,7 +41,14 @@ const AccountEditEmail = () => {
     }
 
     if(isValid){
-      // TODO update db
+      const options:middlewareOptions = {
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editemail`,
+        params: {
+          'emailAddress': newUsr.email,
+        }
+      }
+      postMiddleware(options).then(r=>{})
+
       dispatch(updateEmail(newUsr))
       dispatch(popLatest(sideBarStatesEnum.AccountEditEmail))
     }

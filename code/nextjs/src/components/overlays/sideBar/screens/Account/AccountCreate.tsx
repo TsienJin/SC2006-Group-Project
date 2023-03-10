@@ -2,7 +2,7 @@ import Logo from "@/components/fields/Logo";
 import TextInput from "@/components/fields/TextInput";
 import PasswordGroup from "@/components/fields/PasswordGroup";
 import Button, {buttonColourBlue} from "@/components/clickeable/Button";
-import {Action, btnColour} from "@/components/clickeable/types";
+import {Action} from "@/components/clickeable/types";
 import {useDispatch} from "react-redux";
 import {popStack} from "@/components/slice/sideBar";
 import LocalRedirect from "@/components/clickeable/LocalRedirect";
@@ -11,6 +11,12 @@ import {useState} from "react";
 import {Hoist} from "@/components/fields/types";
 import {middlewareOptions} from "@/middleware/types";
 import {postMiddleware} from "@/middleware/middleware";
+import * as process from "process";
+
+
+async function sendCreate(option:middlewareOptions):Promise<any> {
+  return await postMiddleware(option)
+}
 
 
 const AccountCreateScreen = () => {
@@ -50,9 +56,15 @@ const AccountCreateScreen = () => {
           "name": name,
           "emailAddress": email,
           "password": password,
-        }
+        },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }
-      postMiddleware(options).then(r => console.log(r))
+
+      sendCreate(options).then(r=>{
+        console.log(r)
+      })
     }
   }
 

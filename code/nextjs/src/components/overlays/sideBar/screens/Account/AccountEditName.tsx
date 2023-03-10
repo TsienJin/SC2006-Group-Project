@@ -8,7 +8,13 @@ import TextInput from "@/components/fields/TextInput";
 import {Hoist} from "@/components/fields/types";
 import {Action} from "@/components/clickeable/types";
 import FormWrapper from "@/components/fields/FormWrapper";
+import {middlewareOptions} from "@/middleware/types";
+import * as process from "process";
+import {postMiddleware} from "@/middleware/middleware";
 
+// async function sendEdit(option:middlewareOptions):Promise<any> {
+//   return await postMiddleware(option)
+// }
 
 const AccountEditName = () => {
 
@@ -40,7 +46,17 @@ const AccountEditName = () => {
     console.log(isValid)
 
     if(isValid){
-      // TODO update DB
+      // TODO err handling if edit fail
+      const options:middlewareOptions = {
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editname`,
+        params: {
+          name: newUsr.name
+        },
+        headers: {
+        }
+      }
+      postMiddleware(options).then(r=>{console.log(r)})
+
       // TODO error case
       dispatch(updateName(newUsr))
       dispatch(popLatest(sideBarStatesEnum.AccountEditName))

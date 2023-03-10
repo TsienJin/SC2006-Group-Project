@@ -5,7 +5,15 @@ import {logout, User} from "@/components/slice/user";
 import {Action} from "@/components/clickeable/types";
 import {addToStack, sideBarStatesEnum} from "@/components/slice/sideBar";
 import Button, {buttonColourRust} from "@/components/clickeable/Button";
+import {middlewareOptions} from "@/middleware/types";
+import {postMiddleware} from "@/middleware/middleware";
+import * as process from "process";
 
+
+
+async function sendLogout(option:middlewareOptions) {
+  return await postMiddleware(option)
+}
 
 const AccountScreen = () => {
 
@@ -14,6 +22,10 @@ const AccountScreen = () => {
 
   const logoutAction:Action = () => {
     // TODO logout action
+    const option:middlewareOptions = {
+      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/logout`,
+    }
+    sendLogout(option).then(r => {})
     dispatch(logout())
   }
 

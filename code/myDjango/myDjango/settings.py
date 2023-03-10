@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'django_nextjs',
+    # 'django_nextjs',
     'singlepage.apps.SinglepageConfig',
 ]
 

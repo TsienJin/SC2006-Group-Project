@@ -16,17 +16,15 @@ import {middlewareOptions} from "@/middleware/types";
 import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
 
-
 async function sendLogin(email:string, password:string):Promise<User|false> {
 
   const res = await axios.get('https://jsonplaceholder.typicode.com/users/2')
   const data = await res.data
 
   const options:middlewareOptions = {
-    endpoint: `/api/accounts/login`,
+    endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/login`,
     headers: {
       'Content-Type': 'multipart/form-data',
-      'Access-Control-Allow-Origin': '*'
     },
     params: {
       'emailAddress': email,
@@ -82,6 +80,10 @@ const AccountLoginScreen = () => {
   const forgetAction:Action = () => {
     dispatch(addToStack(sideBarStatesEnum.AccountForget))
   }
+
+  // useEffect(()=>{
+  //   setFormErr("")
+  // }, [email, password])
 
   const formSubmit:Action = () => {
     if(!email){
