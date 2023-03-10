@@ -46,3 +46,16 @@ export const Required:ValidateInputText = input => {
 
   return false
 }
+
+
+export const ValidEmail:ValidateInputText = input => {
+
+  const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
+  if(!input.match(validRegex)) {
+    return "Invalid email format"
+  }
+
+  return false
+
+}
