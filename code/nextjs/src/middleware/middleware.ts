@@ -3,7 +3,7 @@ import axios from "axios";
 import {setCookie, getCookies} from "cookies-next";
 
 
-export async function postMiddleware(options:middlewareOptions):Promise<any> {
+export async function postMiddleware(options:middlewareOptions, sendCredential:boolean=true, OnErrorCallback=()=>{}):Promise<any> {
 
   try {
     const {data} = await axios.post(
@@ -16,18 +16,12 @@ export async function postMiddleware(options:middlewareOptions):Promise<any> {
             // 'Access-Control-Allow-Credentials': true,
             ...options.headers,
           },
-        withCredentials: true,
+        withCredentials: sendCredential,
       }
     )
 
     console.log(data)
     // setCookie("session_id", data?.sessionID)
-
-      if (data?.sessionID) {
-        // console.log(data?.sessionID)
-        // setCookie("sessionid", data?.sessionID)
-        // console.log(getCookies())
-      }
 
     return data
   } catch (e) {
