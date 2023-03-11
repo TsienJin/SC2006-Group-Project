@@ -12,6 +12,7 @@ import {middlewareOptions} from "@/middleware/types";
 import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
 import {ValidateInputText, ValidEmail} from "@/validation/fields/text";
+import {addNoti, createNoti, notiType} from "@/components/slice/notification";
 
 
 const AccountEditEmail = () => {
@@ -46,7 +47,21 @@ const AccountEditEmail = () => {
           'emailAddress': newUsr.email,
         }
       }
-      postMiddleware(options).then(r=>{})
+
+      try {
+        postMiddleware(options).then(r=>{
+          dispatch(addNoti(createNoti(
+            "Edit Successful!",
+            "Your email has been updated!"
+          )))
+        })
+      } catch (e) {
+        dispatch(addNoti(createNoti(
+          "Server Error",
+          "Unable to update your email due to a server fault!",
+          notiType.Warning
+        )))
+      }
 
       dispatch(updateEmail(newUsr))
       dispatch(popLatest(sideBarStatesEnum.AccountEditEmail))
@@ -61,7 +76,7 @@ const AccountEditEmail = () => {
     <FormWrapper action={submit}>
       <div className={"pt-2"}>
         <TextInput placeholder={"Update email"} hoist={hoistEmail} defaultVal={globalUser.email} hoistValid={hoistValid} required={true} validateTests={validateTest} />
-        <Button text={"Save changes"} colour={buttonColourGreen} action={submit}/>
+        <Button text={"Save changes"} colour={buttonColourGreen}/>
       </div>
     </FormWrapper>
   )

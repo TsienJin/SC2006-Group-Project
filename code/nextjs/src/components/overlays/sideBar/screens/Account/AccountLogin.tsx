@@ -15,8 +15,9 @@ import {Required, WTest} from "@/validation/fields/text";
 import {middlewareOptions} from "@/middleware/types";
 import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
+import {addNoti, createNoti, notiType} from "@/components/slice/notification";
 
-async function sendLogin(email:string, password:string):Promise<User|false> {
+async function sendLogin(email:string, password:string, onErrorCallback=()=>{}):Promise<User|false> {
 
   const res = await axios.get('https://jsonplaceholder.typicode.com/users/2')
   const data = await res.data
@@ -42,6 +43,7 @@ async function sendLogin(email:string, password:string):Promise<User|false> {
   try{
     mRes = await postMiddleware(options)
   } catch (e) {
+    onErrorCallback()
     return false
   }
 
@@ -99,6 +101,13 @@ const AccountLoginScreen = () => {
     }
 
     if(email && password){
+      const errCallback = () => {
+        dispatch(addNoti(createNoti(
+          "Error logging in",
+          "Something bad happened, I hope our grades are not affected",
+          notiType.Warning
+        )))
+      }
       sendLogin(email, password).then(e=>{
         if(e!=false){
           setFormErr("")

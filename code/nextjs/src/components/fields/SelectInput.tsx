@@ -7,7 +7,7 @@ import {SystemLang} from "@/components/slice/system";
 
 
 export type Option = {
-  value: string,
+  value: string|0|1|2|3|4|5,
   text: string|0|1|2|3|4|5,
   disabled?: boolean
 }
@@ -15,6 +15,31 @@ export type Option = {
 export type SelectInputOptions = {
   options: Option[],
   default?: Option
+}
+
+export const ratingOptions:SelectInputOptions = {
+  options:[
+    {
+      value: 5,
+      text: "⭐⭐⭐⭐⭐"
+    },
+    {
+      value: 4,
+      text: "⭐⭐⭐⭐"
+    },
+    {
+      value: 3,
+      text: "⭐⭐⭐"
+    },
+    {
+      value: 2,
+      text: "⭐⭐"
+    },
+    {
+      value: 1,
+      text: "⭐"
+    },
+  ],
 }
 
 

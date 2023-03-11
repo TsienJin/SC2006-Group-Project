@@ -14,8 +14,8 @@ import AccountEditEmail from "@/components/overlays/sideBar/screens/Account/Acco
 import AccountEditPassword from "@/components/overlays/sideBar/screens/Account/AccountEditPassword";
 import SettingScreen from "@/components/overlays/sideBar/screens/Settings/Settings";
 import RouteScreen from "@/components/overlays/sideBar/screens/Route/Route";
-import RouteEdit from "@/components/overlays/sideBar/screens/Route/RouteEditStart";
 import RouteEditStartScreen from "@/components/overlays/sideBar/screens/Route/RouteEditStart";
+import AddToilet from "@/components/overlays/sideBar/screens/AddToilet/AddToilet";
 
 
 const SideBarScreen = () => {
@@ -52,6 +52,8 @@ const SideBarScreen = () => {
 
     case sideBarStatesEnum.RouteStart:
     case sideBarStatesEnum.RouteEnd: return <RouteEditStartScreen />
+
+    case sideBarStatesEnum.Add: return <AddToilet />
 
 
     default: return <ExampleScreen />

@@ -18,7 +18,7 @@ const Menu = () => {
       <FavItem />
       <SearchItem />
       <AddItem />
-      <TestItem />
+      {/*<TestItem />*/}
     </nav>
   )
 }
