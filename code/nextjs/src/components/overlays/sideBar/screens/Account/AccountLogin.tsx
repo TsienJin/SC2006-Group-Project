@@ -7,7 +7,7 @@ import {addToStack, clearThenAddToStack, sideBarStatesEnum} from "@/components/s
 import LocalRedirect from "@/components/clickeable/LocalRedirect";
 import SmallRight from "@/components/clickeable/SmallRight";
 import {Hoist} from "@/components/fields/types";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {login, User} from "@/components/slice/user";
 import axios from 'axios'
 import FormWrapper from "@/components/fields/FormWrapper";
@@ -17,7 +17,7 @@ import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
 
-async function sendLogin(email:string, password:string, onErrorCallback=()=>{}):Promise<User|false> {
+async function sendLogin(email:string, password:string, onErrorCallback=()=>{}):Promise<User|any> {
 
   const res = await axios.get('https://jsonplaceholder.typicode.com/users/2')
   const data = await res.data
@@ -33,6 +33,10 @@ async function sendLogin(email:string, password:string, onErrorCallback=()=>{}):
     }
   }
 
+  const checkForError = (val:any) => {
+    if(val?.error_status == "401") throw "Incorrect Email"
+  }
+
   let mRes={
     usrName: "",
     usrEmail: "",
@@ -42,8 +46,9 @@ async function sendLogin(email:string, password:string, onErrorCallback=()=>{}):
 
   try{
     mRes = await postMiddleware(options)
-  } catch (e) {
-    onErrorCallback()
+    checkForError(mRes)
+  } catch (e:any) {
+    console.log(e)
     return false
   }
 
@@ -108,13 +113,18 @@ const AccountLoginScreen = () => {
           notiType.Warning
         )))
       }
-      sendLogin(email, password).then(e=>{
-        if(e!=false){
+      sendLogin(email, password, errCallback).then((e:User|false)=>{
+        if(e){
           setFormErr("")
           dispatch(login(e))
           dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
         } else {
-          setFormErr("Invalid login credentials!")
+          console.log(e)
+          dispatch(addNoti(createNoti(
+            "Error logging in",
+            "Incorrect login credentials!",
+            notiType.Warning
+          )))
         }
       })
     }
@@ -138,7 +148,7 @@ const AccountLoginScreen = () => {
         <TextInput placeholder={"Email"} required={true} validateTests={emailValidation} hoist={emailHoist}/>
         <TextInput placeholder={"Password"} type={"password"} required={true} validateTests={passValidation} hoist={passwordHoist}/>
         <SmallRight preText={"Forgot password?"} actionText={"Reset here"} action={forgetAction} />
-        <Button text={"Log in"} colour={buttonColourBlue} action={formSubmit} />
+        <Button text={"Log in"} colour={buttonColourBlue} />
         <span className={"flex flex-row justify-center items-center w-full text-center text-sm text-red-500"}>{formErr}</span>
         <LocalRedirect preText={"Create an account"} actionText={"here!"} action={createAcc} />
       </div>
