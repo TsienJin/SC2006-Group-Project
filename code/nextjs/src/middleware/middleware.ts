@@ -26,6 +26,7 @@ export async function postMiddleware(options:middlewareOptions, sendCredential:b
     return data
   } catch (e) {
     console.error(e)
+    throw new Error("Something wrong happened when fetching from backend.")
   }
 
   return null
