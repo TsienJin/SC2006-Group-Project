@@ -27,7 +27,6 @@ export type notiState = {
 const initialState:notiState = {
   notifications: [
     createNoti("Work in progress!", "This website is currently still in development! Bugs may be crawling around!", notiType.Warning),
-    createNoti("Test notification!", "Test!"),
   ]
 }
 

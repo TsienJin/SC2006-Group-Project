@@ -11,4 +11,3 @@ class Middleware:
 
         return response
 
-

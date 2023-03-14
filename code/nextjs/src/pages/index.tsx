@@ -3,6 +3,7 @@ import Map from '@/components/mapbox/Map'
 import Menu from '@/components/overlays/menu/Menu'
 import SideBar from '@/components/overlays/sideBar/SideBar'
 import Notification from "@/components/overlays/notification/Notification";
+import Geolocation from "@/components/Geolocation/Geolocation";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         <Notification />
         <Menu />
         <Map />
+        <Geolocation />
       </div>
     </>
   )

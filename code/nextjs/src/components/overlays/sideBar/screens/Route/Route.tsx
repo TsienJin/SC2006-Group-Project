@@ -42,7 +42,7 @@ const RouteScreen = () => {
   return(
     <div>
       <Tab itemName={"Start"} placeholder={startPlaceHolder} action={gotoStart} />
-      <Tab itemName={"Destination"} placeholder={startPlaceHolder} action={gotoEnd} />
+      <Tab itemName={"Destination"} placeholder={startEndHolder} action={gotoEnd} />
     </div>
   )
 }

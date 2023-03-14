@@ -31,7 +31,7 @@ export const systemSlice = createSlice({
     },
     setTraffic: (state, action:PayloadAction<boolean>) => {
       state.showTraffic = action.payload
-    }
+    },
   }
 })
 
