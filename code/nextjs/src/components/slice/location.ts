@@ -44,7 +44,6 @@ export const locationSlice = createSlice({
   initialState: initState,
   reducers: {
     update: (state, action:PayloadAction<Coordinates>) => {
-      console.log(action.payload)
       state.coords = action.payload
     },
     reset: (state) => {

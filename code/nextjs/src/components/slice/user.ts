@@ -37,7 +37,6 @@ export const userSlice = createSlice({
       state.name = action.payload.name
     },
     updateEmail: (state, action:PayloadAction<User>) => {
-      console.log("here")
       state.email = action.payload.email
     },
   }

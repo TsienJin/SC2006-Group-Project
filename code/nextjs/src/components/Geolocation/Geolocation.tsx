@@ -12,7 +12,6 @@ const Geolocation = () => {
   useEffect(()=>{
     if(navigator.geolocation){
       navigator.geolocation.watchPosition(pos=>{
-        console.log(pos.coords)
         dispatch(update(coordinatesFromGeoCoords(pos.coords)))
       })
     }
