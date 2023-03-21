@@ -79,13 +79,13 @@ const NotificationWrapper = () => {
           switch (noti.type){
             case notiType.Warning:
               return(
-                <WarningBox title={noti.title} id={noti.id}>
+                <WarningBox title={noti.title} id={noti.id} key={noti.id}>
                   {noti.text}
                 </WarningBox>
               )
             default:
               return(
-                <NotificationBox title={noti.title} id={noti.id}>
+                <NotificationBox title={noti.title} id={noti.id} key={noti.id}>
                   {noti.text}
                 </NotificationBox>
               )
