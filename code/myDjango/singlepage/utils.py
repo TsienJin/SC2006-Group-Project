@@ -7,3 +7,6 @@ def checkEmailFormat(emailAddress):
         return True
     else:
         return False
+    
+def checkPostalCodeFormat(postalCode):
+    pass

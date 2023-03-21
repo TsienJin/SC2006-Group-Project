@@ -36,10 +36,11 @@ class EditPasswordSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["password"]
-class LocationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
-        fields = ["logitude", "latitude", "addressLineOne", "addressLineTwo", "postalCode", "floorNumber"]
+
+# class LocationSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Location
+#         fields = ["logitude", "latitude", "addressLineOne", "addressLineTwo", "postalCode", "floorNumber"]
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,4 +50,4 @@ class ReviewSerializer(serializers.ModelSerializer):
 class ToiletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Toilet
-        fields = ["description", "toiletType"]
+        fields = ["longitude", "latitude"]
