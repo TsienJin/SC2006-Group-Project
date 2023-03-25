@@ -2,6 +2,7 @@ from django.urls import path, include
 from .views.LoginView import LoginView
 from .views.RegisterView import RegisterView
 from .views.AccountView import LogoutView, EditNameView, EditEmailAddressView, EditPasswordView
+from .views.ToiletView import ToggleToiletView
 from . import view
 
 urlpatterns = [
@@ -13,5 +14,5 @@ urlpatterns = [
     path("accounts/editname", EditNameView.as_view(), name='editName'),
     path("accounts/editemail", EditEmailAddressView.as_view(), name='editEmailAddress'),
     path("accounts/editpassword", EditPasswordView.as_view(), name='editPassword'),
-    # path("")
+    path("toilets/toggle", ToggleToiletView.as_view(), name='toggleToilet'),
 ]
