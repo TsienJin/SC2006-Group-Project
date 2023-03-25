@@ -1,15 +1,18 @@
 # UC07: View Nearby Toilets
+# UC12: Add Toilet Listing
+# 
 # deal with post requests when user presses on location and wants to view toilet description and reviews
 import csv
 from rest_framework.views import APIView
 from django.http import JsonResponse
 
 from ..models.Toilet import Toilet
-from ..serializers import ToiletSerializer
-from ..utils import convertAddressToLongLat, extractToiletInfoOnline
+from ..serializers import AddToiletSerializer
+from ..utils import forwardGeocoding
 
 LIMIT = 2
 
+# KIV - do we allow locations with the same long lat to be listed?
 # 1) save all toilets from online toilet directory into database
 # 2) send all toilet information in database to front-end
 class ToggleToiletView(APIView):
@@ -34,7 +37,7 @@ class ToggleToiletView(APIView):
                                 postalCode_clean += char
                     except:
                         postalCode_clean = "None"
-                    longitude, latitude = convertAddressToLongLat(addressComplete)
+                    longitude, latitude = forwardGeocoding(addressComplete)
 
                     if Toilet.retrieveByLongitudeLatitude(longitude, latitude) != False:
                         print(addressComplete)
@@ -66,5 +69,35 @@ class ToggleToiletView(APIView):
             payload = {"everything": toiletsPayload}
             return JsonResponse(payload)
         except:
-            payload = {"Error": 500}
+            payload = {"error_status": "405",
+                       "error_message": "Toggle nearby toilets unsuccessful"}
             return JsonResponse(payload)
+
+# KIV - whether to let front end post with long lat or send just the address and convernt in backend
+class AddToiletView(APIView):
+    serializer_class = AddToiletSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            description = serializer.data.get("description")
+            toiletType = serializer.data.get("toiletType")
+            address = serializer.data.get("address")
+            postalCode = serializer.data.get("postalCode")
+            longitude, latitude = forwardGeocoding(address)
+
+            if Toilet.retrieveByLongitudeLatitude(longitude, latitude) == False:
+                newToilet = Toilet(description=description, 
+                                toiletType=toiletType, 
+                                address=address, 
+                                postalCode=postalCode, 
+                                longitude=longitude,
+                                latitude=latitude)
+                newToilet.save()
+                payload = {"success_message": "Toilet added successfully"}
+                return JsonResponse(payload)
+            else:
+                payload = {"error_status": "406",
+                           "error_message": "Toilet at address already exists"}
+                return JsonResponse(payload)
+
