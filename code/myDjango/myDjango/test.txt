@@ -1,0 +1,16 @@
+models:
+- User
+- Toilet
+- Review
+- Traffic
+- MoP (smoke)
+- Location (smoke)
+
+
+controllers (views in django):
+- AccountManager (AccountView, LoginView, RegisterView)
+- ToiletManager
+- ReviewManager
+- RouteManager (trafficIncident)
+- SettingsManager
+

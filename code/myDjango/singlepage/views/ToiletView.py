@@ -15,7 +15,7 @@ LIMIT = 2
 # KIV - do we allow locations with the same long lat to be listed?
 # 1) save all toilets from online toilet directory into database
 # 2) send all toilet information in database to front-end
-class ToggleToiletView(APIView):
+class showToiletView(APIView): # (into settings)
     def get(self, request, *args, **kwargs):
         try:
             # call scrape.py everytime we toggle to update the csv
@@ -101,3 +101,8 @@ class AddToiletView(APIView):
                            "error_message": "Toilet at address already exists"}
                 return JsonResponse(payload)
 
+# class addFavouriteToiletView
+
+# class viewFavouriteToiletView
+
+# class removeFavouriteToiletView

@@ -16,18 +16,19 @@ class Review(models.Model):
     def __str__(self):
         return f'{self.rating}, {self.comment}'
     
-    
-    def review(self):
+    def addReview(self):
         self.save()
 
+    def getRating(self):
+        return self.rating
     
-    
-
+    def getComment(self):
+        return self.comment
 
 
     ######################### Helper Functions #######################################
 
-    def retrieveRating(userID, toiletID):
+    def retrieveByToiletID(userID, toiletID):
         try:
             return User.objects.get(userID=id)
         except:
