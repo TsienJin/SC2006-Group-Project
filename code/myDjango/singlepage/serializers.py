@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 class MoPSerializer(serializers.ModelSerializer):
     class Meta:
         model = MoP
-        fields = ["sessionID"] # KIV
+        fields = ["sessionID"] 
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,12 +42,12 @@ class EditPasswordSerializer(serializers.ModelSerializer):
 #         model = Location
 #         fields = ["logitude", "latitude", "addressLineOne", "addressLineTwo", "postalCode", "floorNumber"]
 
+class AddToiletSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Toilet
+        fields = ["description", "toiletType", "address", "postalCode"]
+
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
-
-class ToiletSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Toilet
-        fields = ["longitude", "latitude"]

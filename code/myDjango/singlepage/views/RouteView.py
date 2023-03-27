@@ -1,0 +1,1 @@
+# trigger the traffic api to send high traffic areas to the front end to display
