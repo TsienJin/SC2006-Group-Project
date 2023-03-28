@@ -20,6 +20,12 @@ export function coordinatesFromGeoCoords(geolocation:GeolocationCoordinates):Coo
   }
 }
 
+export const emptyCoords:Coordinates = {
+  latitude: NaN,
+  longitude: NaN,
+  found: false
+}
+
 
 const initGeolocation:Coordinates = {
   // altitude: 0,
