@@ -4,7 +4,7 @@ import FieldWrapper from "./FieldWrapper"
 import {Hoist} from "./types"
 
 
-const TextInput = ({placeholder, defaultVal, required=false, type="text", forceErrorMessage="", validateTests=[], hoist=()=>{}, hoistValid=()=>{}}:{placeholder:string, defaultVal?:string|number|any, required?:boolean, type?:"text"|"password"|"textarea"|"number", forceErrorMessage?:string, validateTests?:ValidateInputText[], hoist?:Hoist<string>, hoistValid?:Hoist<boolean>}) => {
+const TextInput = ({placeholder, defaultVal, required=false, type="text", forceErrorMessage="", validateTests=[], hoist=()=>{}, hoistValid=()=>{}}:{placeholder:string, defaultVal?:string|number|any, required?:boolean, type?:"text"|"password"|"textarea"|"number", forceErrorMessage?:string, validateTests?:ValidateInputText[], hoist?:Hoist<any>, hoistValid?:Hoist<boolean>}) => {
 
   const [usrVal, setUsrVal] = useState<string>("")
   const [hasClicked, setClicked] = useState<boolean>(false)

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres.fields',
     'rest_framework',
     # 'django_nextjs',
+    "corsheaders",
     'singlepage.apps.SinglepageConfig',
 ]
 
@@ -55,7 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'singlepage.middleware.Middleware'
+    'singlepage.middleware.Middleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'myDjango.urls'

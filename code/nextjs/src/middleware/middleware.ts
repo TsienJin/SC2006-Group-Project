@@ -14,9 +14,10 @@ export async function postMiddleware(options:middlewareOptions, sendCredential:b
           {
             'Content-Type': 'multipart/form-data',
             // 'Access-Control-Allow-Credentials': true,
+            // 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
             ...options.headers,
           },
-        withCredentials: sendCredential,
+        // withCredentials: sendCredential,
       }
     )
 
@@ -28,6 +29,4 @@ export async function postMiddleware(options:middlewareOptions, sendCredential:b
     console.error(e)
     throw new Error("Something wrong happened when fetching from backend.")
   }
-
-  return null
 }

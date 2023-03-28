@@ -41,19 +41,17 @@ const AccountEditName = () => {
       cookie: globalUser.cookie,
     }
 
-    console.log(isValid)
-
     if(isValid){
       // TODO err handling if edit fail
       const options:middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editname`,
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editname/`,
         params: {
           name: newUsr.name
         },
         headers: {
         }
       }
-      postMiddleware(options).then(r=>{console.log(r)})
+      postMiddleware(options, true).then(r=>{console.log(r)})
 
       dispatch(updateName(newUsr))
       dispatch(popLatest(sideBarStatesEnum.AccountEditName))
