@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from django.http import JsonResponse
 
 from ..models.Toilet import Toilet
-from ..serializers import AddToiletSerializer
+from ..serializers import AddToiletSerializer, AddFavouriteToiletSerializer
 from ..utils import forwardGeocoding
 
 LIMIT = 2
@@ -15,7 +15,9 @@ LIMIT = 2
 # KIV - do we allow locations with the same long lat to be listed?
 # 1) save all toilets from online toilet directory into database
 # 2) send all toilet information in database to front-end
-class RetrieveToiletView(APIView): # (into settings)
+# changes: front end will run the scrape, i will update the database when front end prompts
+# changes: add review along with retrieve toilet view
+class RetrieveToiletView(APIView): # (into settings) to remove
     def get(self, request, *args, **kwargs):
         try:
             # call scrape.py everytime we toggle to update the csv
@@ -102,8 +104,25 @@ class AddToiletView(APIView):
                 return JsonResponse(payload)
 
 class addFavouriteToiletView(APIView):
-    serializer_class = 
-    def post(self, request, *args, **kwargs):
+    serializer_class = AddFavouriteToiletSerializer
+    def get(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            userID = serializer.data.get("userID")
+            longitude = serializer.data.get("longitude")
+            latitude = serializer.data.get("latitude")
+            toilet = Toilet.retrieveByLongitudeLatitude(longitude=longitude, latitude=latitude)
+            
+            # toilet not found
+            if toilet == False:
+                payload = {"error_message": "Toilet not found"}
+                return payload
+
+            toiletID = toilet.getToiletID()
+            # add toiletID into user.favToilets
+            # update database
+
+
 
 
 # class viewFavouriteToiletView

@@ -2,6 +2,7 @@ import re
 import csv
 import environ
 import requests
+from models.Toilet import Toilet
 
 env = environ.Env()
 environ.Env.read_env()
@@ -60,6 +61,38 @@ def extractToiletInfoOnline():
         toilets = csv.reader(f)
     return toilets
 
-
+LIMIT = 2
+def updateToilets():
+    with open("./data/toilet/output.csv") as f:
+        toilets = csv.reader(f)
+        counter = 0
+        for toilet in toilets:
+            if counter == LIMIT:
+                break
+            description = toilet[0] + " Toilet"
+            toiletType = "public"
+            addressComplete = toilet[1]
+            try:
+                postalCode_clean = ""
+                postalCode_dirty = addressComplete.split("S(")[1][:6]
+                for char in postalCode_dirty:
+                    if ord(char) >= 48 and ord(char) <= 57:
+                        postalCode_clean += char
+            except:
+                postalCode_clean = "None"
+            longitude, latitude = forwardGeocoding(addressComplete)
+            if Toilet.retrieveByLongitudeLatitude(longitude, latitude) != False:
+                print(addressComplete)
+                continue
+            else:
+                newToilet = Toilet(description=description, 
+                                toiletType=toiletType, 
+                                address=addressComplete, 
+                                postalCode=postalCode_clean, 
+                                longitude=longitude,
+                                latitude=latitude)
+                newToilet.addToilet()
+            counter += 1
     
+updateToilets()
 

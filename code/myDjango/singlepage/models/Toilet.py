@@ -28,6 +28,9 @@ class Toilet(models.Model):
     def __str__(self):
         return str(self.description)
     
+    def getToiletID(self):
+        return self.toiletID
+    
     def addToilet(self):
         self.save()
     
