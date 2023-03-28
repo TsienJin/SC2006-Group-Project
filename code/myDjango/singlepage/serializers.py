@@ -47,7 +47,12 @@ class AddToiletSerializer(serializers.ModelSerializer):
         model = Toilet
         fields = ["description", "toiletType", "address", "postalCode"]
 
-class ReviewSerializer(serializers.ModelSerializer):
+class RetrieveReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = ["userID", "toiletID"]
+
+class AddReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ["userID", "toiletID", "rating", "comment"]

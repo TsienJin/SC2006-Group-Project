@@ -1,8 +1,11 @@
+import uuid
+
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from ..models import User
 
 class Review(models.Model):
+    reviewID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     userID = models.CharField(max_length=255, null = True)
     toiletID = models.CharField(max_length=255, null = True)
     rating = models.IntegerField(    
@@ -12,9 +15,8 @@ class Review(models.Model):
     )
     comment = models.CharField(max_length=255, null = True, default = '')
 
-
     def __str__(self):
-        return f'{self.rating}, {self.comment}'
+        return str(self.rating) + str(self.comment)
     
     def addReview(self):
         self.save()
@@ -28,14 +30,10 @@ class Review(models.Model):
 
     ######################### Helper Functions #######################################
 
-    def retrieveByToiletID(userID, toiletID):
+    def retrieveByUserAndToilet(userID, toiletID):
         try:
-            return User.objects.get(userID=id)
+            return Review.objects.get(userID=userID, toiletID=toiletID)
         except:
             return False
     
-    def retrieveComment(userID, toiletID):
-        try:
-            return User.objects.get(userID=id)
-        except:
-            return False
+  

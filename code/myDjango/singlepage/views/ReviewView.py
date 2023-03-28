@@ -1,10 +1,67 @@
 # UC09 - Review of Toilet
 
-# cl
-# class retrieveReviewView(APIView):
-#     def post(self, request, *args, **kwargs):
+from rest_framework.views import APIView
+from django.http import JsonResponse
+
+from ..models.User import User
+from ..models.Toilet import Toilet
+from ..models.Review import Review
+from ..serializers import AddReviewSerializer, RetrieveReviewSerializer
+
+class RetrieveReviewView(APIView):
+    serializer_class = RetrieveReviewSerializer
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            userID = serializer.get('userID')
+            toiletID = serializer.get('toiletID')
+
+            # user does not exist
+            if User.retrieveInfo(userID=userID) == False:
+                payload = {"error_message": "User does not exist"}
+                return JsonResponse(payload)
+            
+            # user have not reviewed the toilet
+            if Review.retrieveByUserAndToilet(userID=userID, toiletID=toiletID) == False:
+                payload = {"error_message": "User have not reviewed toilet"}
+                return JsonResponse(payload)
+            else:
+                review = Review.retrieveByUserAndToilet(userID=userID, toiletID=toiletID)
+                rating = Review.getRating()
+                comment =Review.getComment()
+                payload = {"rating": rating,
+                           "comment": comment}
+                return JsonResponse(payload)
+
+# only one review per person on each toilet
+class AddReviewView(APIView):
+    serializer_class = AddReviewSerializer
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            userID = serializer.get('userID')
+            toiletID = serializer.data.get('toiletID')
+            rating = serializer.data.get('rating')
+            comment = serializer.data.get('comment')
+            
+            # user does not exist
+            if User.retrieveInfo(userID=userID) == False:
+                payload = {"error_message": "User does not exist"}
+                return JsonResponse(payload)
+            
+            # user already reviewed the toilet
+            if Review.retrieveByUserAndToilet(userID=userID, toiletID=toiletID) != False:
+                payload = {"error_message": "User already reviewed the toilet"}
+                return JsonResponse(payload)
+            else:
+                newReview = Review(userID=userID, toiletID=toiletID, rating=rating, comment=comment)
+                newReview.addReview()
+                payload = {"success_message": "Review added successfully"}
 
 
-# class addReviewView(APIView):
+# KIV - remove review
+
+            
+
 
 
