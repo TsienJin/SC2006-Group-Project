@@ -8,7 +8,7 @@ class User(models.Model):
     password = models.CharField(max_length=255, null=True)
     userID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True) # turn editable to False once out of dev
     sessionID = models.CharField(max_length=255, null=True)
-    favToilets = models.ArrayField(models.CharField(max_length=255, null=True)) # favourite toilets as list of toiletIDs
+    # favToilets = models.ArrayField(models.CharField(max_length=255, null=True)) # favourite toilets as list of toiletIDs
  
     # this is what displays on the admin interface
     def __str__(self):

@@ -12,10 +12,11 @@ from ..utils import forwardGeocoding
 
 LIMIT = 2
 
+
 # KIV - do we allow locations with the same long lat to be listed?
 # 1) save all toilets from online toilet directory into database
 # 2) send all toilet information in database to front-end
-class RetrieveToiletView(APIView): # (into settings)
+class RetrieveToiletView(APIView):  # (into settings)
     def get(self, request, *args, **kwargs):
         try:
             # call scrape.py everytime we toggle to update the csv
@@ -43,12 +44,12 @@ class RetrieveToiletView(APIView): # (into settings)
                         print(addressComplete)
                         continue
                     else:
-                        newToilet = Toilet(description=description, 
-                                        toiletType=toiletType, 
-                                        address=addressComplete, 
-                                        postalCode=postalCode_clean, 
-                                        longitude=longitude,
-                                        latitude=latitude)
+                        newToilet = Toilet(description=description,
+                                           toiletType=toiletType,
+                                           address=addressComplete,
+                                           postalCode=postalCode_clean,
+                                           longitude=longitude,
+                                           latitude=latitude)
                         newToilet.addToilet()
                     counter += 1
 
@@ -73,6 +74,7 @@ class RetrieveToiletView(APIView): # (into settings)
                        "error_message": "Toggle nearby toilets unsuccessful"}
             return JsonResponse(payload)
 
+
 # KIV - whether to let front end post with long lat or send just the address and convernt in backend
 class AddToiletView(APIView):
     serializer_class = AddToiletSerializer
@@ -86,13 +88,13 @@ class AddToiletView(APIView):
             postalCode = serializer.data.get("postalCode")
             longitude, latitude = forwardGeocoding(address)
 
-            if Toilet.retrieveByLongitudeLatitude(longitude, latitude) == False:
-                newToilet = Toilet(description=description, 
-                                toiletType=toiletType, 
-                                address=address, 
-                                postalCode=postalCode, 
-                                longitude=longitude,
-                                latitude=latitude)
+            if not Toilet.retrieveByLongitudeLatitude(longitude, latitude):
+                newToilet = Toilet(description=description,
+                                   toiletType=toiletType,
+                                   address=address,
+                                   postalCode=postalCode,
+                                   longitude=longitude,
+                                   latitude=latitude)
                 newToilet.save()
                 payload = {"success_message": "Toilet added successfully"}
                 return JsonResponse(payload)
@@ -101,9 +103,9 @@ class AddToiletView(APIView):
                            "error_message": "Toilet at address already exists"}
                 return JsonResponse(payload)
 
-class addFavouriteToiletView(APIView):
-    serializer_class = 
-    def post(self, request, *args, **kwargs):
+# class addFavouriteToiletView(APIView):
+#     # serializer_class =
+#     def post(self, request, *args, **kwargs):
 
 
 # class viewFavouriteToiletView
