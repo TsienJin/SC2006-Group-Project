@@ -1,5 +1,8 @@
-import Mapbox, {GeolocateControl, Marker, Popup} from 'react-map-gl'
-import {useState} from "react";
+import {Map as Mapbox, GeolocateControl, Marker, Popup, useMap} from 'react-map-gl'
+import {useEffect, useRef, useState} from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "@/store";
+import mapboxgl from "mapbox-gl";
 
 
 
@@ -44,9 +47,32 @@ const Test = () => {
 
 const Map = () => {
 
+
+  const zoomLoc = useSelector((state:RootState) => state.location.coords)
+
+  const mapRef = useRef(null)
+
+  useEffect(()=>{
+
+    let found = 11
+
+    if(zoomLoc?.found){
+      found = 16
+    }
+
+    // @ts-ignore
+    mapRef?.current?.flyTo({
+      center: [zoomLoc.longitude, zoomLoc.latitude],
+      zoom: found,
+      speed:0.7
+    })
+  }, [zoomLoc]) //eslint-disable-line
+
+
+
   return(
     <>
-      <Mapbox
+      <Mapbox ref={mapRef}
         initialViewState={{
           longitude: 103.808052586332,
           latitude: 1.3516161224392,
