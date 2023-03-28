@@ -1,29 +1,35 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Coordinates, emptyCoords} from "@/components/slice/location";
 
 
 
+
+
+export enum RoutePoint {
+  Start = "start",
+  End = "End"
+}
 
 
 export type Route = {
-  start: string,
-  end: string,
-
+  start: Coordinates,
+  end: Coordinates,
 }
 
 
 const initState:Route = {
-  start: "",
-  end: ""
+  start: emptyCoords,
+  end: emptyCoords
 }
 
 export const systemSlice = createSlice({
   name: 'route',
   initialState: initState,
   reducers: {
-      setStart: (state, action:PayloadAction<string>) => {
+      setStart: (state, action:PayloadAction<Coordinates>) => {
         state.start = action.payload
     },
-      setEnd: (state, action:PayloadAction<string>) => {
+      setEnd: (state, action:PayloadAction<Coordinates>) => {
         state.end = action.payload
     },
   }

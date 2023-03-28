@@ -1,13 +1,11 @@
-import TextInput from "@/components/fields/TextInput";
 import {popLatest, sideBarStatesEnum} from "@/components/slice/sideBar";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store";
-import Button, {buttonColourBlue} from "@/components/clickeable/Button";
 import {useState} from "react";
-import {Hoist} from "@/components/fields/types";
-import FormWrapper from "@/components/fields/FormWrapper";
 import {setEnd, setStart} from "@/components/slice/route";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
+import Find, {FindCallback} from "@/components/mapbox/Find";
+import {Coordinates, emptyCoords} from "@/components/slice/location";
 
 
 const RouteEditScreen = ({point}:{point:sideBarStatesEnum}) => {
@@ -16,20 +14,37 @@ const RouteEditScreen = ({point}:{point:sideBarStatesEnum}) => {
   // TODO duplicate for end route
 
   const location = useSelector((state:RootState) => state.route)
-  const [placeVal, setPlaceVal] = useState<string>("")
+  const [placeVal, setPlaceVal] = useState<Coordinates>(emptyCoords)
 
   const dispatch = useDispatch()
 
-  const handleUpdate = () => {
+
+  const getLabel = ():string => {
     switch (point){
+      case sideBarStatesEnum.RouteStart: return "Start location";
+      case sideBarStatesEnum.RouteEnd: return "End location";
+      default: return "Set location"
+    }
+  }
+
+
+  const getDefault = ():string|undefined => {
+    switch(point){
+      case sideBarStatesEnum.RouteStart: return location?.start?.address || "";
+      case sideBarStatesEnum.RouteEnd: return location?.end?.address || "";
+      default: return ""
+    }
+  }
+
+
+  const callback:FindCallback = (place) => {
+    switch(point){
       case sideBarStatesEnum.RouteStart: {
-        dispatch(setStart(placeVal))
-        dispatch(popLatest(point))
+        dispatch(setStart(place))
         break
       }
       case sideBarStatesEnum.RouteEnd: {
-        dispatch(setEnd(placeVal))
-        dispatch(popLatest(point))
+        dispatch(setEnd(place))
         break
       }
       default: {
@@ -40,20 +55,13 @@ const RouteEditScreen = ({point}:{point:sideBarStatesEnum}) => {
         )))
       }
     }
-  }
 
-  const hoist:Hoist<string> = (value) => {
-    setPlaceVal(value)
+    dispatch(popLatest(point))
   }
 
 
   return(
-  <FormWrapper action={handleUpdate}>
-    <div className={"pt-2"}>
-      <TextInput placeholder={"Start location"} defaultVal={location.start} hoist={hoist}/>
-      <Button text={"Save"} colour={buttonColourBlue} action={handleUpdate}/>
-    </div>
-  </FormWrapper>
+    <Find label={getLabel()} callback={callback} defaultVal={getDefault()}/>
   )
 }
 

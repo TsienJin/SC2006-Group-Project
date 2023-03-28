@@ -36,7 +36,7 @@ const SettingScreen = () => {
   }
 
   const bugLink:link = {
-    url: '/',
+    url: 'https://forms.gle/v6TMgK1sYvVrrDj37',
     target: '_blank',
     text: 'Report them here'
   }

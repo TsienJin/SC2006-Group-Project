@@ -23,14 +23,14 @@ const RouteScreen = () => {
   }
 
   useEffect(()=>{
-    if(routeState.start.length){
-      setStartPlaceholder(routeState.start)
+    if(routeState.start?.name){
+      setStartPlaceholder(routeState.start.name)
     } else {
       setStartPlaceholder("Choose a location")
     }
 
-    if(routeState.end.length){
-      setEndPlaceholder(routeState.end)
+    if(routeState.end?.name){
+      setEndPlaceholder(routeState.end.name)
     } else {
       setEndPlaceholder("Choose a location")
     }
