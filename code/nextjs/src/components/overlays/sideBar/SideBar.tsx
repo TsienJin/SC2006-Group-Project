@@ -16,6 +16,8 @@ import SettingScreen from "@/components/overlays/sideBar/screens/Settings/Settin
 import RouteScreen from "@/components/overlays/sideBar/screens/Route/Route";
 import RouteEditScreen from "@/components/overlays/sideBar/screens/Route/RouteEdit";
 import AddToilet from "@/components/overlays/sideBar/screens/AddToilet/AddToilet";
+import Find from "@/components/mapbox/Find";
+import FindScreen from "@/components/overlays/sideBar/screens/Find/FindScreen";
 
 
 const SideBarScreen = () => {
@@ -54,6 +56,8 @@ const SideBarScreen = () => {
     case sideBarStatesEnum.RouteEnd: return <RouteEditScreen point={sideBarStatesEnum.RouteEnd}/>
 
     case sideBarStatesEnum.Add: return <AddToilet />
+
+    case sideBarStatesEnum.Find: return <FindScreen />
 
 
     default: return <ExampleScreen />
