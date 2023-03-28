@@ -1,37 +1,35 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-
 export type Coordinates = {
-  altitude: number|any,
-  altitudeAccuracy: number|any,
-  heading: number|any,
+  name?: string,
+  address?: string,
   latitude: number|any,
   longitude: number|any,
-  speed: number|any,
-  accuracy: number|any
+  found?: boolean,
 }
 
 export function coordinatesFromGeoCoords(geolocation:GeolocationCoordinates):Coordinates {
   return{
-    accuracy: geolocation.accuracy,
-    altitude: geolocation.altitude,
-    altitudeAccuracy: geolocation.altitudeAccuracy,
-    heading: geolocation.heading,
+    // accuracy: geolocation.accuracy,
+    // altitude: geolocation.altitude,
+    // altitudeAccuracy: geolocation.altitudeAccuracy,
+    // heading: geolocation.heading,
     latitude: geolocation.latitude,
     longitude: geolocation.longitude,
-    speed: geolocation.speed
+    // speed: geolocation.speed
   }
 }
 
 
 const initGeolocation:Coordinates = {
-  altitude: 0,
-  altitudeAccuracy: 0,
-  heading: 0,
-  latitude: 0,
-  longitude: 0,
-  speed: 0,
-  accuracy: 0
+  // altitude: 0,
+  // altitudeAccuracy: 0,
+  // heading: 0,
+  latitude: 1.3516161224392,
+  longitude: 103.808052586332,
+  found: false
+  // speed: 0,
+  // accuracy: 0
 }
 
 const initState = {
