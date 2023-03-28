@@ -75,7 +75,7 @@ const SuggestionItem = ({item, callback=()=>{}}:{item:AutofillSuggestion, callba
 
 
 
-const Find = ({label="Find", callback=()=>{}}:{label?:string, callback?:FindCallback}) => {
+const Find = ({label="Find", defaultVal="", callback=()=>{}}:{label?:string, defaultVal?:string|undefined, callback?:FindCallback}) => {
 
   let autofill: MapboxAutofill;
   autofill = new MapboxAutofill({
@@ -104,7 +104,7 @@ const Find = ({label="Find", callback=()=>{}}:{label?:string, callback?:FindCall
   return(
     <>
       <div className={"pt-2"}></div>
-      <TextInput placeholder={label} hoist={valHoist}/>
+      <TextInput placeholder={label} defaultVal={defaultVal} hoist={valHoist}/>
       {
         suggestions.map(item => {
           return(
