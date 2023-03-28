@@ -17,13 +17,13 @@ import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
 
-async function sendLogin(email:string, password:string, onErrorCallback=()=>{}):Promise<User|any> {
+export async function sendLogin(email:string, password:string, onErrorCallback=()=>{}):Promise<User|any> {
 
   const res = await axios.get('https://jsonplaceholder.typicode.com/users/2')
   const data = await res.data
 
   const options:middlewareOptions = {
-    endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/login`,
+    endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/login/`,
     headers: {
       'Content-Type': 'multipart/form-data',
     },
