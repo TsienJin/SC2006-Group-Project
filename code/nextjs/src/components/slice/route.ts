@@ -14,6 +14,7 @@ export enum RoutePoint {
 export type Route = {
   start: Coordinates,
   end: Coordinates,
+  route?:any
 }
 
 
@@ -32,9 +33,12 @@ export const systemSlice = createSlice({
       setEnd: (state, action:PayloadAction<Coordinates>) => {
         state.end = action.payload
     },
+      setRoute: (state, action:PayloadAction<any>) => {
+        state.route = action.payload
+      }
   }
 })
 
 
 export default systemSlice.reducer
-export const { setStart, setEnd } = systemSlice.actions
+export const { setStart, setEnd, setRoute } = systemSlice.actions

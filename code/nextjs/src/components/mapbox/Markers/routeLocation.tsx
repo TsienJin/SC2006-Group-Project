@@ -47,7 +47,7 @@ const PointMarker = ({location, type}:{location:Coordinates, type:RoutePoint}) =
             closeOnMove={false}
             closeButton={false}
             offset={12}
-        >'
+        >
             <span className={"capitalize"}>
               {location.name}
             </span>
