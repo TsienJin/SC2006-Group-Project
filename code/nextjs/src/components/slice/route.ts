@@ -14,31 +14,52 @@ export enum RoutePoint {
 export type Route = {
   start: Coordinates,
   end: Coordinates,
-  route?:any
+  options: {
+    avoidTolls: boolean,
+    avoidMotor: boolean
+  }
+  route?:any,
+
 }
 
 
 const initState:Route = {
   start: emptyCoords,
-  end: emptyCoords
+  end: emptyCoords,
+  options: {
+    avoidTolls: false,
+    avoidMotor: false
+  }
 }
 
 export const systemSlice = createSlice({
   name: 'route',
   initialState: initState,
   reducers: {
-      setStart: (state, action:PayloadAction<Coordinates>) => {
-        state.start = action.payload
+    setStart: (state, action:PayloadAction<Coordinates>) => {
+      state.start = action.payload
     },
-      setEnd: (state, action:PayloadAction<Coordinates>) => {
-        state.end = action.payload
+    setEnd: (state, action:PayloadAction<Coordinates>) => {
+      state.end = action.payload
     },
-      setRoute: (state, action:PayloadAction<any>) => {
-        state.route = action.payload
-      }
+    setRoute: (state, action:PayloadAction<any>) => {
+      state.route = action.payload
+    },
+    setAvoidTolls: (state, action:PayloadAction<boolean>) => {
+      state.options.avoidTolls = action.payload
+    },
+    setAvoidMotor: (state, action:PayloadAction<boolean>) => {
+      state.options.avoidMotor = action.payload
+    }
   }
 })
 
 
 export default systemSlice.reducer
-export const { setStart, setEnd, setRoute } = systemSlice.actions
+export const {
+  setStart,
+  setEnd,
+  setRoute,
+  setAvoidTolls,
+  setAvoidMotor,
+} = systemSlice.actions

@@ -6,6 +6,7 @@ export type Coordinates = {
   latitude: number|any,
   longitude: number|any,
   found?: boolean,
+  postal?: string
 }
 
 export function coordinatesFromGeoCoords(geolocation:GeolocationCoordinates):Coordinates {

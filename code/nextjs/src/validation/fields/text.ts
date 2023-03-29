@@ -85,3 +85,12 @@ export const ValidAgeMin:ValidateInputText = input => {
 
   return false
 }
+
+
+export const MinNumberZero:ValidateInputText = input => {
+  if(input<0){
+    return "Number must be positive!"
+  }
+
+  return false
+}

@@ -1,4 +1,4 @@
-import {useCallback, useRef, useState} from "react"
+import {useCallback, useEffect, useRef, useState} from "react"
 import FieldWrapper from "./FieldWrapper"
 import { Hoist } from "./types"
 import {SystemLang} from "@/components/slice/system";
@@ -51,8 +51,9 @@ const SelectInput = ({placeholder, options, hoist=()=>{}}:{placeholder:string, o
   const handleChange = (value:string) => {
 
     options.options.forEach(item => {
-      if(item.text == value){
+      if(item.value == value){
         setVal(item)
+        hoist(item)
       }
     })
 
@@ -62,9 +63,9 @@ const SelectInput = ({placeholder, options, hoist=()=>{}}:{placeholder:string, o
   }
 
 
-  useCallback(()=>{
-    hoist(val)
-  },[val])
+  useEffect(()=>{
+    hoist(options?.default || options?.options[0])
+  },[])
 
 
   return(

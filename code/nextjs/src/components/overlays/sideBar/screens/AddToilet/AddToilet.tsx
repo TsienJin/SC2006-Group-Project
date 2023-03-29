@@ -1,58 +1,97 @@
 import FieldContainer from "@/components/fields/FieldContainer";
 import TextInput from "@/components/fields/TextInput";
-import {useEffect, useState} from "react";
-import {Address} from "@/Structs/toilet";
+import {useCallback, useEffect, useState} from "react";
+import {Address, AddToilet, Description, Review} from "@/Structs/toilet";
 import {Hoist} from "@/components/fields/types";
 import SelectInput, {Option, ratingOptions, SelectInputOptions} from "@/components/fields/SelectInput";
 import Checkbox from "@/components/clickeable/Checkbox";
+import Find, {FindCallback} from "@/components/mapbox/Find";
+import Tab from "@/components/clickeable/Tab";
+import {Coordinates, emptyCoords} from "@/components/slice/location";
+import {MinNumberZero} from "@/validation/fields/text";
+import Button, {buttonColourBlue} from "@/components/clickeable/Button";
+import {Action} from "@/components/clickeable/types";
 
 
+
+const AddressInput = ({hoist=()=>{}}:{hoist?:Hoist<Coordinates>}) => {
+
+  const [activeSelect, setActiveSelect] = useState<boolean>(false)
+  const [coords, setCoords] = useState<Coordinates>(emptyCoords)
+
+
+  const addrCallback:FindCallback = res => {
+    setCoords(res)
+    setActiveSelect(false)
+  }
+
+  useEffect(()=>{
+    hoist(coords)
+  }, [coords, hoist])
+
+
+  return(
+    <>
+      {
+        activeSelect?
+          <Find label={"Location"} topPad={false} callback={addrCallback} defaultVal={coords.address}/>
+          :
+          <Tab itemName={"Set address"} placeholder={coords.name || "Choose a location"} action={()=>{setActiveSelect(true)}}/>
+      }
+    </>
+  )
+}
 
 
 const Address = ({hoist=()=>{}}: {hoist?:Hoist<Address|undefined>}) => {
 
   const [address, setAddress] = useState<Address>()
 
-  const [locName, setLocName] = useState("")
-  const [country, setCountry] = useState("")
-  const [addrLine1, setAddrLine1] = useState("")
-  const [addrLine2, setAddrLine2] = useState("")
-  const [postal, setPostal] = useState<number>()
-  const [floor, setFloor] = useState<number>()
-  const [unit, setUnit] = useState<number>()
+  const [coords, setCoords] = useState<Coordinates>(emptyCoords)
+  const [floor, setFloor] = useState<number>(NaN)
+  const [unit, setUnit] = useState<number>(NaN)
+
+
+
+  const coordsHoist:Hoist<Coordinates> = value => {
+    setCoords(value)
+  }
+
+
+  const floorHoist:Hoist<number> = value => {
+    setFloor(value)
+  }
+
+  const unitHoist:Hoist<number> = value => {
+    setUnit(value)
+  }
 
   useEffect(()=>{
-    setAddress({
-      name: locName,
-      country: country,
-      addrLineOne: addrLine1,
-      addrLineTwo: addrLine2,
-      postal: postal,
+    hoist({
+      coordinates: {
+        lat: coords.latitude,
+        long: coords.longitude,
+      },
+      name: coords.name,
+      address: coords.address,
+      postal: coords.postal,
       floorNumber: floor,
-      unitNumber: unit,
+      unitNumber: unit
     })
-  }, [locName, country, addrLine1, addrLine2, postal, floor, unit])
-
-  useEffect(()=>{
-    hoist(address)
-  }, [address, hoist])
+  }, [coords, floor, unit])
 
   return(
     <FieldContainer name={"Address"}>
-      <TextInput placeholder={"Location Name"} required={true}/>
-      <TextInput placeholder={"Country"} required={true}/>
-      <TextInput placeholder={"Address Line 1"} required={true}/>
-      <TextInput placeholder={"Address Line 2"} required={false}/>
-      <TextInput placeholder={"Postal Code"} required={true} type={"number"}/>
-      <TextInput placeholder={"Floor Number"} type={"number"} />
-      <TextInput placeholder={"Unit Number"} type={"number"} />
+      <AddressInput hoist={coordsHoist} />
+      <TextInput placeholder={"Floor Number"} type={"number"} hoist={floorHoist} />
+      <TextInput placeholder={"Unit Number"} type={"number"} hoist={unitHoist} validateTests={[MinNumberZero]}/>
     </FieldContainer>
   )
 }
 
-const Location = () => {
+const Description = ({hoist=()=>{}}:{hoist?:Hoist<Description>}) => {
 
-  // TODO Hoist
+
 
   const locationOptions:SelectInputOptions = {
     options: [
@@ -64,33 +103,94 @@ const Location = () => {
         value: "mrtStation",
         text: "MRT Station"
       },
+      {
+        value: "mall",
+        text: "Shopping Mall"
+      },
+      {
+        value: "others",
+        text: "Others"
+      }
     ],
-    default: {
-      value: "",
-      text: "Select",
-      disabled: false,
+  }
+
+  const [locationType, setLocationType] = useState<Option>(locationOptions.options[0])
+  const [isPublic, setIsPublic] = useState<boolean>(false)
+  const [description, setDescription] = useState<string>("")
+
+
+
+  const updateHoist = () => { // prevents infinite recursion
+      hoist({
+        locationType: locationType,
+        isPublic: isPublic,
+        description: description
+      })
+  }
+
+  useEffect(()=>{
+    updateHoist()
+  },[locationType, isPublic, description]) //eslint-disable-line
+
+  const locationHoist:Hoist<Option> = value => {
+    setLocationType(value)
+  }
+
+  const isPublicHoist:Hoist<boolean> = value => {
+    if(value!=isPublic){
+      setIsPublic(value)
     }
   }
 
+  const descriptionHoist:Hoist<string> = value => {
+    setDescription(value)
+    updateHoist()
+  }
+
+
+
+
   return(
-      <FieldContainer name={"Location"}>
-        <SelectInput placeholder={"Location Type"} options={locationOptions} />
-        <Checkbox preText={"Location is publicly accessible."} />
-        <TextInput placeholder={"Description"} type={"textarea"} />
+      <FieldContainer name={"Description"}>
+        <SelectInput placeholder={"Location Type"} options={locationOptions} hoist={locationHoist} />
+        <Checkbox preText={"Location is publicly accessible."} hoist={isPublicHoist}/>
+        <TextInput placeholder={"Description"} type={"textarea"} hoist={descriptionHoist}/>
       </FieldContainer>
     )
 }
 
 
 
-const Review = () => {
+const Review = ({hoist=()=>{}}:{hoist?:Hoist<Review>}) => {
 
-  // TODO Hoist
+  const [rating, setRating] = useState<Option>(ratingOptions.options[0])
+  const [comment, setComment] = useState<string>("")
+
+
+  const updateHoist = () => {
+    hoist({
+        rating: rating,
+        comment: comment
+      })
+  }
+
+  useEffect(()=>{}, [rating, comment])
+
+  const optionHoist:Hoist<Option> = value => {
+    setRating(value)
+    console.log(value)
+    updateHoist()
+  }
+
+  const commentHoist:Hoist<string> = value => {
+    setComment(value)
+    updateHoist()
+  }
 
   return(
     <FieldContainer name={"Review"}>
-      <SelectInput placeholder={"Rating"} options={ratingOptions} />
-      <TextInput placeholder={"Comments"} type={"textarea"} />
+      <SelectInput placeholder={"Rating"} options={ratingOptions} hoist={optionHoist}/>
+      <TextInput placeholder={"Comments"} type={"textarea"} hoist={commentHoist}/>
     </FieldContainer>
   )
 }
@@ -100,21 +200,38 @@ const Review = () => {
 
 const AddToilet = () => {
 
-  // TODO Hoists
-  // TODO Submit button
-
   const [address, setAddress] = useState<Address>()
+  const [description, setDescription] = useState<Description>()
+  const [review, setReview] = useState<Review>()
 
-
-  const addressHoist:Hoist<Address> = (value) => {
+  const addressHoist:Hoist<Address|undefined> = (value) => {
     setAddress(value)
+  }
+
+  const descriptionHoist:Hoist<Description|undefined> = value => {
+    setDescription(value)
+  }
+
+  const reviewHoist:Hoist<Review|undefined> = value => {
+    setReview(value)
+  }
+
+  const sendForm:Action = () => {
+    const info:AddToilet = {
+      address: address,
+      description: description,
+      initialReview: review,
+    }
+
+    console.log(info)
   }
 
   return(
     <>
-      <Address />
-      <Location />
-      <Review />
+      <Address hoist={addressHoist}/>
+      <Description hoist={descriptionHoist}/>
+      <Review hoist={reviewHoist}/>
+      <Button text={"Add Toilet"} colour={buttonColourBlue} action={sendForm} />
     </>
   )
 }

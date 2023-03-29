@@ -32,6 +32,7 @@ async function getCoords(addr: string | undefined):Promise<Coordinates> {
       address: addr,
       latitude: res?.data?.features[0]?.center[1],
       longitude: res?.data?.features[0]?.center[0],
+      postal: res?.data?.features[0]?.context[0]?.text,
       found:true
     }
 
@@ -75,7 +76,7 @@ const SuggestionItem = ({item, callback=()=>{}}:{item:AutofillSuggestion, callba
 
 
 
-const Find = ({label="Find", defaultVal="", callback=()=>{}}:{label?:string, defaultVal?:string|undefined, callback?:FindCallback}) => {
+const Find = ({label="Find", defaultVal="", topPad=true, replaceAfterClick=false, callback=()=>{}}:{label?:string, defaultVal?:string|undefined, topPad?:boolean, replaceAfterClick?:boolean, callback?:FindCallback}) => {
 
   let autofill: MapboxAutofill;
   autofill = new MapboxAutofill({
@@ -103,8 +104,8 @@ const Find = ({label="Find", defaultVal="", callback=()=>{}}:{label?:string, def
 
   return(
     <>
-      <div className={"pt-2"}></div>
-      <TextInput placeholder={label} defaultVal={defaultVal} hoist={valHoist}/>
+      {topPad && <div className={"pt-2"}></div>}
+      <TextInput placeholder={label}  defaultVal={defaultVal} hoist={valHoist}/>
       {
         suggestions.map(item => {
           return(
