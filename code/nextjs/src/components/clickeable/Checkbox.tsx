@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { useEffect, useState} from "react"
+import {useCallback, useEffect, useMemo, useState} from "react"
 import FieldWrapper from "../fields/FieldWrapper"
 import {Hoist} from "../fields/types"
 import {link} from "./types"
@@ -13,9 +13,11 @@ const Checkbox = ({preText, link, checked=false, hoist=()=>{}}:{preText:string, 
     setChecked(!isChecked)
   }
 
+  // hoist(isChecked)
+
   useEffect(()=>{
     hoist(isChecked)
-  }, [isChecked])
+  }, [isChecked, hoist])
 
   return(
     <FieldWrapper>
