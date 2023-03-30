@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.hashers import check_password
 
 class User(models.Model):
@@ -8,7 +9,7 @@ class User(models.Model):
     password = models.CharField(max_length=255, null=True)
     userID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True) # turn editable to False once out of dev
     sessionID = models.CharField(max_length=255, null=True)
-    # favToilets = models.ArrayField(models.CharField(max_length=255, null=True)) # favourite toilets as list of toiletIDs
+    favToilets = ArrayField(models.CharField(max_length=255, blank=True), default=list, null=True, blank=True) # favourite toilets as list of toiletIDs
  
     # this is what displays on the admin interface
     def __str__(self):
@@ -48,17 +49,22 @@ class User(models.Model):
     def getFavToilets(self):
         return self.favToilets
     
+    def updateFavToilets(self, favToilets):
+        self.favToilets = favToilets
+        self.save()
+    
     def isFavourite(self, toiletID):
-        if toiletID in self.favToilets:
+        if str(toiletID) in list(self.favToilets):
             return True
         return False
     
     
+    
     ######################### Helper Functions #######################################
 
-    def retrieveInfo(id):
+    def retrieveInfo(userID):
         try:
-            return User.objects.get(userID=id)
+            return User.objects.get(userID=userID)
         except:
             return False
     
@@ -77,7 +83,7 @@ class User(models.Model):
             return False
         return True
     
-    # TODI - should i add checks for same password taken?
+    # TODO - should i add checks for same password taken?
     def emailTaken(emailAddress):
         try:
             if User.objects.get(emailAddress=emailAddress):

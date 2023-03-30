@@ -1,9 +1,8 @@
 from django.urls import path, include
-from .views.LoginView import LoginView
-from .views.RegisterView import RegisterView
-from .views.AccountView import LogoutView, EditNameView, EditEmailAddressView, EditPasswordView
+from .views.AccountView import RegisterView, LogoutView, EditNameView, EditEmailAddressView, EditPasswordView, LoginView
 from .views.ReviewView import RetrieveReviewView, AddReviewView
-from .views.ToiletView import RetrieveToiletView, AddToiletView
+from .views.ToiletView import AddToiletView, AddFavouriteToiletView, RetrieveFavouriteToiletView
+from .views.SettingsView import RetrieveToiletView, RetrieveTrafficView
 from . import view
 
 urlpatterns = [
@@ -15,9 +14,11 @@ urlpatterns = [
     path("accounts/editname/", EditNameView.as_view(), name='editName'),
     path("accounts/editemail/", EditEmailAddressView.as_view(), name='editEmailAddress'),
     path("accounts/editpassword/", EditPasswordView.as_view(), name='editPassword'),
-    path("toilets/show/", RetrieveToiletView.as_view(), name='toggleToilet'),
-    path("toilets/register/", AddToiletView.as_view(), name='addToilet'),
-    path("reviews/get/", RetrieveReviewView.as_view(), name='retrieveReview'),
+    path("toilets/create/", AddToiletView.as_view(), name='addToilet'),
+    path("toilets/addfavourite/", AddFavouriteToiletView.as_view(), name='addFavouriteToilet'),
+    path("toilets/retrievefavourite/", RetrieveFavouriteToiletView.as_view(), name='retrieveFavouriteToilet'),
     path("reviews/create/", AddReviewView.as_view(), name='addReview'),
-    
+    path("reviews/retrievereview/", RetrieveReviewView.as_view(), name='retrieveReview'),
+    path("settings/retrievetoilet/", RetrieveToiletView.as_view(), name='retrieveToilet'),
+    path("settings/retrievetraffic/", RetrieveTrafficView.as_view(), name='retrieveTraffic'),
 ]

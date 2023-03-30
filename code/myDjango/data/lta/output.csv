@@ -1,43 +1,106 @@
-Type,Latitude,Longitude,Message
-Roadwork,1.2732177296299694,103.84435187818313,(26/3)0:01 Roadworks on Anson Road (towards Bernam Street) after Keppel Road.
-Roadwork,1.3451114042544354,103.78796119826988,(25/3)23:45 Roadworks on PIE (towards Tuas) after BKE. Avoid lane 4.
-Roadwork,1.2727734202091505,103.80284250335681,(25/3)23:32 Roadworks on Telok Blangah Road (towards City) after Alexandra Road. Avoid right lane.
-Roadwork,1.2725869371564118,103.80184495166455,(25/3)23:31 Roadworks on Pasir Panjang Road (towards Tuas) after Alexandra Road. Avoid right lane.
-Roadwork,1.3396681338693808,103.86143475739175,(25/3)23:00 Roadworks on CTE (towards SLE) at Braddell Rd Exit.
-Roadwork,1.3272546646918981,103.73562576853554,(25/3)22:52 Roadworks on AYE (towards MCE) after Yuan Ching.
-Roadwork,1.3269747811360249,103.94567486715519,(25/3)22:47 Roadworks on New Upper Changi Road (toward Changi) after Bedok North Road. Avoid right lane.
-Roadwork,1.3316748848359015,103.95597413092806,(25/3)22:46 Roadworks on Xilin Avenue (towards Upper Changi Road East) after Changi South Avenue 1.
-Roadwork,1.2771756753976957,103.86959008121921,(25/3)22:06 Roadworks on MCE (towards ECP) between Central Blvd Exit and Marina Blvd Entrance. Avoid lanes 4 and 5.
-Roadwork,1.2761289116415566,103.86812234315957,(25/3)22:04 Roadworks on MCE (towards AYE) between ECP (City) Entrance and Central Blvd Exit. Avoid lanes 1 and 2.
-Roadwork,1.3630210004269956,103.90456081010625,(25/3)21:43 Roadworks on Tampines Road (towards Kpe) after Kpe. Avoid left lane.
-Roadwork,1.3095750778856121,103.84617438073941,(25/3)21:40 Roadworks on Bukit Timah Road (towards City) after CTE.
-Roadwork,1.3372138115533307,103.77964418285988,(25/3)21:40 Roadworks on Bukit Timah Road (towards Woodlands) after Holland Link.
-Roadwork,1.3242771746323705,103.74570836307217,(25/3)21:39 Roadworks on Jurong Town Hall Road near Jalan Ahmad Ibrahim/Jurong Town Hall Road Junction.
-Roadwork,1.308448586321393,103.84726062068285,(25/3)21:38 Roadworks on Kampong Java Slip Road near Bukit Timah Road/Kampong Java Road Junction.
-Roadwork,1.2735990770710965,103.79985541077845,(25/3)21:36 Roadworks on Pasir Panjang Road (towards City) after Jalan Mat Jambol. Avoid right lane.
-Roadwork,1.3153251557099195,103.86447419750863,(25/3)21:35 Roadworks on Boon Keng Road near Boon Keng Road/Kallang Bahru Junction.
-Roadwork,1.325731750921094,103.74071397422341,(25/3)21:34 Roadworks on AYE (towards MCE) before Jurong Town Hall Exit. Avoid lane 4.
-Roadwork,1.4009965818230976,103.88849895152885,(25/3)21:31 Roadworks on TPE (towards SLE) after Punggol Rd Exit. Avoid lanes 1 and 2.
-Roadwork,1.3096791175374682,103.75666181669946,(25/3)21:30 Roadworks on West Coast Highway (towards Jalan Buroh) after Buroh Flyover.
-Roadwork,1.3143314878770196,103.71101450147214,(25/3)21:19 Roadworks on Jalan Buroh (towards City) after Jurong Pier Road. Avoid right lane.
-Roadwork,1.3190961805381134,103.71036560617259,(25/3)21:16 Roadworks on Jurong Pier Road (towards Jurong Pier Flyover) after Bird Park Drive. Avoid left lane.
-Roadwork,1.354397013153224,103.69730899732646,(25/3)21:15 Roadworks on PIE (towards Tuas) before Jalan Bahar. Avoid lanes 3 and 4.
-Roadwork,1.3153305541499016,103.86452324943814,(25/3)21:11 Roadworks on Boon Keng Road near Boon Keng Road/Kallang Bahru Junction.
-Roadwork,1.2874281809838228,103.84376581184927,(25/3)21:04 Roadworks on Havelock Road (towards New Market Road) after Keng Cheow Street.
-Roadwork,1.3149156683236078,103.70988607616573,(25/3)20:58 Roadworks on Jurong Pier Road (towards Jurong Pier Circus) after Jurong Pier Flyover. Avoid right lane.
-Roadwork,1.2919060334383978,103.84927372265822,(25/3)20:53 Roadworks on Hill Street (towards Coleman Street) after High Street. Avoid right lane.
-Roadwork,1.3839996969815598,103.82497719966601,(25/3)20:50 Roadworks on Upper Thomson Road (towards Newton) after Tagore Drive. Avoid left lane.
-Roadwork,1.3231709265348193,103.74792935349473,(25/3)20:46 Roadworks on AYE (towards MCE) at Jurong Town Hall Entrance.
-Roadwork,1.292669935434835,103.85148944309894,(25/3)20:27 Roadworks on North Bridge Road (towards Coleman Lane) after Stamford Road.
-Roadwork,1.3155164703910684,103.84498086640116,(25/3)20:07 Roadworks on Thomson Road (towards Keng Lee Road) after Moulmein Road. Avoid left lane.
-Roadwork,1.3256121944577737,103.8420152354482,(25/3)20:03 Roadworks on Thomson Road (towards Newton) after Balestier Road.
-Roadwork,1.3254311498029874,103.841988008629,(25/3)20:02 Roadworks on Thomson Road (towards SLE) after Chancery Lane.
-Roadwork,1.305338095366471,103.86054544791729,(25/3)20:00 Roadworks on Victoria Street (towards Jalan Sultan) after Kallang Road.
-Roadwork,1.2952342541111375,103.85130427155916,(25/3)19:57 Roadworks on Victoria Street (towards Stamford Road) after Bras Basah Road.
-Roadwork,1.2874575613042794,103.84626789705953,(25/3)19:48 Roadworks on New Bridge Road (towards North Canal Road) after Hongkong Street. Avoid right lane.
-Roadwork,1.2857866550180899,103.84660528142622,(25/3)19:47 Roadworks on Upper Pickering Street (towards Pickering Street) after New Bridge Road.
-Roadwork,1.3757510229346126,103.72893963806892,(25/3)18:51 Roadworks on KJE (towards PIE) after Sungei Tengah Exit. Avoid lane 4.
-Roadwork,1.3908258791152694,103.76721514321093,(25/3)18:28 Roadworks on KJE (towards PIE) before Senja Rd Entrance. Avoid lane 1.
-Roadwork,1.2796711929665583,103.85588337192976,(25/3)17:16 Roadworks on Marina Boulevard (towards Central Boulevard) after Marina Way. Avoid right lane.
-Roadwork,1.326810939895915,103.84169365592689,(25/3)16:47 Roadworks on Thomson Slip Road near Balestier Road/Jalan Raja Udang Junction.
-Roadwork,1.3264104767448706,103.84211336037363,(25/3)16:46 Roadworks on Balestier Road near Balestier Road/Thomson Road Junction.
+Roadwork,1.2999007400279858,103.89764746730454,(30/3)14:59 Roadworks on Tanjong Katong Road South (towards ECP) after Amber Gardens. Avoid left lane.
+Accident,1.4335286180996492,103.76859920911008,(30/3)14:57 Accident on BKE (towards Woodlands) after Woodlands Ave 3 Exit. Avoid lanes 1 and 2.
+Roadwork,1.341279929018549,103.88633855289383,(30/3)14:35 Roadworks on Bartley Road East (towards Tampines) after Upper Paya Lebar Road. Avoid left lane.
+Roadwork,1.285921286236234,103.79812771819691,(30/3)14:24 Roadworks on AYE (towards MCE) after Alexandra Rd Exit.
+Heavy Traffic,1.3244201240324778,103.8720942245269,(30/3)14:21 Heavy Traffic on PIE (towards Tuas) between Paya Lebar Rd and KPE Exit.
+Roadwork,1.3260654803618035,103.84193643381424,(30/3)14:04 Roadworks on Thomson Road (towards Newton) after Balestier Road. Avoid right lane.
+Roadwork,1.3064493767473224,103.81361649236912,(30/3)13:42 Roadworks on Holland Road (towards Tyersall Avenue) after Dempsey Road. Avoid left lane.
+Roadwork,1.2769404168491396,103.84872874816814,(30/3)13:07 Roadworks on Shenton Way (towards Shenton Way) after Central Boulevard. Avoid right lane.
+Roadwork,1.3348802453575108,103.77419324487242,(30/3)12:59 Roadworks on PIE (towards Changi Airport) before Upper Bukit Timah Rd. Avoid lane 4.
+Roadwork,1.2959028215841566,103.83730353011211,(30/3)11:29 Roadworks on Killiney Road towards River Valley Road. Avoid left lane.
+Roadwork,1.2981690076290906,103.85375499100843,(30/3)11:28 Roadworks on Victoria Street (towards Middle Road) after Bain Street.
+Roadwork,1.3107403323018594,103.84806350465446,(30/3)11:27 Roadworks on Keng Lee Road (towards Kampong Java Road) after Dorset Road. Avoid right lane.
+Roadwork,1.3800210058285955,103.73328872393724,(30/3)11:27 Roadworks on KJE (towards BKE) at Sungei Tengah Rd Entrance.
+Roadwork,1.3179966308691706,103.84416705990782,(30/3)11:23 Roadworks on Thomson Road (towards SLE) after Kampong Java Road. Avoid left lane.
+Roadwork,1.2954941561502074,103.87626077410867,(30/3)11:21 Roadworks on ECP (towards Changi Airport) after Fort Rd Exit. Avoid lane 1.
+Roadwork,1.360154879124852,103.71059458022809,(30/3)11:13 Roadworks on PIE (towards Tuas) at KJE(BKE) Exit.
+Roadwork,1.315835384071844,103.82603205225632,(30/3)11:08 Roadworks on Stevens Road (towards Dalvey Road) after Stevens Close. Avoid right lane.
+Roadwork,1.3027408423556093,103.78707537348018,(30/3)11:06 Roadworks on North Buona Vista Road (towards One-north Gateway) after Portsdown Road.
+Roadwork,1.3094348562766656,103.78192925751866,(30/3)11:05 Roadworks on Commonwealth Avenue West (towards City) after Clementi Road. Avoid right lane.
+Roadwork,1.3077561462563045,103.78500906297886,(30/3)11:05 Roadworks on Commonwealth Avenue West (towards City) after Ghim Moh Link. Avoid right lane.
+Roadwork,1.3239427093540383,103.74482339047084,(30/3)10:57 Roadworks on AYE (towards MCE) at Jurong Town Hall Rd Exit.
+Roadwork,1.3206784349011336,103.74529228030768,(30/3)10:55 Roadworks on Jurong Town Hall Road (towards Teban Gardens Road) after Pandan Gardens. Avoid left lane.
+Roadwork,1.3183797592153526,103.74630081333797,(30/3)10:55 Roadworks on West Coast Road (towards Jurong Town Hall Road) after Pandan Gardens. Avoid left lane.
+Roadwork,1.3539410687870033,103.86339163462634,(30/3)10:54 Roadworks on Ang Mo Kio Avenue 1 (towards Li Hwan Drive) after Lorong Chuan. Avoid right lane.
+Roadwork,1.3556887007858587,103.8720856405462,(30/3)10:53 Roadworks on Boundary Road (towards Serangoon Avenue 4) after Serangoon Central.
+Roadwork,1.3619106681659516,103.89649448711405,(30/3)10:51 Roadworks on Tampines Road (towards Fish Farm Road 1) after Hougang Avenue 7. Avoid left lane.
+Roadwork,1.3109932546231087,103.86255268716495,(30/3)10:50 Roadworks on Lavender Street (towards King George`s Avenue) after Cavan Road. Avoid left lane.
+Roadwork,1.3152138248652505,103.83260557937452,(30/3)10:48 Roadworks on Balmoral Road (towards Balmoral Park) after Balmoral Crescent. Avoid right lane.
+Roadwork,1.3103397142838467,103.8585303268668,(30/3)10:46 Roadworks on Jalan Besar (towards City) after Lavender Street.
+Roadwork,1.333785295966439,103.78920248429851,(30/3)10:44 Roadworks on Bukit Timah Road (towards Woodlands) after Holland Link. Avoid left lane.
+Roadwork,1.3338346435764326,103.78900623860105,(30/3)10:44 Roadworks on Bukit Timah Road (towards Woodlands) after Holland Link. Avoid right lane.
+Roadwork,1.311189916414006,103.77217564796575,(30/3)10:42 Roadworks on Clementi Road (towards Dover Road) after Commonwealth Avenue West. Avoid left lane.
+Roadwork,1.3244017045194227,103.80977269833978,(30/3)10:42 Roadworks on Bukit Timah Road (towards Woodlands) after Farrer Road. Avoid right lane.
+Roadwork,1.3464331723690008,103.87168823086039,(30/3)10:42 Roadworks on Upper Serangoon Road (towards City) after Serangoon Avenue 2. Avoid left lane.
+Roadwork,1.3142992771716817,103.86012978549589,(30/3)10:41 Roadworks on Lavender Street (towards Bendemeer Road) after Beatty Road.
+Roadwork,1.3114605281876486,103.83677412936302,(30/3)10:37 Roadworks on Scotts Road (towards Cairnhill Road) after Newton Circus. Avoid left lane.
+Roadwork,1.3292572405543577,103.8019503595165,(30/3)10:37 Roadworks on Bukit Timah Road (towards Woodlands) after Namly Avenue. Avoid left lane.
+Roadwork,1.386883248222115,103.84040645328189,(30/3)10:35 Roadworks on Yio Chu Kang Road (towards Ang Mo Kio Avenue 6) after Lentor Road. Avoid left lane.
+Roadwork,1.3098000998483952,103.75654840731998,(30/3)10:35 Roadworks on West Coast Highway (towards Jalan Buroh) after Buroh Flyover. Avoid left lane.
+Roadwork,1.2798975399303825,103.84459701878333,(30/3)10:32 Roadworks on Maxwell Road (towards Kadayanallur Street) after South Bridge Road. Avoid right lane.
+Roadwork,1.3098302829752522,103.75581798597563,(30/3)10:32 Roadworks on Jalan Buroh (towards West Coast Highway) after West Coast Highway. Avoid left lane.
+Roadwork,1.3769905496741253,103.92988097951962,(30/3)10:30 Roadworks on TPE (towards PIE) at Pasir Ris Dr 12 Exit.
+Roadwork,1.3301891805670643,103.93456491933311,(30/3)10:27 Roadworks on Bedok North Avenue 3 (towards Bedok North Street 2) after Bedok North Road. Avoid right lane.
+Roadwork,1.2949294537030707,103.7854383613259,(30/3)10:25 Roadworks on AYE (towards Tuas) after Buona Vista exit. Avoid lane 1.
+Roadwork,1.3061570275822585,103.79410122935519,(30/3)10:22 Roadworks on Commonwealth Avenue (towards City) after Holland Avenue. Avoid left lane.
+Roadwork,1.3649976277881166,103.77761667273144,(30/3)10:21 Roadworks on Dairy Farm Road (towards Petir Road) after BKE. Avoid left lane.
+Roadwork,1.3819298620263294,103.73609048631151,(30/3)10:21 Roadworks on KJE (towards BKE) after Sungei Tengah Exit. Avoid lane 5.
+Roadwork,1.3619490816338948,103.89732306561879,(30/3)10:21 Roadworks on Tampines Road (towards Hougang Avenue 7) after Fish Farm Road 1. Avoid left lane.
+Roadwork,1.3609680668497226,103.88847353372016,(30/3)10:20 Roadworks on Tampines Road (towards Hougang Avenue 1) after Jalan Teliti. Avoid left lane.
+Roadwork,1.3019819185822215,103.84999936133353,(30/3)10:19 Roadworks on Selegie Road (towards Mackenzie Road) after Middle Road. Avoid right lane.
+Roadwork,1.3293133816690461,103.90489892859587,(30/3)10:19 Roadworks on Jalan Eunos (towards Hougang) after PIE.
+Roadwork,1.3422091464438128,103.70845475617864,(30/3)10:19 Roadworks on Jalan Boon Lay near Boon Lay Way/Jalan Boon Lay Junction.
+Roadwork,1.3536496720695477,103.96369577099908,(30/3)10:14 Roadworks on PIE (towards Changi Airport) at TPE Exit.
+Roadwork,1.3587912225074645,103.96237434838747,(30/3)10:14 Roadworks on TPE (towards PIE) at Loyang Ave Entrance.
+Roadwork,1.3569629795435942,103.71496023280027,(30/3)10:13 Roadworks on PIE (towards Changi Airport) after Jurong West Ave 2.
+Roadwork,1.3303016953142222,103.93449401898755,(30/3)10:05 Roadworks on Bedok North Avenue 3 (towards Bedok North Road) after Bedok North Street 2. Avoid right lane.
+Roadwork,1.3248023721198672,103.93665249580151,(30/3)10:04 Roadworks on New Upper Changi Road (toward Changi) after Bedok North Avenue 3. Avoid left lane.
+Roadwork,1.3153631605649503,103.8921932133441,(30/3)10:02 Roadworks on Paya Lebar Road (towards Sims Avenue) after Guillemard Road. Avoid left lane.
+Roadwork,1.3697967622590903,103.85298424880368,(30/3)10:01 Roadworks on Ang Mo Kio Avenue 3 (towards Ang Mo Kio Street 42) after Ang Mo Kio Street 51. Avoid right lane.
+Roadwork,1.3057184960558057,103.88256200592609,(30/3)10:00 Roadworks on Mountbatten Road (towards Changi) after Old Airport Road. Avoid left lane.
+Roadwork,1.3029788649541723,103.88455170131769,(30/3)10:00 Roadworks on Mountbatten Road (towards City) after Fort Road.
+Roadwork,1.390183816458044,103.76105685112327,(30/3)9:56 Roadworks on KJE (towards BKE) at Woodlands Rd Entrance.
+Roadwork,1.320378995904085,103.8426232675736,(30/3)9:56 Roadworks on Thomson Road (towards Newton) after Balestier Road. Avoid left lane.
+Roadwork,1.3276094515970425,103.74508340056747,(30/3)9:54 Roadworks on Jurong Town Hall Road (towards Jurong East Street 11) after Jalan Ahmad Ibrahim. Avoid left lane.
+Roadwork,1.3249572448219642,103.84194190218295,(30/3)9:53 Roadworks on Thomson Road (towards SLE) after Chancery Lane. Avoid left lane.
+Roadwork,1.3424236506577765,103.89150062402344,(30/3)9:51 Roadworks on Hougang Avenue 3 (towards Hougang) after Airport Road. Avoid left lane.
+Roadwork,1.3310314318285086,103.9032290038469,(30/3)9:50 Roadworks on Eunos Link (towards Still Rd) after Kaki Bukit Avenue 1.
+Roadwork,1.3237373271840096,103.86730789006275,(30/3)9:50 Roadworks on Bendemeer Road (towards City) after Geylang Bahru. Avoid left lane.
+Roadwork,1.323866014034128,103.7096290087022,(30/3)9:50 Roadworks on Jalan Boon Lay (towards Jalan Ahmad Ibrahim) after Tractor Road. Avoid right lane.
+Roadwork,1.3277555332517965,103.70857220740311,(30/3)9:47 Roadworks on Jalan Boon Lay near International Road/Jalan Boon Lay Junction.
+Roadwork,1.3061536447962747,103.91232222882155,(30/3)9:46 Roadworks on Marine Parade Road (towards Telok Kurau Road) after Marine Crescent. Avoid left lane.
+Roadwork,1.271471763346329,103.82489840756428,(30/3)9:46 Roadworks on Lower Delta Road (towards Kampong Bahru Road) after Bukit Purmei Road.
+Roadwork,1.382575398931122,103.82592814873053,(30/3)9:45 Roadworks on Upper Thomson Road (towards Newton) after Tagore Drive.
+Roadwork,1.3065074575505238,103.91406650720864,(30/3)9:45 Roadworks on Marine Parade Road (towards Telok Kurau Road) after Marine Terrace. Avoid left lane.
+Roadwork,1.3069255020421144,103.91565722650422,(30/3)9:44 Roadworks on Marine Parade Road (towards Marine Terrace) after Telok Kurau Road. Avoid left lane.
+Roadwork,1.3172361707131823,103.8628108145798,(30/3)9:43 Roadworks on Bendemeer Road (towards City) after Whampoa East. Avoid left lane.
+Roadwork,1.32270658657662,103.68400590914044,(30/3)9:43 Roadworks on AYE (towards Tuas) before Benoi Rd Exit. Avoid lane 3.
+Roadwork,1.3271089968442804,103.83987685123061,(30/3)9:42 Roadworks on Whitley Road (towards PIE) after Thomson Road. Avoid left lane.
+Roadwork,1.2878201393066655,103.84626016245159,(30/3)9:42 Roadworks on Eu Tong Sen Street (towards Tew Chew Street) after Merchant Road. Avoid right lane.
+Roadwork,1.3119348199587062,103.84758772083799,(30/3)9:41 Roadworks on Keng Lee Road (towards Dorset Road) after Hertford Road. Avoid right lane.
+Roadwork,1.2800566203008976,103.8439974430401,(30/3)9:41 Roadworks on Tanjong Pagar Road (towards Murray Street) after Maxwell Road.
+Roadwork,1.3425388570678682,103.89152246174996,(30/3)9:41 Roadworks on Hougang Avenue 3 (towards Eunos) after Bartley Road East. Avoid right lane.
+Roadwork,1.3590929338055031,103.96190556553961,(30/3)9:40 Roadworks on TPE (towards PIE) after Loyang Ave Exit. Avoid lane 1.
+Roadwork,1.2976350982931235,103.78282040299715,(30/3)9:40 Roadworks on AYE (towards MCE) before Buona Vista Exit. Avoid lane 1.
+Roadwork,1.3505171684317616,103.96152610044882,(30/3)9:40 Roadworks on PIE (towards Tuas) after Upper Changi Rd East. Avoid lane 2.
+Roadwork,1.3086267694563258,103.80937875225369,(30/3)9:39 Roadworks on Holland Road (towards Peirce Road). Avoid right lane.
+Roadwork,1.3168139914227894,103.84456664940558,(30/3)9:38 Roadworks on Thomson Road (towards Keng Lee Road) after Moulmein Road.
+Roadwork,1.316589091157554,103.83576686979112,(30/3)9:38 Roadworks on Bukit Timah Road (towards Woodlands) after Newton Circus. Avoid left lane.
+Roadwork,1.3097224742228037,103.80705328967078,(30/3)9:37 Roadworks on Holland Road (towards Holland Park) after Taman Nakhoda. Avoid right lane.
+Roadwork,1.355624548909574,103.71904804170318,(30/3)9:36 Roadworks on PIE (towards Tuas) before Jurong West Ave 2. Avoid lane 1.
+Roadwork,1.3567881748432724,103.7155027041473,(30/3)9:36 Roadworks on PIE (towards Changi Airport) after Jurong West Ave 2. Avoid lane 1.
+Roadwork,1.3096614329541283,103.80737218511521,(30/3)9:36 Roadworks on Holland Road (towards Taman Nakhoda) after Sommerville Estate Road. Avoid left lane.
+Roadwork,1.380217560848206,103.83194626716904,(30/3)9:33 Roadworks on Yio Chu Kang Road (towards Munshi Abdullah Avenue) after Old Yio Chu Kang Road. Avoid left lane.
+Roadwork,1.3113065054663666,103.80237327099248,(30/3)9:33 Roadworks on Holland Road (towards Farrer Road) after Leedon Heights. Avoid left lane.
+Roadwork,1.3074959401681903,103.75852717645965,(30/3)9:31 Roadworks on West Coast Highway (towards Tuas) after Pandan Crescent.
+Roadwork,1.343401982856121,103.87877191233693,(30/3)9:29 Roadworks on Bartley Road (towards Tampines) after Woodleigh U/P. Avoid left lane.
+Roadwork,1.3370001896112393,103.74760234236425,(30/3)9:14 Roadworks on Toh Guan Road (towards Toh Guan Road East).
+Roadwork,1.2829388572586895,103.78142004181929,(30/3)9:13 Roadworks on West Coast Highway (towards Tuas) after South Buona Vista. Avoid right lane.
+Roadwork,1.2869788460409934,103.80499892219952,(30/3)9:00 Roadworks on Jalan Bukit Merah (towards Bukit Merah Lane 1) after Alexandra Road.
+Roadwork,1.3015687830038205,103.8623182376487,(30/3)8:58 Roadworks on Beach Road near Beach Road/Jalan Sultan Junction.
+Roadwork,1.3149009718231452,103.84620666585423,(30/3)8:57 Roadworks on Norfolk Road (towards Thomson Road) after Carlisle Road.
+Roadwork,1.3428886150994703,103.7465055447453,(30/3)8:53 Roadworks on PIE (towards Tuas) after Toh Guan Rd Exit. Avoid lane 1.
+Roadwork,1.297803635304283,103.85482972778252,(30/3)8:52 Roadworks on Middle Road (towards Victoria Street) after North Bridge Road. Avoid left lane.
+Roadwork,1.2844467819897751,103.83521234126562,(30/3)8:35 Roadworks on Outram Road towards Tiong Bahru Road.
+Roadwork,1.2920756012701362,103.84936420691318,(30/3)8:32 Roadworks on Hill Street (towards Coleman Street) after High Street. Avoid left lane.
+Roadwork,1.3170059975763433,103.8444576470376,(30/3)8:31 Roadworks on Thomson Road (towards SLE) after Kampong Java Road.

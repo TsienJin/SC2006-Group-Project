@@ -7,7 +7,6 @@ class Traffic(models.Model):
     trafficID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     trafficType = models.CharField(max_length=255, null = False, default = '')
     message = models.CharField(max_length=255, null = False, default = '')
-    address = models.CharField(max_length=255, null = False, default = '')
     longitude = models.DecimalField(
         validators=[MaxValueValidator(180), MinValueValidator(-180)],
         null = False,
@@ -29,8 +28,6 @@ class Traffic(models.Model):
     def addTrafficIncident(self):
         self.save()
     
-
-
     ######################### Helper Functions #######################################
     def retrieveByLongitudeLatitude(longitude, latitude):
         try:

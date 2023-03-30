@@ -8,6 +8,7 @@ from ..models.Toilet import Toilet
 from ..models.Review import Review
 from ..serializers import AddReviewSerializer, RetrieveReviewSerializer
 
+# change to get
 class RetrieveReviewView(APIView):
     serializer_class = RetrieveReviewSerializer
     def post(self, request, *args, **kwargs):
@@ -39,15 +40,10 @@ class AddReviewView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            userID = serializer.get('userID')
             toiletID = serializer.data.get('toiletID')
             rating = serializer.data.get('rating')
             comment = serializer.data.get('comment')
-            
-            # user does not exist
-            if User.retrieveInfo(userID=userID) == False:
-                payload = {"error_message": "User does not exist"}
-                return JsonResponse(payload)
+            userID = request.session["user"]
             
             # user already reviewed the toilet
             if Review.retrieveByUserAndToilet(userID=userID, toiletID=toiletID) != False:
@@ -57,6 +53,7 @@ class AddReviewView(APIView):
                 newReview = Review(userID=userID, toiletID=toiletID, rating=rating, comment=comment)
                 newReview.addReview()
                 payload = {"success_message": "Review added successfully"}
+                return JsonResponse(payload)
 
 
 # KIV - remove review
