@@ -105,17 +105,19 @@ class RetrieveTrafficView(APIView):
                                         headers)
             trafficIncidents_json = json.loads(content)["value"]
 
-            payload = {}
+            payload = {
+                'incidents': []
+            }
             counter = 1
             for trafficIncident in trafficIncidents_json:
                 trafficType = trafficIncident['Type']
                 message = trafficIncident['Message']
                 longitude = trafficIncident['Longitude']
                 latitude = trafficIncident['Latitude']
-                payload[counter] = {"trafficType": trafficType,
+                payload['incidents'].append({"trafficType": trafficType,
                                     "message": message,
                                     "coordinates": {"longitude": longitude,
-                                                    "latitude": latitude}}
+                                                    "latitude": latitude}})
                 counter += 1
             
             return JsonResponse(payload)
