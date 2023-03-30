@@ -68,15 +68,17 @@ async function getRoute({route, callback=()=>{}}:{route:Route, callback?:any}):P
 const Directions = ({routeState}:{routeState:Route}) => {
 
   return(
-    <div className={"bg-gray-100 shadow mx-3 rounded divide-y divide-white overflow-hidden"}>
+    <div className={"bg-gray-100 shadow mx-3 mb-3 rounded divide-y divide-white overflow-hidden"}>
       {
         routeState.route?.routes[0]?.legs[0]?.steps.map((item:any)=>{
-          console.log(item)
           return(
             <div key={v4()} className={"transition p-3 md:hover:bg-gray-200"}>
               <p className={"font-normal text-shadow"}>{item?.maneuver?.instruction}</p>
               <p className={"font-light text-sm opacity-60"}>
                 <span>{item?.distance} meters</span>
+                {item?.name.length>0 && <span> along {item?.name}</span>}
+                <span>.</span>
+
               </p>
             </div>
           )
@@ -166,10 +168,10 @@ const RouteScreen = () => {
         <Tab itemName={"Destination"} placeholder={startEndHolder} action={gotoEnd} />
         <Tab itemName={"Options"} placeholder={"Edit"} action={optionsPage}/>
       </div>
-      {routeState?.route && <Directions routeState={routeState}/>}
       <div className={`transition relative flex flex-col justify-end ${routeState.end.found&&routeState.start.found?"":"opacity-50 cursor-not-allowed"}`}>
         <Button text={buttonText()} colour={buttonColourRust} action={routeButtonAction}/>
       </div>
+      {routeState?.route && <Directions routeState={routeState}/>}
     </div>
   )
 }
