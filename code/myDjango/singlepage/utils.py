@@ -2,7 +2,7 @@ import re
 import csv
 import environ
 import requests
-from models.Toilet import Toilet
+from .models.Toilet import Toilet
 
 env = environ.Env()
 environ.Env.read_env()
@@ -61,7 +61,8 @@ def extractToiletInfoOnline():
         toilets = csv.reader(f)
     return toilets
 
-LIMIT = 2
+LIMIT = 3
+# update database with online scraped toilet data
 def updateToilets():
     with open("./data/toilet/output.csv") as f:
         toilets = csv.reader(f)
@@ -93,6 +94,3 @@ def updateToilets():
                                 latitude=latitude)
                 newToilet.addToilet()
             counter += 1
-    
-updateToilets()
-

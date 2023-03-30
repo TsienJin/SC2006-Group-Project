@@ -1,9 +1,7 @@
 from rest_framework import serializers
 
 from .models.User import User
-from .models.MoP import MoP
 from .models.Toilet import Toilet
-from .models.Location import Location
 from .models.Review import Review
 
 
@@ -11,11 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["emailAddress", "password"]
-
-class MoPSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MoP
-        fields = ["sessionID"] 
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,15 +30,22 @@ class EditPasswordSerializer(serializers.ModelSerializer):
         model = User
         fields = ["password"]
 
-# class LocationSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Location
-#         fields = ["logitude", "latitude", "addressLineOne", "addressLineTwo", "postalCode", "floorNumber"]
-
+# just need to take in lat long 
 class AddToiletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Toilet
         fields = ["description", "toiletType", "address", "postalCode"]
+
+class AddFavouriteToiletSerializer(serializers.ModelSerializer):
+    userID = serializers.CharField(read_only=False)
+    class Meta:
+        model = Toilet
+        fields = ["userID", "longitude", "latitude"]
+
+class RetrieveFavouriteToiletSerializer(serializers.Serializer):
+    class Meta:
+        model = User
+        fields = ["userID"]
 
 class RetrieveReviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,4 +55,4 @@ class RetrieveReviewSerializer(serializers.ModelSerializer):
 class AddReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ["userID", "toiletID", "rating", "comment"]
+        fields = ["toiletID", "rating", "comment"]

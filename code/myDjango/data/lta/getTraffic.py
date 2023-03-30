@@ -14,7 +14,6 @@ if __name__ == '__main__':
                "accept": "application/json"}
     
     target = urlparse(base_url)
-    print(target.geturl())
     method = "GET"
     body = ""
 

@@ -16,7 +16,7 @@ class Review(models.Model):
     comment = models.CharField(max_length=255, null = True, default = '')
 
     def __str__(self):
-        return str(self.rating) + str(self.comment)
+        return str(self.userID) 
     
     def addReview(self):
         self.save()
@@ -35,5 +35,12 @@ class Review(models.Model):
             return Review.objects.get(userID=userID, toiletID=toiletID)
         except:
             return False
+    
+    def retrieveByReviewID(reviewID):
+        try:
+            return Review.objects.get(reviewID=reviewID)
+        except:
+            return False
+
     
   

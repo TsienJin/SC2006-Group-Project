@@ -38,8 +38,11 @@ class Toilet(models.Model):
         toilet = Toilet.objects.get(toiletID=self.toiletID)
         toilet.delete()
 
-    def getLongLat(self):
-        return self.longitude, self.latitude
+    def getLongitude(self):
+        return self.longitude
+    
+    def getLatitude(self):
+        return self.latitude
 
     def getAddress(self):
         return self.address
@@ -61,6 +64,12 @@ class Toilet(models.Model):
     def retrieveByPostalCode(postalCode):
         try:
             return Toilet.objects.get(postalCode=postalCode)
+        except:
+            return False
+    
+    def retrieveByToiletID(toiletID):
+        try:
+            return Toilet.objects.get(toiletID=toiletID)
         except:
             return False
     
