@@ -46,13 +46,17 @@ const Map = () => {
 
   useEffect(()=>{
 
-    if(routeState?.route?.routes[0]?.geometry){
-      console.log(routeState?.route?.routes[0])
-      setPlotRoute(true)
-      setRouteGeojson({
-        ...routeState?.route?.routes[0]?.geometry
-      })
-    } else {
+    try {
+      if(routeState?.route?.routes[0]?.geometry){
+        console.log(routeState?.route?.routes[0])
+        setPlotRoute(true)
+        setRouteGeojson({
+          ...routeState?.route?.routes[0]?.geometry
+        })
+      } else {
+        setPlotRoute(false)
+      }
+    } catch (e) {
       setPlotRoute(false)
     }
   }, [routeState])
@@ -79,7 +83,7 @@ const Map = () => {
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
       >
         <GeolocateControl showAccuracyCircle={true} showUserHeading={true} />
-        { plotRoute &&
+        { plotRoute && routeState?.route?.routes &&
             <Source type={"geojson"} id={"route"} data={{...routeState?.route?.routes[0]?.geometry}}>
               <Layer {...layerStyle} />
             </Source>

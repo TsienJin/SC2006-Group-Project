@@ -4,14 +4,15 @@ import {RootState} from "@/store";
 import {Action} from "@/components/clickeable/types";
 import {addToStack, sideBarStatesEnum} from "@/components/slice/sideBar";
 import {useEffect, useState} from "react";
-import Button, {buttonColourRust} from "@/components/clickeable/Button";
-import {Route, setRoute} from "@/components/slice/route";
+import Button, {buttonColourBlue, buttonColourBlueOutline, buttonColourRust} from "@/components/clickeable/Button";
+import {Route, setEnd, setRoute, setStart} from "@/components/slice/route";
 import axios from "axios";
 import {Simulate} from "react-dom/test-utils";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
 import {v4} from "uuid";
 import FieldWrapper from "@/components/fields/FieldWrapper";
 import FieldContainer from "@/components/fields/FieldContainer";
+import {emptyCoords} from "@/components/slice/location";
 
 
 function getExcludeString(route:Route):any {
@@ -100,6 +101,8 @@ const RouteScreen = () => {
   const [startPlaceHolder, setStartPlaceholder] = useState<string>("")
   const [startEndHolder, setEndPlaceholder] = useState<string>("")
 
+  const [routeButtonText, setRouteButtonText] = useState<string>("Begin Route")
+
   const isValid = routeState.end.found&&routeState.start.found
 
   const gotoStart:Action = () =>{
@@ -131,13 +134,18 @@ const RouteScreen = () => {
     dispatch(addToStack(sideBarStatesEnum.RouteOptions))
   }
 
-  const buttonText = ():string => {
-
-    if(routeState?.route){
-      return "Refresh Route"
+  useEffect(()=>{
+    if(routeState.route != undefined && isValid){
+      setRouteButtonText("Refresh Route")
+    } else {
+      setRouteButtonText("Begin Route")
     }
+  }, [routeState.route, isValid])
 
-    return "Begin Route"
+  const endRouteButton:Action = () => {
+    dispatch(setRoute(undefined))
+    dispatch(setStart(emptyCoords))
+    dispatch(setEnd(emptyCoords))
   }
 
   const routeButtonAction:Action = () => {
@@ -168,10 +176,13 @@ const RouteScreen = () => {
         <Tab itemName={"Destination"} placeholder={startEndHolder} action={gotoEnd} />
         <Tab itemName={"Options"} placeholder={"Edit"} action={optionsPage}/>
       </div>
-      <div className={`transition relative flex flex-col justify-end ${routeState.end.found&&routeState.start.found?"":"opacity-50 cursor-not-allowed"}`}>
-        <Button text={buttonText()} colour={buttonColourRust} action={routeButtonAction}/>
+      <div className={`transition relative flex flex-row justify-center items-center w-full p-3 ${isValid?"gap-x-2":"opacity-50 cursor-not-allowed"}`}>
+        <Button text={routeButtonText} colour={routeState?.route?buttonColourBlueOutline:buttonColourRust} action={routeButtonAction} padding={false}/>
+        {routeState?.route && isValid &&
+          <Button text={"End Route"} colour={buttonColourRust} padding={false} action={endRouteButton}/>
+        }
       </div>
-      {routeState?.route && <Directions routeState={routeState}/>}
+      {routeState?.route?.routes && isValid && <Directions routeState={routeState}/>}
     </div>
   )
 }

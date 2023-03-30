@@ -19,7 +19,6 @@ export type Route = {
     avoidMotor: boolean
   }
   route?:any,
-
 }
 
 
@@ -29,7 +28,7 @@ const initState:Route = {
   options: {
     avoidTolls: false,
     avoidMotor: false
-  }
+  },
 }
 
 export const systemSlice = createSlice({
