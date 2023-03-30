@@ -4,7 +4,12 @@ import {RootState} from "@/store";
 import {Action} from "@/components/clickeable/types";
 import {addToStack, sideBarStatesEnum} from "@/components/slice/sideBar";
 import {useEffect, useState} from "react";
-import Button, {buttonColourBlue, buttonColourBlueOutline, buttonColourRust} from "@/components/clickeable/Button";
+import Button, {
+  buttonColourBlue,
+  buttonColourBlueOutline,
+  buttonColourGreen,
+  buttonColourRust
+} from "@/components/clickeable/Button";
 import {Route, setEnd, setRoute, setStart} from "@/components/slice/route";
 import axios from "axios";
 import {Simulate} from "react-dom/test-utils";
@@ -176,7 +181,7 @@ const RouteScreen = () => {
         <Tab itemName={"Options"} placeholder={"Edit"} action={optionsPage}/>
       </div>
       <div className={`transition relative flex flex-row justify-center items-center w-full p-3 ${isValid?"gap-x-2":"opacity-50 cursor-not-allowed"}`}>
-        <Button text={routeButtonText} colour={routeState?.route?buttonColourBlueOutline:buttonColourRust} action={routeButtonAction} padding={false}/>
+        <Button text={routeButtonText} colour={routeState?.route?buttonColourBlueOutline:buttonColourGreen} action={routeButtonAction} padding={false}/>
         {routeState?.route && isValid &&
           <Button text={"End Route"} colour={buttonColourRust} padding={false} action={endRouteButton}/>
         }
