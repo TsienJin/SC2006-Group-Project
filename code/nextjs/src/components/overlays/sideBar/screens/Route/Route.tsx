@@ -20,14 +20,15 @@ function getExcludeString(route:Route):any {
   let str = ""
 
   if(route.options.avoidMotor){
-    str.concat("motorway,")
+    str = str+"motorway,"
   }
 
   if(route.options.avoidTolls){
-    str.concat("toll,")
+    str = str+"toll,"
   }
 
   if(str.length>0){
+    console.log(str)
     return {
       exclude: str.slice(0, -1)
     }
@@ -42,8 +43,6 @@ async function getRoute({route, callback=()=>{}}:{route:Route, callback?:any}):P
 
 
   try {
-    const excludeStr = getExcludeString(route)
-
     const res = await axios.get(
       `https://api.mapbox.com/directions/v5/mapbox/driving/${route.start.longitude},${route.start.latitude};${route.end.longitude},${route.end.latitude}`,
       {
