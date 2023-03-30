@@ -41,6 +41,7 @@ const SideBarScreen = () => {
     }
 
     case sideBarStatesEnum.Test: return <AccountLoginScreen />
+
     case sideBarStatesEnum.AccountCreate: return <AccountCreateScreen />
     case sideBarStatesEnum.AccountForget: return <AccountForgetPassword />
 

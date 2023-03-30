@@ -28,6 +28,7 @@ export const userSlice = createSlice({
       state.cookie = ""
     },
     login: (state, action:PayloadAction<User>) => {
+      console.log(action.payload)
       state.name = action.payload.name
       state.email = action.payload.email
       state.id = action.payload.email

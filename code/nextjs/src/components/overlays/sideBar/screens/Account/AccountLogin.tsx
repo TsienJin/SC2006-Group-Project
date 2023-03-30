@@ -38,9 +38,9 @@ export async function sendLogin(email:string, password:string, onErrorCallback=(
   }
 
   let mRes={
-    usrName: "",
-    usrEmail: "",
-    usrID: "",
+    userName: "",
+    userEmail: "",
+    userID: "",
     sessionID:""
   }
 
@@ -48,14 +48,13 @@ export async function sendLogin(email:string, password:string, onErrorCallback=(
     mRes = await postMiddleware(options)
     checkForError(mRes)
   } catch (e:any) {
-    console.log(e)
     return false
   }
 
   return {
-    name: mRes?.usrName,
-    email: mRes?.usrEmail,
-    id: mRes?.usrID,
+    name: mRes?.userName,
+    email: mRes?.userEmail,
+    id: mRes?.userID,
     cookie: mRes?.sessionID,
   }
 }
@@ -119,7 +118,6 @@ const AccountLoginScreen = () => {
           dispatch(login(e))
           dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
         } else {
-          console.log(e)
           dispatch(addNoti(createNoti(
             "Error logging in",
             "Incorrect login credentials!",

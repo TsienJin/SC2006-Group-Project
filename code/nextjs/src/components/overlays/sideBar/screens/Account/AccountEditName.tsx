@@ -11,6 +11,7 @@ import FormWrapper from "@/components/fields/FormWrapper";
 import {middlewareOptions} from "@/middleware/types";
 import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
+import {addNoti, createNoti, notiType} from "@/components/slice/notification";
 
 // async function sendEdit(option:middlewareOptions):Promise<any> {
 //   return await postMiddleware(option)
@@ -51,7 +52,18 @@ const AccountEditName = () => {
         headers: {
         }
       }
-      postMiddleware(options, true).then(r=>{console.log(r)})
+
+    postMiddleware(options, true)
+      .then(r=>{console.log(r)})
+      .catch(e => {
+        console.error(e)
+        dispatch(addNoti(createNoti(
+          "Error changing name!",
+          "Something bad happened while attempting to change your name.",
+          notiType.Warning
+        )))
+      })
+
 
       dispatch(updateName(newUsr))
       dispatch(popLatest(sideBarStatesEnum.AccountEditName))
@@ -62,7 +74,7 @@ const AccountEditName = () => {
     <FormWrapper action={submit}>
       <div className={"pt-2"}>
         <TextInput placeholder={"Update name"} defaultVal={globalUser.name} hoist={hoistName} hoistValid={hoistValid} required={true} />
-        <Button text={"Save changes"} colour={buttonColourGreen} action={submit}/>
+        <Button text={"Save changes"} colour={buttonColourGreen}/>
       </div>
     </FormWrapper>
   )
