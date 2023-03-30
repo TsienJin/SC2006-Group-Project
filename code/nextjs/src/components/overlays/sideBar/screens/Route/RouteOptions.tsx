@@ -22,7 +22,7 @@ const RouteOptions = () => {
 
   return(
     <>
-      <Checkbox preText={"Avoid Motorways"} checked={optionState.avoidMotor} hoist={motorHoist} />
+      <Checkbox preText={"Avoid Expressways"} checked={optionState.avoidMotor} hoist={motorHoist} />
       <Checkbox preText={"Avoid Tolls"} checked={optionState.avoidTolls} hoist={tollHoist}/>
     </>
   )
