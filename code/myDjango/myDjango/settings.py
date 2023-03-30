@@ -31,6 +31,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'danielonline170600@outlook.com'
+EMAIL_HOST_PASSWORD = 'Vanguard170600*'
+
 
 # Application definition
 
@@ -43,7 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres.fields',
     'rest_framework',
-    # 'django_nextjs',
     "corsheaders",
     'singlepage.apps.SinglepageConfig',
 ]

@@ -4,7 +4,15 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Toilet(models.Model):
+    # unique identifier for toilets
     toiletID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    # address related fields
+    # name = models.CharField(max_length=255, null=True, blank=True, default = '')
+
+
+
+
+
     description = models.CharField(max_length=255, null = True, default = '') # toilet name
     toiletType = models.CharField(max_length=255, null = False, default = 'public')
     address = models.CharField(max_length=255, null = True, default ='')

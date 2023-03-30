@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
 
 from ..models.User import User
-from ..serializers import RegisterSerializer, EditNameSerializer, EditEmailAddressSerializer, EditPasswordSerializer, UserSerializer
+from ..serializers import RegisterSerializer, EditNameSerializer, EditEmailAddressSerializer, EditPasswordSerializer, UserSerializer, ResetPasswordEmailSerializer
 from ..utils import checkEmailFormat
 
 class RegisterView(APIView):
@@ -49,6 +49,36 @@ class RegisterView(APIView):
 
             return JsonResponse(payload)
 
+class LoginView(APIView):
+    serializer_class = UserSerializer
+    # one additional check if emailAddress and password exists
+    # checks database if user with emailAddress and password exists
+    # if exists, logs in user and returns information back to frontend
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            emailAddress = serializer.data.get('emailAddress')
+            password = serializer.data.get('password')
+
+            if emailAddress is None or password is None:
+                return JsonResponse({"error_status": "400",
+                                    "error_message": "Invalid parameters passed"})
+
+            authenticated = User.verifyCredentials(emailAddress, password)
+
+            if not authenticated:
+                return JsonResponse({"error_status": "401",
+                                    "error_message": "Wrong email address or password"})
+
+            user = User.retrieveByEmailAddress(emailAddress)
+            user.login(request)
+
+            payload = { "userEmail": emailAddress,
+                        "userName": user.name,
+                        "userID": user.userID,
+                        "sessionID": user.sessionID }
+            return JsonResponse(payload)
+        
 class LogoutView(APIView):
     def post(self, request, *args, **kwargs):
         try:
@@ -128,32 +158,7 @@ class EditPasswordView(APIView):
                       "detail": "Edit password successful"}
             return JsonResponse(payload)
 
-class LoginView(APIView):
-    serializer_class = UserSerializer
-    # one additional check if emailAddress and password exists
-    # checks database if user with emailAddress and password exists
-    # if exists, logs in user and returns information back to frontend
+class ResetPasswordThroughEmailView(APIView):
+    serializer_class = ResetPasswordEmailSerializer
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            emailAddress = serializer.data.get('emailAddress')
-            password = serializer.data.get('password')
-
-            if emailAddress is None or password is None:
-                return JsonResponse({"error_status": "400",
-                                    "error_message": "Invalid parameters passed"})
-
-            authenticated = User.verifyCredentials(emailAddress, password)
-
-            if not authenticated:
-                return JsonResponse({"error_status": "401",
-                                    "error_message": "Wrong email address or password"})
-
-            user = User.retrieveByEmailAddress(emailAddress)
-            user.login(request)
-
-            payload = { "userEmail": emailAddress,
-                        "userName": user.name,
-                        "userID": user.userID,
-                        "sessionID": user.sessionID }
-            return JsonResponse(payload)
+        pass

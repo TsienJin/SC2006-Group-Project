@@ -1,4 +1,4 @@
-# UC09 - Review of Toilet
+# UC08 - Review of Toilet
 
 from rest_framework.views import APIView
 from django.http import JsonResponse
@@ -8,7 +8,32 @@ from ..models.Toilet import Toilet
 from ..models.Review import Review
 from ..serializers import AddReviewSerializer, RetrieveReviewSerializer
 
-# change to get
+class RetrieveReviewView(APIView):
+    serializer_class = RetrieveReviewSerializer
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            userID = serializer.get('userID')
+            toiletID = serializer.get('toiletID')
+
+            # user does not exist
+            if User.retrieveInfo(userID=userID) == False:
+                payload = {"error_message": "User does not exist"}
+                return JsonResponse(payload)
+            
+            # user have not reviewed the toilet
+            if Review.retrieveByUserAndToilet(userID=userID, toiletID=toiletID) == False:
+                payload = {"error_message": "User have not reviewed toilet"}
+                return JsonResponse(payload)
+            else:
+                review = Review.retrieveByUserAndToilet(userID=userID, toiletID=toiletID)
+                rating = Review.getRating()
+                comment =Review.getComment()
+                payload = {"rating": rating,
+                           "comment": comment}
+                return JsonResponse(payload)
+
+# move to retrieve toilet
 class RetrieveReviewView(APIView):
     serializer_class = RetrieveReviewSerializer
     def post(self, request, *args, **kwargs):

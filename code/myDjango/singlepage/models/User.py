@@ -74,7 +74,6 @@ class User(models.Model):
         except:
             return False
     
-    # can split "not registered user" and "wrong password" if needed 
     def verifyCredentials(emailAddress, password):
         user = User.retrieveByEmailAddress(emailAddress)
 
@@ -83,7 +82,6 @@ class User(models.Model):
             return False
         return True
     
-    # TODO - should i add checks for same password taken?
     def emailTaken(emailAddress):
         try:
             if User.objects.get(emailAddress=emailAddress):

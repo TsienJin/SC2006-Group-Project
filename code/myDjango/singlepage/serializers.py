@@ -30,6 +30,11 @@ class EditPasswordSerializer(serializers.ModelSerializer):
         model = User
         fields = ["password"]
 
+class ResetPasswordEmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["emailAddress"]
+
 # just need to take in lat long 
 class AddToiletSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,11 +46,6 @@ class AddFavouriteToiletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Toilet
         fields = ["userID", "longitude", "latitude"]
-
-class RetrieveFavouriteToiletSerializer(serializers.Serializer):
-    class Meta:
-        model = User
-        fields = ["userID"]
 
 class RetrieveReviewSerializer(serializers.ModelSerializer):
     class Meta:

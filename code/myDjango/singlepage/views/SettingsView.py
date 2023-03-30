@@ -7,8 +7,10 @@ import httplib2 as http
 from urllib.parse import urlparse
 
 import environ
+
 env = environ.Env()
 environ.Env.read_env()
+
 
 from rest_framework.views import APIView
 from django.http import JsonResponse
@@ -84,7 +86,6 @@ class RetrieveToiletView(APIView): # (into settings) to remove
 
 
 # trigger the traffic api to send high traffic areas to the front end to display
-# dont use the csv method, just straight away prompt api for data and send to front-end
 class RetrieveTrafficView(APIView):
     def get(self, request, *args, **kwargs):
         try:

@@ -2,8 +2,6 @@
 # UC10 - View Favourited Toilets
 # UC11 - Add Toilet Listing
 
-
-
 import csv
 from rest_framework.views import APIView
 from django.http import JsonResponse
@@ -11,17 +9,15 @@ from django.http import JsonResponse
 from ..models.User import User
 from ..models.Toilet import Toilet
 from ..serializers import AddToiletSerializer
-from ..serializers import AddFavouriteToiletSerializer, RetrieveFavouriteToiletSerializer
+from ..serializers import AddFavouriteToiletSerializer
 from ..utils import forwardGeocoding
-
-
 
 class AddToiletView(APIView):
     serializer_class = AddToiletSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(): 
             description = serializer.data.get("description")
             toiletType = serializer.data.get("toiletType")
             address = serializer.data.get("address")
