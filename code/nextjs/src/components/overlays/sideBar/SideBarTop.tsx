@@ -56,7 +56,7 @@ const SideBarTop = () => {
     if(sideBarState!=sideBarStatesEnum.None){
       setTitle(getTitle())
     }
-  },[sideBarState]) // eslint-disable-next-line no-use-before-define
+  },[sideBarState]) // eslint-disable-line
 
   const handleBack = () => {
     if(stackState.length<=1){
