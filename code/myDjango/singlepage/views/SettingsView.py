@@ -57,7 +57,7 @@ class RetrieveToiletView(APIView):
                                             "Description":{"locationType": locationType,
                                                             "isPublic": isPublic,
                                                             "description": description},
-                                            "initialReview": initialReview,
+                                            "reviews": initialReview,
                                             "averageRating": averageRating})
             
             return JsonResponse(payload)
