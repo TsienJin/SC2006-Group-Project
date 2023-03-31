@@ -62,7 +62,7 @@ def extractToiletInfoOnline():
     return toilets
 
 # update database with online scraped toilet data
-def updateToilets(LIMIT):
+def updateToilets(LIMIT:int=-1):
     with open("./data/toilet/output.csv") as f:
         toilets = csv.reader(f)
         counter = 0
