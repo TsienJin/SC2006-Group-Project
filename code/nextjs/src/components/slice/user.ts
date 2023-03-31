@@ -8,6 +8,8 @@ export type User = {
   cookie: string,
 }
 
+export type UserType = User
+
 const initState:User = {
   name: '',
   email: '',
