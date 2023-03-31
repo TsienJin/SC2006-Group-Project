@@ -40,10 +40,12 @@ class RetrieveToiletView(APIView):
                 isPublic = toilet.getIsPublic()
                 description = toilet.getDescription()
 
-                # initialReview = []
                 initialReview = Review.retrieveSetByToiletID(toiletID=toiletID)
-                # for review in reviews:
-                #     initialReview.append(review)
+                averageRating = 0.0
+                for review in initialReview:
+                    averageRating += review["rating"]
+                if len(initialReview) > 0:
+                    averageRating = averageRating/(len(initialReview))
 
                 payload["toilets"].append({"Address": {"name": name,
                                                         "address": address,
@@ -55,7 +57,8 @@ class RetrieveToiletView(APIView):
                                             "Description":{"locationType": locationType,
                                                             "isPublic": isPublic,
                                                             "description": description},
-                                            "initialReview": initialReview})
+                                            "initialReview": initialReview,
+                                            "averageRating": averageRating})
             
             return JsonResponse(payload)
         except:
