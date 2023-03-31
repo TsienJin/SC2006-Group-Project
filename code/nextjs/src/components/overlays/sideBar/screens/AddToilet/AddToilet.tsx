@@ -178,7 +178,6 @@ const Review = ({hoist=()=>{}}:{hoist?:Hoist<Review>}) => {
 
   const optionHoist:Hoist<Option> = value => {
     setRating(value)
-    console.log(value)
     updateHoist()
   }
 

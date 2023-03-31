@@ -13,7 +13,7 @@ const SideBarTop = () => {
 
 
   const getTitle = () => {
-    switch (sideBarState) {
+    switch (stackState[stackState.length-1]) {
       case sideBarStatesEnum.Settings:
         return "Settings"
 
@@ -21,6 +21,9 @@ const SideBarTop = () => {
       case sideBarStatesEnum.AccountLogin:
       case sideBarStatesEnum.AccountCreate:
       case sideBarStatesEnum.AccountForget:
+      case sideBarStatesEnum.AccountEditName:
+      case sideBarStatesEnum.AccountEditEmail:
+      case sideBarStatesEnum.AccountEditPassword:
         return "Account"
 
       case sideBarStatesEnum.Route:
@@ -58,8 +61,10 @@ const SideBarTop = () => {
   const handleBack = () => {
     if(stackState.length<=1){
       dispatch(setState(sideBarStatesEnum.None))
-      dispatch(clearStack)
+      dispatch(clearStack())
     } else {
+      setTitle(getTitle())
+      // dispatch(setState(stackState[stackState.length-1]))
       dispatch(popStack())
     }
   }
@@ -71,7 +76,7 @@ const SideBarTop = () => {
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
       </button>
-      {title}
+      {getTitle()}
       <span></span>
     </div>
   )

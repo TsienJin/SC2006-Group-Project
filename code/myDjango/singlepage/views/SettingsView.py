@@ -52,12 +52,12 @@ class RetrieveToiletView(APIView):
                                                         "postalCode": postalCode,
                                                         "floorNumber": floorNumber,
                                                         "unitNumber": unitNumber,
-                                                        "coordinates": {"longitude": longitude,
-                                                                        "latititude": latitude}},
+                                                        "coordinates": {"longitude": float(longitude),
+                                                                        "latitude": float(latitude)}},
                                             "Description":{"locationType": locationType,
                                                             "isPublic": isPublic,
                                                             "description": description},
-                                            "initialReview": initialReview,
+                                            "reviews": initialReview,
                                             "averageRating": averageRating})
             
             return JsonResponse(payload)

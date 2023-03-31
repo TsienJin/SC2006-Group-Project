@@ -21,6 +21,7 @@ import {
   PURGE,
   REGISTER
 } from "redux-persist";
+import toiletInterestReducer from "@/components/slice/toiletInterest";
 
 const allReducers = combineReducers({
   counter: counterReducer,
@@ -30,7 +31,8 @@ const allReducers = combineReducers({
   system: systemReducer,
   route: routeReducer,
   notification: notiReducer,
-  location: locationReducer
+  location: locationReducer,
+  toiletInterest: toiletInterestReducer
 })
 
 const persistConfigDev = {

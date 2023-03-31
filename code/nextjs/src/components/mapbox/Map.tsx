@@ -7,6 +7,7 @@ import Test from "@/components/mapbox/Markers/test";
 import RouteLocationMarker from "@/components/mapbox/Markers/routeLocation";
 import {GeoJSON} from "geojson";
 import TrafficMarkers from "@/components/mapbox/Markers/Traffic";
+import Toilets from "@/components/mapbox/Markers/toilet";
 
 
 
@@ -89,7 +90,8 @@ const Map = () => {
               <Layer {...layerStyle} />
             </Source>
         }
-        <Test />
+        {/*<Test />*/}
+        <Toilets />
         <TrafficMarkers />
         <RouteLocationMarker />
       </Mapbox>
