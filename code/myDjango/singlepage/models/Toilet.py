@@ -28,14 +28,14 @@ class Toilet(models.Model):
     )
     # description related fields
     locationType = models.CharField(max_length=255, null=False, blank=True, default='')
-    isPublic = models.BooleanField(default=True)
+    isPublic = models.BooleanField(null=False, blank=True, default=True) # 1 or 0 as string works as input
     description = models.CharField(max_length=255, null=True, blank=True, default='') # toilet name
 
     def __str__(self):
         return str(self.name)
     
     def getToiletID(self):
-        return self.toiletID
+        return self.toiletID 
     
     def getName(self):
         return(self.name)

@@ -14,23 +14,31 @@ from ..utils import forwardGeocoding
 
 class AddToiletView(APIView):
     serializer_class = AddToiletSerializer
-
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid(): 
-            description = serializer.data.get("description")
-            toiletType = serializer.data.get("toiletType")
+        if serializer.is_valid():
+            name = serializer.data.get("name")
             address = serializer.data.get("address")
             postalCode = serializer.data.get("postalCode")
-            longitude, latitude = forwardGeocoding(address)
+            floorNumber = serializer.data.get("floorNumber")
+            unitNumber = serializer.data.get("unitNumber")
+            longitude = serializer.data.get("longitude")
+            latitude = serializer.data.get("latitude")
+            locationType = serializer.data.get("locationType")
+            isPublic = serializer.data.get("isPublic")
+            description = serializer.data.get("description")
 
             if Toilet.retrieveByLongitudeLatitude(longitude, latitude) == False:
-                newToilet = Toilet(description=description, 
-                                toiletType=toiletType, 
-                                address=address, 
-                                postalCode=postalCode, 
-                                longitude=longitude,
-                                latitude=latitude)
+                newToilet = Toilet(name=name,
+                                   address=address,
+                                   postalCode=postalCode,
+                                   floorNumber=floorNumber,
+                                   unitNumber=unitNumber,
+                                   longitude=longitude,
+                                   latitude=latitude,
+                                   locationType=locationType,
+                                   isPublic=isPublic,
+                                   description=description)
                 newToilet.save()
                 payload = {"success_message": "Toilet added successfully"}
                 return JsonResponse(payload)
@@ -38,7 +46,10 @@ class AddToiletView(APIView):
                 payload = {"error_status": "406",
                            "error_message": "Toilet at address already exists"}
                 return JsonResponse(payload)
-
+        else:
+            payload = {"error_message": "Toilet added unsuccessfully"}
+            return JsonResponse(payload)
+        
 class AddFavouriteToiletView(APIView):
     serializer_class = AddFavouriteToiletSerializer
     def post(self, request, *args, **kwargs):
