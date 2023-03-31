@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+
 from ..models import User
 
 class Review(models.Model):
@@ -36,11 +37,20 @@ class Review(models.Model):
         except:
             return False
     
-    def retrieveByReviewID(reviewID):
-        try:
-            return Review.objects.get(reviewID=reviewID)
-        except:
-            return False
+    def retrieveSetByToiletID(toiletID):
+        reviews = []
+        querySet = Review.objects.filter(toiletID=toiletID)
+        for review in querySet.values():
+            userID = review["userID"]
+            name = User.retrieveInfo(userID=userID).getName()
+            rating = review["rating"]
+            comment = review["comment"]
+            reviews.append({"name": name, 
+                            "rating" : rating, 
+                            "comment": comment})
+        return reviews
+
+
 
     
   

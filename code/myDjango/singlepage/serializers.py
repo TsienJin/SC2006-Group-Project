@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models.User import User
-from .models.Toilet import Toilet
+from .models.Toilet import Toilet 
 from .models.Review import Review
 
 
@@ -33,13 +33,12 @@ class EditPasswordSerializer(serializers.ModelSerializer):
 class ResetPasswordEmailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["emailAddress"]
+        fields = ["emailAddress", "password"]
 
-# just need to take in lat long 
 class AddToiletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Toilet
-        fields = ["description", "toiletType", "address", "postalCode"]
+        fields = ["name", "address", "postalCode", "floorNumber", "unitNumber", "longitude", "latitude", "locationType", "isPublic", "description"]
 
 class AddFavouriteToiletSerializer(serializers.ModelSerializer):
     userID = serializers.CharField(read_only=False)
@@ -53,6 +52,8 @@ class RetrieveReviewSerializer(serializers.ModelSerializer):
         fields = ["userID", "toiletID"]
 
 class AddReviewSerializer(serializers.ModelSerializer):
+    longitude = serializers.DecimalField(decimal_places = 6, max_digits = 9, read_only=False)
+    latitude = serializers.DecimalField(decimal_places = 6, max_digits = 8, read_only=False)
     class Meta:
         model = Review
-        fields = ["toiletID", "rating", "comment"]
+        fields = ["longitude", "latitude", "rating", "comment"]

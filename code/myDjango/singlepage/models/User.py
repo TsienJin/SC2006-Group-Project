@@ -18,6 +18,15 @@ class User(models.Model):
     def register(self):
         self.save()
     
+    def getName(self):
+        return self.name
+    
+    def getEmailAddress(self):
+        return self.emailAddress
+    
+    def getPassword(self):
+        return self.password
+    
     def login(self, request):
         request.session.create()
         self.sessionID = request.session.session_key

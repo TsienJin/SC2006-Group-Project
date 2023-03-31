@@ -2,21 +2,15 @@ import uuid
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-
 class Toilet(models.Model):
     # unique identifier for toilets
     toiletID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     # address related fields
-    # name = models.CharField(max_length=255, null=True, blank=True, default = '')
-
-
-
-
-
-    description = models.CharField(max_length=255, null = True, default = '') # toilet name
-    toiletType = models.CharField(max_length=255, null = False, default = 'public')
-    address = models.CharField(max_length=255, null = True, default ='')
-    postalCode = models.CharField(max_length=255, null = True, default = 'None')
+    name = models.CharField(max_length=255, null=True, default='')
+    address = models.CharField(max_length=255, null=True, default ='')
+    postalCode = models.CharField(max_length=255, null=True, default='')
+    floorNumber = models.IntegerField(null=True, blank=True, default=0)
+    unitNumber = models.CharField(max_length=255, null=True, default='')
     # 6 decimal places is represents 0.11m, more than enough to separate toilets within the same building
     longitude = models.DecimalField(
         validators=[MaxValueValidator(180), MinValueValidator(-180)],
@@ -32,12 +26,46 @@ class Toilet(models.Model):
         decimal_places = 6,
         max_digits = 8
     )
-    
+    # description related fields
+    locationType = models.CharField(max_length=255, null=False, blank=True, default='')
+    isPublic = models.BooleanField(default=True)
+    description = models.CharField(max_length=255, null=True, blank=True, default='') # toilet name
+
     def __str__(self):
-        return str(self.description)
+        return str(self.name)
     
     def getToiletID(self):
         return self.toiletID
+    
+    def getName(self):
+        return(self.name)
+    
+    def getAddress(self):
+        return self.address
+    
+    def getPostalCode(self):
+        return self.postalCode
+    
+    def getFloorNumber(self):
+        return self.floorNumber
+    
+    def getUnitNumber(self):
+        return self.unitNumber
+
+    def getLongitude(self):
+        return self.longitude
+    
+    def getLatitude(self):
+        return self.latitude
+    
+    def getLocationType(self):
+        return self.locationType
+    
+    def getIsPublic(self):
+        return self.isPublic
+    
+    def getDescription(self):
+        return self.description
     
     def addToilet(self):
         self.save()
@@ -46,15 +74,6 @@ class Toilet(models.Model):
         toilet = Toilet.objects.get(toiletID=self.toiletID)
         toilet.delete()
 
-    def getLongitude(self):
-        return self.longitude
-    
-    def getLatitude(self):
-        return self.latitude
-
-    def getAddress(self):
-        return self.address
-    
     ######################### Helper Functions #######################################
 
     def retrieveByLongitudeLatitude(longitude, latitude):
@@ -69,17 +88,15 @@ class Toilet(models.Model):
         except:
             return False
     
-    def retrieveByPostalCode(postalCode):
-        try:
-            return Toilet.objects.get(postalCode=postalCode)
-        except:
-            return False
-    
     def retrieveByToiletID(toiletID):
         try:
             return Toilet.objects.get(toiletID=toiletID)
         except:
             return False
+        
+    def retrieveAll():
+        print("hi")
+    
     
     
 

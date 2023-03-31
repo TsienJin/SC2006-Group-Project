@@ -8,32 +8,7 @@ from ..models.Toilet import Toilet
 from ..models.Review import Review
 from ..serializers import AddReviewSerializer, RetrieveReviewSerializer
 
-class RetrieveReviewView(APIView):
-    serializer_class = RetrieveReviewSerializer
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            userID = serializer.get('userID')
-            toiletID = serializer.get('toiletID')
-
-            # user does not exist
-            if User.retrieveInfo(userID=userID) == False:
-                payload = {"error_message": "User does not exist"}
-                return JsonResponse(payload)
-            
-            # user have not reviewed the toilet
-            if Review.retrieveByUserAndToilet(userID=userID, toiletID=toiletID) == False:
-                payload = {"error_message": "User have not reviewed toilet"}
-                return JsonResponse(payload)
-            else:
-                review = Review.retrieveByUserAndToilet(userID=userID, toiletID=toiletID)
-                rating = Review.getRating()
-                comment =Review.getComment()
-                payload = {"rating": rating,
-                           "comment": comment}
-                return JsonResponse(payload)
-
-# move to retrieve toilet
+# get user specific reviews
 class RetrieveReviewView(APIView):
     serializer_class = RetrieveReviewSerializer
     def post(self, request, *args, **kwargs):
@@ -65,9 +40,13 @@ class AddReviewView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            toiletID = serializer.data.get('toiletID')
+            longitude = serializer.data.get('longitude')
+            latitude = serializer.data.get('latitude')
             rating = serializer.data.get('rating')
             comment = serializer.data.get('comment')
+
+            toilet = Toilet.retrieveByLongitudeLatitude(longitude=longitude, latitude=latitude)
+            toiletID = toilet.getToiletID()
             userID = request.session["user"]
             
             # user already reviewed the toilet

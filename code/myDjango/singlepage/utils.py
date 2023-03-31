@@ -61,36 +61,36 @@ def extractToiletInfoOnline():
         toilets = csv.reader(f)
     return toilets
 
-LIMIT = 3
 # update database with online scraped toilet data
-def updateToilets():
+def updateToilets(LIMIT):
     with open("./data/toilet/output.csv") as f:
         toilets = csv.reader(f)
         counter = 0
         for toilet in toilets:
             if counter == LIMIT:
                 break
-            description = toilet[0] + " Toilet"
-            toiletType = "public"
-            addressComplete = toilet[1]
+            name = toilet[0] + " Toilet"
+            address = toilet[1]
+            locationType = toilet[2]
+            
             try:
                 postalCode_clean = ""
-                postalCode_dirty = addressComplete.split("S(")[1][:6]
+                postalCode_dirty = address.split("S(")[1][:6]
                 for char in postalCode_dirty:
                     if ord(char) >= 48 and ord(char) <= 57:
                         postalCode_clean += char
             except:
                 postalCode_clean = "None"
-            longitude, latitude = forwardGeocoding(addressComplete)
+            longitude, latitude = forwardGeocoding(address)
             if Toilet.retrieveByLongitudeLatitude(longitude, latitude) != False:
-                print(addressComplete)
-                continue
+                print(address)
+                pass
             else:
-                newToilet = Toilet(description=description, 
-                                toiletType=toiletType, 
-                                address=addressComplete, 
-                                postalCode=postalCode_clean, 
-                                longitude=longitude,
-                                latitude=latitude)
+                newToilet = Toilet(name=name,
+                                   address=address,
+                                   postalCode=postalCode_clean,
+                                   longitude=longitude,
+                                   latitude=latitude,
+                                   locationType=locationType)
                 newToilet.addToilet()
             counter += 1

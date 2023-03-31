@@ -4,6 +4,8 @@
 # UC04 - Change Password
 # UC05 - Reset Password via Email
 
+# from django.conf import settings
+# from django.core.mail import send_mail
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
@@ -98,7 +100,7 @@ class EditNameView(APIView):
         if serializer.is_valid():
             newName = serializer.data.get("name")
             user = User.retrieveInfo(request.session["user"])
-            oldName = user.name
+            oldName = user.getName()
 
             if (newName == oldName):
                 payload = {"edit_name": False,
@@ -119,7 +121,7 @@ class EditEmailAddressView(APIView):
         if serializer.is_valid():
             newEmailAddress = serializer.data.get("emailAddress")
             user = User.retrieveInfo(request.session["user"])
-            oldEmailAddress = user.emailAddress
+            oldEmailAddress = user.getEmailAddress()
 
             if (newEmailAddress == oldEmailAddress):
                 payload = {"edit_emailAddress": False,
@@ -146,7 +148,7 @@ class EditPasswordView(APIView):
             newPassword = serializer.data.get("password")
             newPassword = make_password(newPassword)
             user = User.retrieveInfo(request.session["user"])
-            oldPassword = user.password
+            oldPassword = user.getPassword()
 
             if (newPassword == oldPassword):
                 payload = {"edit_password": False,
@@ -161,4 +163,25 @@ class EditPasswordView(APIView):
 class ResetPasswordThroughEmailView(APIView):
     serializer_class = ResetPasswordEmailSerializer
     def post(self, request, *args, **kwargs):
-        pass
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            emailAddress = serializer.data.get("emailAddress")
+            newPassword = serializer.data.get("password")
+            user = User.retrieveByEmailAddress(emailAddress)
+
+            # User not registered
+            if user == False:
+                payload = {"error_message": "Email address not registered"}
+                return JsonResponse(payload)
+            
+            # Same password
+            oldPassword = user.getPassword()
+            if (newPassword == oldPassword):
+                payload = {"error_message": "Same password"}
+                return JsonResponse(payload)
+            
+            user.updatePassword(newPassword)
+            payload = {"edit_password": True,
+                      "detail": "Edit password successful"}
+            return JsonResponse(payload)
+                
