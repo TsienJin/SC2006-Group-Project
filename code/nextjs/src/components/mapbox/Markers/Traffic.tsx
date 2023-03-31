@@ -73,7 +73,6 @@ const TrafficMarkers = () => {
 
     getMiddleWare(options) // calls on load
       .then(r=>{
-        console.log(r)
         setTraffic(r?.incidents)
       })
       .catch(e=>{
