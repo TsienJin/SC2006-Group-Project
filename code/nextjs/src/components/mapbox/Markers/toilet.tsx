@@ -35,4 +35,13 @@ const ToiletMarker = () => {
   )
 }
 
-export default ToiletMarker
+
+
+const Toilets = () => {
+
+  return(
+    <ToiletMarker />
+  )
+}
+
+export default Toilets
