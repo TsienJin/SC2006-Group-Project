@@ -9,7 +9,7 @@ import Find, {FindCallback} from "@/components/mapbox/Find";
 import Tab from "@/components/clickeable/Tab";
 import {Coordinates, emptyCoords} from "@/components/slice/location";
 import {MinNumberZero} from "@/validation/fields/text";
-import Button, {buttonColourBlue} from "@/components/clickeable/Button";
+import Button, {buttonColourBlue, buttonColourGreen} from "@/components/clickeable/Button";
 import {Action} from "@/components/clickeable/types";
 
 
@@ -115,7 +115,7 @@ const Description = ({hoist=()=>{}}:{hoist?:Hoist<Description>}) => {
   }
 
   const [locationType, setLocationType] = useState<Option>(locationOptions.options[0])
-  const [isPublic, setIsPublic] = useState<boolean>(false)
+  const [isPublic, setIsPublic] = useState<boolean>(true)
   const [description, setDescription] = useState<string>("")
 
 
@@ -153,7 +153,7 @@ const Description = ({hoist=()=>{}}:{hoist?:Hoist<Description>}) => {
   return(
       <FieldContainer name={"Description"}>
         <SelectInput placeholder={"Location Type"} options={locationOptions} hoist={locationHoist} />
-        <Checkbox preText={"Location is publicly accessible."} hoist={isPublicHoist}/>
+        <Checkbox preText={"Location is publicly accessible."} checked={isPublic} hoist={isPublicHoist}/>
         <TextInput placeholder={"Description"} type={"textarea"} hoist={descriptionHoist}/>
       </FieldContainer>
     )
@@ -230,7 +230,7 @@ const AddToilet = () => {
       <Address hoist={addressHoist}/>
       <Description hoist={descriptionHoist}/>
       <Review hoist={reviewHoist}/>
-      <Button text={"Add Toilet"} colour={buttonColourBlue} action={sendForm} />
+      <Button text={"Add Toilet"} colour={buttonColourGreen} action={sendForm} />
     </>
   )
 }
