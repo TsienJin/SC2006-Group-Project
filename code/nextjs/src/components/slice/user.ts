@@ -33,7 +33,7 @@ export const userSlice = createSlice({
       console.log(action.payload)
       state.name = action.payload.name
       state.email = action.payload.email
-      state.id = action.payload.email
+      state.id = action.payload.id
       state.cookie = action.payload.cookie
     },
     updateName: (state, action:PayloadAction<User>) => {
