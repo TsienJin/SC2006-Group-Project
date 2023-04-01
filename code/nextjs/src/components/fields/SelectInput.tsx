@@ -12,6 +12,11 @@ export type Option = {
   disabled?: boolean
 }
 
+export const emptyOption:Option = {
+  value: "",
+  text: "",
+}
+
 export type SelectInputOptions = {
   options: Option[],
   default?: Option
