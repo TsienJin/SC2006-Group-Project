@@ -1,7 +1,7 @@
 import FieldContainer from "@/components/fields/FieldContainer";
 import TextInput from "@/components/fields/TextInput";
 import {useCallback, useEffect, useState} from "react";
-import {Address, AddToilet, Description, Review} from "@/Structs/toilet";
+import {Address, AddToilet, AddToiletDEPRE, Description, Review} from "@/Structs/toilet";
 import {Hoist} from "@/components/fields/types";
 import SelectInput, {Option, ratingOptions, SelectInputOptions} from "@/components/fields/SelectInput";
 import Checkbox from "@/components/clickeable/Checkbox";
@@ -11,6 +11,8 @@ import {Coordinates, emptyCoords} from "@/components/slice/location";
 import {MinNumberZero} from "@/validation/fields/text";
 import Button, {buttonColourBlue, buttonColourGreen} from "@/components/clickeable/Button";
 import {Action} from "@/components/clickeable/types";
+import {postMiddleware} from "@/middleware/middleware";
+import {middlewareOptions} from "@/middleware/types";
 
 
 
@@ -217,12 +219,32 @@ const AddToilet = () => {
 
   const sendForm:Action = () => {
     const info:AddToilet = {
-      address: address,
-      description: description,
-      initialReview: review,
+      address: address?.address,
+      description: description?.description,
+      floorNumber: address?.floorNumber,
+      isPublic: description?.isPublic,
+      latitude: address?.coordinates?.lat,
+      locationType: description?.locationType,
+      longitude: address?.coordinates?.long,
+      name: address?.name,
+      postalCode: address?.postal,
+      unitNumber: address?.unitNumber
     }
 
     console.log(info)
+
+    const options:middlewareOptions = {
+      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/create/`,
+      params: {...info}
+    }
+
+    postMiddleware(options, true)
+      .then(r=>{
+        console.log(r)
+      })
+      .catch(e=>{
+        console.error(e)
+      })
   }
 
   return(
