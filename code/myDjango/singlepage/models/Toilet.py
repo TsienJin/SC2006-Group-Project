@@ -94,8 +94,6 @@ class Toilet(models.Model):
         except:
             return False
         
-    def retrieveAll():
-        print("hi")
     
     
     

@@ -26,7 +26,7 @@ class RegisterView(APIView):
         if serializer.is_valid():
             name = serializer.data.get('name')
             emailAddress = serializer.data.get('emailAddress')
-            password = serializer.data.get('password')
+            password = serializer.data.get('password') 
 
             if User.emailTaken(emailAddress):
                 return JsonResponse({"error_status": "402",
