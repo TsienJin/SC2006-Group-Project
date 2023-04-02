@@ -25,8 +25,21 @@ export type Review = {
 }
 
 
-export type AddToilet = {
+export type AddToiletDEPRE = {
   address: Address|undefined,
   description: Description|undefined,
   initialReview: Review|undefined,
+}
+
+export type AddToilet = {
+  name: Address.name,
+  address: Address.address,
+  postalCode: Address.postal,
+  floorNumber: Address.floorNumber,
+  unitNumber: Address.unitNumber,
+  longitude: Address.coordinates.long,
+  latitude: Address.coordinates.long,
+  locationType: Description.locationType,
+  isPublic: Description.isPublic,
+  description: Description.description
 }
