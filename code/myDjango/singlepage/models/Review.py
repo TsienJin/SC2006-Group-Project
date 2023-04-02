@@ -4,11 +4,12 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 from ..models import User
+from ..models import Toilet
 
 class Review(models.Model):
     reviewID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    userID = models.CharField(max_length=255, null = True)
-    toiletID = models.CharField(max_length=255, null = True)
+    userID = models.CharField(max_length=255, null=True, blank=False)
+    toiletID = models.CharField(max_length=255, null = True, blank=False)
     rating = models.IntegerField(    
         validators=[MaxValueValidator(5), MinValueValidator(0)],
         null = False,
@@ -17,7 +18,7 @@ class Review(models.Model):
     comment = models.CharField(max_length=255, null = True, default = '')
 
     def __str__(self):
-        return str(self.userID) 
+        return str(self.userID)  
     
     def addReview(self):
         self.save()

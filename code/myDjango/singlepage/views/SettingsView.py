@@ -21,7 +21,7 @@ from ..utils import updateToilets
 class RetrieveToiletView(APIView):
     def get(self, request, *args, **kwargs):
         try:
-            updateToilets(50)
+            updateToilets(500)
 
             payload = {
                 "toilets": []
