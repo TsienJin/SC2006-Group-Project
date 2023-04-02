@@ -30,7 +30,7 @@ export async function sendLogin(email:string, password:string, onErrorCallback=(
     params: {
       'emailAddress': email,
       'password': password
-    }
+    },
   }
 
   const checkForError = (val:any) => {
@@ -45,7 +45,7 @@ export async function sendLogin(email:string, password:string, onErrorCallback=(
   }
 
   try{
-    mRes = await postMiddleware(options)
+    mRes = await postMiddleware(options, true)
     checkForError(mRes)
   } catch (e:any) {
     return false
