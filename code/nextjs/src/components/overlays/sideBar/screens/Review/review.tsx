@@ -51,7 +51,7 @@ const ReviewScreen = () => {
       params: payload
     }
 
-    postMiddleware(options)
+    postMiddleware(options, true)
       .then(r=>{
         console.log(r)
       })
