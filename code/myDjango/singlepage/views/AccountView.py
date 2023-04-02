@@ -99,7 +99,14 @@ class EditNameView(APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             newName = serializer.data.get("name")
+            for key, value in request.session.items():
+                print('{} => {}'.format(key, value))
             user = User.retrieveInfo(request.session["user"])
+
+            if user == False:
+                payload = {"error_message": "User not found"}
+                return JsonResponse(payload)
+                
             oldName = user.getName()
 
             if (newName == oldName):

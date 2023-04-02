@@ -7,6 +7,7 @@ from ..models.User import User
 from ..models.Toilet import Toilet
 from ..models.Review import Review
 from ..serializers import AddReviewSerializer, RetrieveReviewSerializer
+from ..utils import forwardGeocoding
 
 # get user specific reviews
 class RetrieveReviewView(APIView):
@@ -46,6 +47,10 @@ class AddReviewView(APIView):
             comment = serializer.data.get('comment')
 
             toilet = Toilet.retrieveByLongitudeLatitude(longitude=longitude, latitude=latitude)
+            if toilet == False:
+                payload = {"error_message": "Toilet not found"}
+                return JsonResponse(payload)
+            
             toiletID = toilet.getToiletID()
             userID = request.session["user"]
             

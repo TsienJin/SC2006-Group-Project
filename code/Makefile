@@ -1,18 +1,13 @@
-
-
 next:
-	cd ./nextjs; npm install; yarn dev
+	echo "$$PATH"; \
+	cd nextjs; npm install; yarn dev
 
 django:
-	cd ./myDjango; \
+	cd myDjango; \
 	pip3 install -r requirements.txt; \
 	python3 manage.py makemigrations; \
 	python3 manage.py migrate; \
-	python3 manage.py runserver
-
-
-
-
+	python3 manage.py runserver 
 
 runserver: django next
 

@@ -46,7 +46,9 @@ def forwardGeocoding(address):
         return 0, 0
     try:
         longitude = response.json()["features"][0]["center"][0]
+        longitude = "{0:.6f}".format(longitude)
         latitude = response.json()["features"][0]["center"][1]
+        latitude = "{0:.6f}".format(latitude)
     except:
         return 0, 0
     
