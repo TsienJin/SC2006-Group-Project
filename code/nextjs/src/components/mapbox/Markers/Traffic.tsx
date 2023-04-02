@@ -4,6 +4,7 @@ import {middlewareOptions} from "@/middleware/types";
 import {getMiddleWare} from "@/middleware/middleware";
 import {useDispatch} from "react-redux";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
+import {v4} from "uuid";
 
 
 export type TrafficIncident = {
@@ -90,7 +91,7 @@ const TrafficMarkers = () => {
       {
         traffic.map(item=>{
           return(
-            <Mark incident={item} />
+            <Mark incident={item} key={v4()}/>
           )
         })
       }
