@@ -6,14 +6,14 @@ const initState:ToiletInfo = {
   Address: {
     Description: {description: "", isPublic: false, locationType: ""},
     address: "",
-    averageRating: 0,
     coordinates: {latitude: 0, longitude: 0},
     floorNumber: "",
     name: "",
     postalCode: "",
     reviews: [],
     unitNumber: ""
-  }
+  },
+  averageRating: 0
 }
 
 
