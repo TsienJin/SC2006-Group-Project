@@ -79,7 +79,7 @@ export const ValidAge:ValidateInputText = input => {
 
 
 export const ValidAgeMin:ValidateInputText = input => {
-  if(input<=18){
+  if(input<=17){
     return "You must be at least 18!"
   }
 
