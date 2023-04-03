@@ -9,7 +9,7 @@ class Toilet(models.Model):
     name = models.CharField(max_length=255, null=True, default='')
     address = models.CharField(max_length=255, null=True, default ='')
     postalCode = models.CharField(max_length=255, null=True, default='')
-    floorNumber = models.IntegerField(null=True, blank=True, default=0)
+    floorNumber = models.CharField(max_length=255, null=True, blank=True, default=0)
     unitNumber = models.CharField(max_length=255, null=True, blank=True, default='')
     # 6 decimal places is represents 0.11m, more than enough to separate toilets within the same building
     longitude = models.DecimalField(

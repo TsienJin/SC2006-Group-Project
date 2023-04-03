@@ -15,7 +15,10 @@ from ..utils import forwardGeocoding
 class AddToiletView(APIView):
     serializer_class = AddToiletSerializer
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+        req_data = request.data.copy()
+        req_data["longitude"] = "{0:.6f}".format(float(req_data["longitude"]))
+        req_data["latitude"] = "{0:.6f}".format(float(req_data["latitude"]))
+        serializer = self.serializer_class(data=req_data)
         if serializer.is_valid():
             name = serializer.data.get("name")
             address = serializer.data.get("address")
