@@ -16,23 +16,23 @@ def checkEmailFormat(emailAddress):
         return False
 
 # PositionStack
-# def convertAddressToLongLat(address):
-#     longitude, latitude = None, None
-#     API_KEY = env('POSITION_STACK_API_KEY')
-#     base_url = "http://api.positionstack.com/v1/forward"
-#     endpoint = f"{base_url}?access_key={API_KEY}&query={address}"
+def forwardGeocoding_ps(address):
+    longitude, latitude = None, None
+    API_KEY = env('POSITION_STACK_API_KEY')
+    base_url = "http://api.positionstack.com/v1/forward"
+    endpoint = f"{base_url}?access_key={API_KEY}&query={address}"
 
-#     r = requests.get(endpoint)
-#     if r.status_code not in range(200, 299):
-#         return 0, 0
-#     try:
-#         results = r.json()['data'][0]
-#         longitude = results['longitude']
-#         latitude = results['latitude']
-#     except:
-#         return 0, 0
+    r = requests.get(endpoint)
+    if r.status_code not in range(200, 299):
+        return 0, 0
+    try:
+        results = r.json()['data'][0]
+        longitude = results['longitude']
+        latitude = results['latitude']
+    except:
+        return 0, 0
     
-#     return longitude, latitude
+    return longitude, latitude
 
 # MapBox
 def forwardGeocoding(address):
@@ -55,7 +55,18 @@ def forwardGeocoding(address):
     return longitude, latitude
 
 def backwardGeocoding(longitude, latitude):
-    pass
+    API_KEY = env('NEXT_PUBLIC_MAPBOX_KEY')
+    base_url = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
+    endpoint = f"{base_url}{longitude},{latitude}.json?access_token={API_KEY}&limit=1"
+
+    response = requests.get(endpoint)
+    if response.status_code not in range(200, 299):
+        return None
+    try:
+        address = response.json()["features"][0]["place_name"]
+    except:
+        return None
+    return address
 
 def extractToiletInfoOnline():
     print("hi")
