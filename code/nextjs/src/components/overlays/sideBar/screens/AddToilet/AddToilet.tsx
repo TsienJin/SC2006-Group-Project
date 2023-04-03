@@ -13,6 +13,11 @@ import Button, {buttonColourBlue, buttonColourGreen} from "@/components/clickeab
 import {Action} from "@/components/clickeable/types";
 import {postMiddleware} from "@/middleware/middleware";
 import {middlewareOptions} from "@/middleware/types";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@/store";
+import {addToStack, popLatest, sideBarStatesEnum} from "@/components/slice/sideBar";
+import {addNoti, createNoti, notiType} from "@/components/slice/notification";
+import AccountLoginScreen from "@/components/overlays/sideBar/screens/Account/AccountLogin";
 
 
 
@@ -121,7 +126,6 @@ const Description = ({hoist=()=>{}}:{hoist?:Hoist<Description>}) => {
   const [description, setDescription] = useState<string>("")
 
 
-
   const updateHoist = () => { // prevents infinite recursion
       hoist({
         locationType: locationType,
@@ -204,6 +208,35 @@ const AddToilet = () => {
   const [address, setAddress] = useState<Address>()
   const [description, setDescription] = useState<Description>()
   const [review, setReview] = useState<Review>()
+
+
+  const userState = useSelector((state:RootState) => state.user)
+  const [userLatch, setUserLatch] = useState<typeof userState>(userState)
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    if(userState!=userLatch && userState.id){
+      dispatch(popLatest(sideBarStatesEnum.Account))
+      dispatch(addToStack(sideBarStatesEnum.Add))
+      setUserLatch(userState)
+    }
+  }, [userState]) //eslint-disable-line
+
+
+
+  if(!userState.name){
+    dispatch(addNoti(createNoti(
+      "You need to be logged in!",
+      "To prevent spam, we require you to be logged in before add a toilet.",
+      notiType.Warning
+    )))
+
+    return(
+      <AccountLoginScreen />
+    )
+  }
+
 
   const addressHoist:Hoist<Address|undefined> = (value) => {
     setAddress(value)
