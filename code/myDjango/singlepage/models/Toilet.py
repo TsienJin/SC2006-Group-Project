@@ -27,7 +27,7 @@ class Toilet(models.Model):
         max_digits = 8
     )
     # description related fields
-    locationType = models.CharField(max_length=255, null=False, blank=True, default='')
+    locationType = models.CharField(max_length=255, null=True, blank=True, default='')
     isPublic = models.BooleanField(null=False, blank=True, default=True) # 1 or 0 as string works as input
     description = models.CharField(max_length=255, null=True, blank=True, default='') # toilet name
 
