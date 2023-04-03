@@ -2,6 +2,7 @@
 # code workspaces
 **/*.code-workspace
 .idea
+**/*.idea
 
 
 # ANY log files
