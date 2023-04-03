@@ -21,6 +21,7 @@ const Map = () => {
 
   const zoomLoc = useSelector((state:RootState) => state.location.coords)
   const routeState = useSelector((state:RootState) => state.route)
+  const sysSetting = useSelector((state:RootState) => state.system)
 
   const [plotRoute, setPlotRoute] = useState<boolean>(false)
   const [routeGeojson, setRouteGeojson] = useState<GeoJSON>()
@@ -91,8 +92,8 @@ const Map = () => {
             </Source>
         }
         {/*<Test />*/}
-        <Toilets />
-        <TrafficMarkers />
+        { sysSetting.showToilet && <Toilets /> }
+        { sysSetting.showTraffic && <TrafficMarkers /> }
         <RouteLocationMarker />
       </Mapbox>
     </>
