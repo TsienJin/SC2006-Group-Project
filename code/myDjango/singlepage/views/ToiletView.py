@@ -58,7 +58,7 @@ class AddFavouriteToiletView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            userID = serializer.data.get("userID")
+            userID = request.session['user']
             longitude = serializer.data.get("longitude")
             latitude = serializer.data.get("latitude")
             user = User.retrieveInfo(userID)
@@ -84,8 +84,9 @@ class AddFavouriteToiletView(APIView):
                 return JsonResponse(payload)
 
 class RetrieveFavouriteToiletView(APIView):
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         try:
+            serializer = self.serializer_class(data=request.data)
             userID = request.session['user']
             user = User.retrieveInfo(userID=userID)
             favToilets = user.getFavToilets()
@@ -93,7 +94,7 @@ class RetrieveFavouriteToiletView(APIView):
                 payload = {"error_message": "Empty favourite toilet list"}
                 return JsonResponse(payload)
             else:
-                payload = {}
+                payload = []
                 counter = 1
                 for toiletID in favToilets:
                     toilet = Toilet.retrieveByToiletID(toiletID)
@@ -102,8 +103,8 @@ class RetrieveFavouriteToiletView(APIView):
                     else:
                         coordinates = {"longitude": toilet.getLongitude(),
                                       "latitude": toilet.getLatitude()}
-                        payload[str(counter)] = {"toiletID": toiletID,
-                                                 "coordinates": coordinates}
+                        payload.append({"toiletID": toiletID,
+                                                 "coordinates": coordinates})
                     counter += 1
                 return JsonResponse(payload)
         except:
