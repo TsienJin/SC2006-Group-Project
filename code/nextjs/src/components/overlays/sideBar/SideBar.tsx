@@ -19,6 +19,7 @@ import AddToilet from "@/components/overlays/sideBar/screens/AddToilet/AddToilet
 import FindScreen from "@/components/overlays/sideBar/screens/Find/FindScreen";
 import RouteOptions from "@/components/overlays/sideBar/screens/Route/RouteOptions";
 import ReviewScreen from "@/components/overlays/sideBar/screens/Review/review";
+import FavouriteScreen from "@/components/overlays/sideBar/screens/Favourite/favourite";
 
 
 const SideBarScreen = () => {
@@ -62,6 +63,8 @@ const SideBarScreen = () => {
     case sideBarStatesEnum.Add: return <AddToilet />
 
     case sideBarStatesEnum.Review: return <ReviewScreen />
+
+    case sideBarStatesEnum.Favourites: return <FavouriteScreen />
 
     case sideBarStatesEnum.Find: return <FindScreen />
 
