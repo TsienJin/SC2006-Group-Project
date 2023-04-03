@@ -3,8 +3,8 @@ import uuid
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from ..models import User
-from ..models import Toilet
+from ..models.User import User
+from ..models.Toilet import Toilet
 
 class Review(models.Model):
     reviewID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
@@ -18,7 +18,9 @@ class Review(models.Model):
     comment = models.CharField(max_length=255, null = True, default = '')
 
     def __str__(self):
-        return str(self.userID)  
+        userName = User.retrieveInfo(userID=self.userID).getName()
+        toiletName = Toilet.retrieveByToiletID(toiletID=self.toiletID).getName()
+        return f"{toiletName}-{userName}"  
     
     def addReview(self):
         self.save()
