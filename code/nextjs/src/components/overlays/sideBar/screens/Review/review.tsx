@@ -1,6 +1,6 @@
 import FormWrapper from "@/components/fields/FormWrapper";
 import TextInput from "@/components/fields/TextInput";
-import Button, {buttonColourBlue, buttonColourGreen} from "@/components/clickeable/Button";
+import Button, {buttonColourGreen} from "@/components/clickeable/Button";
 import SelectInput, {emptyOption, Option, ratingOptions} from "@/components/fields/SelectInput";
 import FieldWrapper from "@/components/fields/FieldWrapper";
 import {useDispatch, useSelector} from "react-redux";
@@ -54,9 +54,19 @@ const ReviewScreen = () => {
     postMiddleware(options, true)
       .then(r=>{
         console.log(r)
+        dispatch(addNoti(createNoti(
+          "Added review!",
+          `We've added your review for ${toilet.Address.name}!`,
+          notiType.Notification
+        )))
       })
       .catch(e=>{
         console.error(e)
+        dispatch(addNoti(createNoti(
+          "Error adding review!",
+          "Oopsie, lets pretend that this error didn't happen.",
+          notiType.Warning
+        )))
       })
 
   }
