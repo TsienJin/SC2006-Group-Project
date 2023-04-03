@@ -5,6 +5,6 @@ export type middlewareOptions = {
     [key:string]:string,
   },
   params?: {
-    [key:string]:string,
+    [key:string]:any,
   }
 }
