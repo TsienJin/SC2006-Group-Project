@@ -85,7 +85,11 @@ class AddFavouriteToiletView(APIView):
 class RetrieveFavouriteToiletView(APIView):
     def get(self, request, *args, **kwargs):
         try:
-            user = User.retrieveInfo(userID=request.session["user"])
+            userID = request.GET["userID"]
+            user = User.retrieveInfo(userID=userID)
+            if user == False:
+                payload = {"error_message": "Invalid user"}
+                return JsonResponse(payload)
             favToilets = user.getFavToilets()
             if favToilets == []:
                 payload = {"error_message": "Empty favourite toilet list"}
@@ -108,7 +112,7 @@ class RetrieveFavouriteToiletView(APIView):
                                                             "coordinates": coordinates})
                 return JsonResponse(payload)
         except:
-            payload = {"error_message": "Invalid user"}
+            payload = {"error_message": "Unexpected error"}
             return JsonResponse(payload)
 
 # KIV - remove favourite toilet
