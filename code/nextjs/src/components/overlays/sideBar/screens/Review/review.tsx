@@ -55,11 +55,19 @@ const ReviewScreen = () => {
     postMiddleware(options, true)
       .then(r=>{
         console.log(r)
-        dispatch(addNoti(createNoti(
-          "Added review!",
-          `We've added your review for ${toilet.Address.name}!`,
-          notiType.Notification
-        )))
+        if(r?.error_message){
+          dispatch(addNoti(createNoti(
+            "Already reviewed!",
+            "You have already reviewed this toilet!",
+            notiType.Notification
+          )))
+        } else {
+          dispatch(addNoti(createNoti(
+            "Added review!",
+            `We've added your review for ${toilet.Address.name}!`,
+            notiType.Notification
+          )))
+        }
       })
       .catch(e=>{
         console.error(e)
