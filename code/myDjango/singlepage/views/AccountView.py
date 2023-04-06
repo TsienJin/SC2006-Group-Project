@@ -4,8 +4,6 @@
 # UC04 - Change Password
 # UC05 - Reset Password via Email
 
-# from django.conf import settings
-# from django.core.mail import send_mail
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
@@ -14,13 +12,20 @@ from ..models.User import User
 from ..serializers import RegisterSerializer, EditNameSerializer, EditEmailAddressSerializer, EditPasswordSerializer, UserSerializer, ResetPasswordEmailSerializer
 from ..utils import checkEmailFormat
 
+''' Registers an account for MoP
+checks for password and confirm password needs to be done at front end since it is not passed to backend
+emailAddress must be unique
+sessionID created and saved once account is registered and redirected to login
+password is hashed before storing into database
+Args:
+
+Returns:
+
+'''
 class RegisterView(APIView):
     serializer_class = RegisterSerializer
 
-    # checks for password and confirm password needs to be done at front end since it is not passed to backend
-    # emailAddress must be unique
-    # sessionID created and saved once account is registered and redirected to login
-    # password is hashed before storing into database
+    
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
@@ -44,9 +49,9 @@ class RegisterView(APIView):
             user.login(request)
             
             # json.dumps(user.userID, cls=DjangoJSONEncoder)
-            payload = { "usrEmail": emailAddress,
-                        "usrName": name,
-                        "usrID": user.userID,
+            payload = { "userEmail": emailAddress,
+                        "userName": name,
+                        "userID": user.userID,
                         "sessionID": user.sessionID }
 
             return JsonResponse(payload)
@@ -82,7 +87,7 @@ class LoginView(APIView):
             return JsonResponse(payload)
         
 class LogoutView(APIView):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         try:
             user = User.retrieveInfo(request.session['user'])
             user.logout(request)

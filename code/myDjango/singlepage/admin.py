@@ -8,4 +8,3 @@ from .models.Traffic import Traffic
 admin.site.register(User)
 admin.site.register(Toilet)
 admin.site.register(Review)
-admin.site.register(Traffic)
