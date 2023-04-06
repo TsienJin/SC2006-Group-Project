@@ -7,7 +7,6 @@ from ..models.User import User
 from ..models.Toilet import Toilet
 from ..models.Review import Review
 from ..serializers import AddReviewSerializer, RetrieveReviewSerializer
-from ..utils import forwardGeocoding
 
 # get user specific reviews
 class RetrieveReviewView(APIView):
