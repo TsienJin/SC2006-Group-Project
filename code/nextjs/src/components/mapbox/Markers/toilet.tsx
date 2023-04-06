@@ -303,18 +303,22 @@ const Toilets = () => {
       })
   },[]) //eslint-disable-line
 
-  return(
-    <>
-      {
-        toilets.map(toilet=>{
-          return(
-            // <></>
-            <ToiletMarker toilet={toilet} key={v4()}/>
-          )
-        })
-      }
-    </>
-  )
+  if (toilets?.length){
+    return(
+      <>
+        {
+          toilets.map(toilet=>{
+            return(
+              // <></>
+              <ToiletMarker toilet={toilet} key={v4()}/>
+            )
+          })
+        }
+      </>
+    )
+  } else {
+    return <></>
+  }
 }
 
 export default Toilets
