@@ -104,12 +104,34 @@ class RetrieveFavouriteToiletView(APIView):
                         payload = {"error_message": "Toilet not found"}
                         return JsonResponse(payload)
                     else:
-                        toiletName = toilet.getName()
-                        coordinates = {"longitude": toilet.getLongitude(),
-                                      "latitude": toilet.getLatitude()}
-                        payload["favourite_toilets"].append({"toiletID": toiletID,
-                                                             "toiletName": toiletName,
-                                                            "coordinates": coordinates})
+                        averageRating = toilet.getAverageRating()
+                        name = toilet.getName()
+                        address = toilet.getAddress()
+                        postalCode = toilet.getPostalCode()
+                        floorNumber = toilet.getFloorNumber()
+                        unitNumber = toilet.getUnitNumber()
+                        longitude = toilet.getLongitude()
+                        latitude = toilet.getLatitude()
+                        locationType = toilet.getLocationType()
+                        isPublic = toilet.getIsPublic()
+                        description = toilet.getDescription()
+                        payload["favourite_toilets"].append({"averageRating": averageRating,
+                                                             "Address": {
+                                                                    "name": name,
+                                                                    "address": address,
+                                                                    "postalCode": postalCode,
+                                                                    "floorNumber": floorNumber,
+                                                                    "unitNumber": unitNumber, 
+                                                                    "coordinates": { 
+                                                                        "longitude": longitude,
+                                                                        "latitude": latitude
+                                                                    },
+                                                                    "Description": {
+                                                                        "locationType": locationType,
+                                                                        "isPublic": isPublic,
+                                                                        "description": description}
+                                                                    }
+                                                            })
                 return JsonResponse(payload)
         except:
             payload = {"error_message": "Unexpected error"}
