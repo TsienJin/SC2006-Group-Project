@@ -13,7 +13,7 @@ import {FindCallback} from "@/components/mapbox/Find";
 import {v4} from "uuid";
 import {setToiletInterest} from "@/components/slice/toiletInterest";
 import {update} from "@/components/slice/location";
-import {addAll, addFav} from "@/components/slice/favtoilet";
+import {addFav} from "@/components/slice/favtoilet";
 import Toilet from "@/components/mapbox/Markers/toilet";
 
 
@@ -65,10 +65,9 @@ const FavouriteScreen = () => {
 
       getMiddleWare(options, )
         .then(r=>{
-          console.log(r.favourite_toilets)
+          console.log(r)
           r?.favourite_toilets.map((toilet:ToiletInfo) => {
             dispatch(addFav(toilet))
-            console.log(toilet)
           })
         })
         .catch(e=>{

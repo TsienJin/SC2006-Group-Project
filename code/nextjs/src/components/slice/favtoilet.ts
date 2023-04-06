@@ -16,11 +16,14 @@ export const favToiletSlice = createSlice({
   reducers: {
     addFav: (state, action:PayloadAction<ToiletInfo>) => {
       state.favourites.push(action.payload)
+
+      state.favourites = Array.from(new Set(state.favourites))
     },
     removeFav: (state, action:PayloadAction<ToiletInfo>) => {
       const index = state.favourites.indexOf(action.payload)
       if(index > -1){
         state.favourites.splice(index, 1)
+        
       }
     },
   }
