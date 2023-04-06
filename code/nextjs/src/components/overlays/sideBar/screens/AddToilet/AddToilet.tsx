@@ -272,18 +272,19 @@ const AddToilet = () => {
 
     postMiddleware(options, true)
       .then(r=>{
-        console.log(r)
-        if(r?.success_message){
+        if(r?.error_message){
+          console.error(r)
           dispatch(addNoti(createNoti(
-            "Toilet added!",
-            r?.success_message,
-            notiType.Notification
+            "Error adding toilet!",
+            r?.error_message || "Something went wrong adding toilet.",
+            notiType.Warning
           )))
         } else {
+          console.log(r)
           dispatch(addNoti(createNoti(
-            "Error adding toilet",
-            r?.error_message || "Something went wrong :(",
-            notiType.Warning
+            "Toilet added!",
+            r?.success_message || "Toilet successfully added!",
+            notiType.Notification
           )))
         }
       })

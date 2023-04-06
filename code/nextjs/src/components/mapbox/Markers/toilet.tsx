@@ -10,7 +10,7 @@ import {RootState} from "@/store";
 import {setToiletInterest} from "@/components/slice/toiletInterest";
 import {middlewareOptions} from "@/middleware/types";
 import {postMiddleware} from "@/middleware/middleware";
-import {addFav} from "@/components/slice/favtoilet";
+import {addFav, removeFav} from "@/components/slice/favtoilet";
 
 
 export type ToiletInfo = {
@@ -86,12 +86,22 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
   }
 
   useEffect(()=>{
-    if(favs.indexOf(toilet) > -1){
-      setIsFav(true)
-    } else {
-      setIsFav(false)
-    }
-  }, [favs, toilet])
+    favs.forEach(favToilet => {
+      let isInside = false
+
+      if(favToilet.Address.address == toilet.Address.address){
+        isInside = true
+      }
+
+      setIsFav(isInside)
+    })
+
+    // if(favs.indexOf(toilet) > -1){
+    //   setIsFav(true)
+    // } else {
+    //   setIsFav(false)
+    // }
+  })
 
   const addFavToilet:Action = () => {
     if(userState.id==""){
@@ -101,7 +111,7 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
         notiType.Warning
       )))
     } else {
-      const options:middlewareOptions = {
+      const optionsAdd:middlewareOptions = {
         endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/addfavourite/`,
         params: {
           userID: userState.id,
@@ -110,34 +120,68 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
         },
       }
 
-      postMiddleware(options)
-        .then(r=>{
-          if(r?.error_message){
-            console.error(r)
-            dispatch(addNoti(createNoti(
-              "Toilet already in favourites!",
-              "Already added to your list.",
-              notiType.Notification
-            )))
-          } else {
+      const optionsRemove:middlewareOptions = {
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/removefavourite/`,
+        params: {
+          userID: userState.id,
+          latitude: toilet.Address.coordinates.latitude,
+          longitude: toilet.Address.coordinates.longitude
+        }
+      }
+
+      if(isFav){
+        postMiddleware(optionsRemove)
+          .then(r=>{
             console.log(r)
-            dispatch(addFav(toilet))
             dispatch(addNoti(createNoti(
-              "Added to favourites!",
-              "Access your favourite toilets using the favourites menu item!",
+              "Removed from favourites!",
+              "Goodbye toilet :(",
               notiType.Notification
             )))
-            setIsFav(true)
-          }
-        })
-        .catch(e=>{
-          console.error(e)
-          dispatch(addNoti(createNoti(
-            "Oops! Error adding to favourite!",
-            "Lets pretend this didn't happen.",
-            notiType.Warning
-          )))
-        })
+          })
+          .then(()=>{
+            dispatch(removeFav(toilet))
+            setIsFav(false)
+          })
+          .catch(e=>{
+            console.error(e)
+            dispatch(addNoti(createNoti(
+              "Error removing toilet from favourites",
+              e?.error_message || "Something went wrong on the backend",
+              notiType.Warning
+            )))
+          })
+      } else { // add to fav
+        postMiddleware(optionsAdd)
+          .then(r=>{
+            if(r?.error_message){
+              console.error(r)
+              dispatch(addNoti(createNoti(
+                "Toilet already in favourites!",
+                "Already added to your list.",
+                notiType.Notification
+              )))
+            } else {
+              console.log(r)
+              dispatch(addFav(toilet))
+              dispatch(addNoti(createNoti(
+                "Added to favourites!",
+                "Access your favourite toilets using the favourites menu item!",
+                notiType.Notification
+              )))
+              setIsFav(true)
+            }
+          })
+          .catch(e=>{
+            console.error(e)
+            dispatch(addNoti(createNoti(
+              "Oops! Error adding to favourite!",
+              "Lets pretend this didn't happen.",
+              notiType.Warning
+            )))
+          })
+      }
+
     }
   }
 
@@ -259,22 +303,18 @@ const Toilets = () => {
       })
   },[]) //eslint-disable-line
 
-  if(toilets?.length){
-    return(
-      <>
-        {
-          toilets.map(toilet=>{
-            return(
-              // <></>
-              <ToiletMarker toilet={toilet} key={v4()}/>
-            )
-          })
-        }
-      </>
-    )
-  } else {
-    return <></>
-  }
+  return(
+    <>
+      {
+        toilets.map(toilet=>{
+          return(
+            // <></>
+            <ToiletMarker toilet={toilet} key={v4()}/>
+          )
+        })
+      }
+    </>
+  )
 }
 
 export default Toilets
