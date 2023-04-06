@@ -4,15 +4,15 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initState:ToiletInfo = {
   Address: {
-    Description: {description: "", isPublic: false, locationType: ""},
     address: "",
     coordinates: {latitude: 0, longitude: 0},
     floorNumber: "",
     name: "",
     postalCode: "",
-    reviews: [],
     unitNumber: ""
   },
+  Description: {description: "", isPublic: false, locationType: ""},
+  reviews: [],
   averageRating: 0
 }
 

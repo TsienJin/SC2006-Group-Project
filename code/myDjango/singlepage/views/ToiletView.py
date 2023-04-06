@@ -70,7 +70,6 @@ class AddFavouriteToiletView(APIView):
                 return JsonResponse(payload)
 
             toiletID = toilet.getToiletID()
-            print(user.favToilets)
             
             # check if toilet is already a favourite
             if user.isFavourite(toiletID):
@@ -84,31 +83,36 @@ class AddFavouriteToiletView(APIView):
                 return JsonResponse(payload)
 
 class RetrieveFavouriteToiletView(APIView):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         try:
-            serializer = self.serializer_class(data=request.data)
-            userID = request.session['user']
+            userID = request.GET["userID"]
             user = User.retrieveInfo(userID=userID)
+            if user == False:
+                payload = {"error_message": "Invalid user"}
+                return JsonResponse(payload)
             favToilets = user.getFavToilets()
             if favToilets == []:
                 payload = {"error_message": "Empty favourite toilet list"}
                 return JsonResponse(payload)
             else:
-                payload = []
-                counter = 1
+                payload = {
+                    "favourite_toilets": []
+                }
                 for toiletID in favToilets:
                     toilet = Toilet.retrieveByToiletID(toiletID)
                     if toilet == False:
-                        continue
+                        payload = {"error_message": "Toilet not found"}
+                        return JsonResponse(payload)
                     else:
+                        toiletName = toilet.getName()
                         coordinates = {"longitude": toilet.getLongitude(),
                                       "latitude": toilet.getLatitude()}
-                        payload.append({"toiletID": toiletID,
-                                                 "coordinates": coordinates})
-                    counter += 1
+                        payload["favourite_toilets"].append({"toiletID": toiletID,
+                                                             "toiletName": toiletName,
+                                                            "coordinates": coordinates})
                 return JsonResponse(payload)
         except:
-            payload = {"error_message": "Invalid user"}
+            payload = {"error_message": "Unexpected error"}
             return JsonResponse(payload)
 
 # KIV - remove favourite toilet

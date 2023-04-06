@@ -284,7 +284,7 @@ const AddToilet = () => {
     <>
       <Address hoist={addressHoist}/>
       <Description hoist={descriptionHoist}/>
-      <Review hoist={reviewHoist}/>
+      {/*<Review hoist={reviewHoist}/>*/}
       <Button text={"Add Toilet"} colour={buttonColourGreen} action={sendForm} />
     </>
   )
