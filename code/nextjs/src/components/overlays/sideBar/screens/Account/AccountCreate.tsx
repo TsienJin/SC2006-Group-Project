@@ -108,13 +108,14 @@ const AccountCreateScreen = () => {
           notiType.Notification
         )))
 
-        sendLogin(email, password, onErrorLogin).then((e:User|false)=>{
-          if(e){
-            dispatch(login(e))
-            dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
-          } else {
-            onErrorLogin()
-          }
+        sendLogin(email, password, onErrorLogin)
+          .then((e:User|false)=>{
+            if(e){
+              dispatch(login(e))
+              dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
+            } else {
+              onErrorLogin()
+            }
         })
 
 

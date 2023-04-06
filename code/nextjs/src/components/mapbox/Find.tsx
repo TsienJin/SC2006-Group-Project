@@ -54,7 +54,8 @@ const SuggestionItem = ({item, callback=()=>{}}:{item:AutofillSuggestion, callba
   const dispatch = useDispatch()
 
   const click = () => {
-    getCoords(item.full_address).then(result => {
+    getCoords(item.full_address)
+      .then(result => {
       callback(result)
     })
   }
@@ -90,7 +91,8 @@ const Find = ({label="Find", defaultVal="", topPad=true, replaceAfterClick=false
 
   useEffect(()=>{
     if(find.length>0){
-      autofill.suggest(find, {sessionToken: uuid, country: "SG"}).then(r => setSuggestions(r.suggestions))
+      autofill.suggest(find, {sessionToken: uuid, country: "SG"})
+        .then(r => setSuggestions(r.suggestions))
     }
     // eslint-disable-next-line
   },[find])

@@ -290,6 +290,11 @@ const AddToilet = () => {
       })
       .catch(e=>{
         console.error(e)
+        dispatch(addNoti(createNoti(
+          "Error adding toilet",
+          "Something went wrong :(",
+          notiType.Warning
+        )))
       })
   }
 
