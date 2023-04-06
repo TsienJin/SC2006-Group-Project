@@ -303,7 +303,7 @@ const Toilets = () => {
       })
   },[]) //eslint-disable-line
 
-  if (toilets.length){
+  if (toilets?.length){
     return(
       <>
         {
