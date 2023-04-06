@@ -14,6 +14,11 @@ import {postMiddleware} from "@/middleware/middleware";
 
 export type ToiletInfo = {
   averageRating: number;
+  Description: {
+    locationType: string,
+    isPublic: boolean,
+    description: string,
+  },
   Address: {
     name: string,
     address: string,
@@ -24,14 +29,8 @@ export type ToiletInfo = {
       longitude: number,
       latitude: number,
     },
-    Description: {
-      locationType: string,
-      isPublic: boolean,
-      description: string,
-    },
-    reviews: [],
-    // averageRating: number
-  }
+  },
+  reviews?: [],
 }
 
 
@@ -104,12 +103,21 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
 
       postMiddleware(options)
         .then(r=>{
-          console.log(r)
-          dispatch(addNoti(createNoti(
-            "Added to favourites!",
-            "Access your favourite toilets using the favourites menu item!",
-            notiType.Notification
-          )))
+          if(r?.error_message){
+            console.error(r)
+            dispatch(addNoti(createNoti(
+              "Toilet already in favourites!",
+              "Already added to your list.",
+              notiType.Notification
+            )))
+          } else {
+            console.log(r)
+            dispatch(addNoti(createNoti(
+              "Added to favourites!",
+              "Access your favourite toilets using the favourites menu item!",
+              notiType.Notification
+            )))
+          }
         })
         .catch(e=>{
           console.error(e)
@@ -161,8 +169,8 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
             <span>{unitLine()}</span>
           </div>
         </div>
-        <div className={"description"}>
-          <span>{toilet.Address.Description?.description}</span>
+        <div className={"description w-full text-opacity-75 text-shadow mt-2"}>
+          <p>{toilet.Description.description}</p>
         </div>
         <div className={"action flex flex-row justify-end items-center w-full"}>
           <PopupButton name={"review"} action={reviewToilet}>
@@ -192,6 +200,13 @@ const ToiletMarker = ({toilet}:{toilet:ToiletInfo}) => {
   const toggle = () => {
     setOpen(!open)
   }
+
+  //
+  // useEffect(()=>{
+  //   if(open){
+  //     console.log(toilet)
+  //   }
+  // },[open])
 
   return(
     <>

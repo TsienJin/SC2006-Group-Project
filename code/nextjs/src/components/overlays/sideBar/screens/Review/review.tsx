@@ -19,6 +19,7 @@ const ReviewScreen = () => {
 
   const toilet = useSelector((state:RootState) => state.toiletInterest)
   const userState = useSelector((state:RootState) => state.user)
+  const sidebarState = useSelector((state:RootState) => state.sideBar.stack)
   const [userLatch, setUserLatch] = useState<typeof userState>(userState)
   const dispatch = useDispatch()
 
@@ -83,7 +84,8 @@ const ReviewScreen = () => {
 
 
 
-  if(!userState.name){
+  if(!userState.name && sidebarState.slice(-1)[0] == sideBarStatesEnum.Review){
+
     dispatch(addNoti(createNoti(
       "You need to be logged in!",
       "To prevent spam, we require you to be logged in before you write a review.",
