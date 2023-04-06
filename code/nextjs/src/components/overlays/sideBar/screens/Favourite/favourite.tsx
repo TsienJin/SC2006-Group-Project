@@ -13,6 +13,8 @@ import {FindCallback} from "@/components/mapbox/Find";
 import {v4} from "uuid";
 import {setToiletInterest} from "@/components/slice/toiletInterest";
 import {update} from "@/components/slice/location";
+import {addFav, clearFav} from "@/components/slice/favtoilet";
+import Toilet from "@/components/mapbox/Markers/toilet";
 
 
 
@@ -47,8 +49,9 @@ const FavouriteScreen = () => {
   const [userLatch, setUserLatch] = useState<typeof userState>(userState)
   const dispatch = useDispatch()
 
-  const [favToilet, setFavToilet] = useState<ToiletInfo[]>([])
+  // const [favToilet, setFavToilet] = useState<ToiletInfo[]>([])
 
+  const favToilet = useSelector((state:RootState) => state.favToilet.favourites)
 
 
   useEffect(()=>{
@@ -63,7 +66,10 @@ const FavouriteScreen = () => {
       getMiddleWare(options, )
         .then(r=>{
           console.log(r)
-          setFavToilet(r?.favourite_toilets)
+          dispatch(clearFav())
+          r?.favourite_toilets.map((toilet:ToiletInfo) => {
+            dispatch(addFav(toilet))
+          })
         })
         .catch(e=>{
           console.error(e)

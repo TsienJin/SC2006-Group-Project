@@ -8,7 +8,7 @@ export enum notiType {
 export type notiContent = {
   id: string,
   title: string,
-  text: string,
+  text: string|any,
   type?: notiType
 }
 export function createNoti(title:notiContent["title"], text:notiContent["text"], type:notiContent["type"]=notiType.Notification):notiContent {
@@ -26,7 +26,11 @@ export type notiState = {
 
 const initialState:notiState = {
   notifications: [
-    createNoti("Work in progress!", "This website is currently still in development! Bugs may be crawling around!", notiType.Warning),
+    createNoti(
+      "Development environment!",
+      "This website's environment is set to DEV! Duplicate notifications may be seen.",
+      notiType.Warning
+    ),
   ]
 }
 

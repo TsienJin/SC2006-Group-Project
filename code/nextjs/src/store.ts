@@ -22,6 +22,7 @@ import {
   REGISTER
 } from "redux-persist";
 import toiletInterestReducer from "@/components/slice/toiletInterest";
+import favToiletReducer from "@/components/slice/favtoilet";
 
 const allReducers = combineReducers({
   counter: counterReducer,
@@ -32,7 +33,8 @@ const allReducers = combineReducers({
   route: routeReducer,
   notification: notiReducer,
   location: locationReducer,
-  toiletInterest: toiletInterestReducer
+  toiletInterest: toiletInterestReducer,
+  favToilet: favToiletReducer,
 })
 
 const persistConfigDev = {

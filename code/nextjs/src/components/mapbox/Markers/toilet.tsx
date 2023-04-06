@@ -10,6 +10,7 @@ import {RootState} from "@/store";
 import {setToiletInterest} from "@/components/slice/toiletInterest";
 import {middlewareOptions} from "@/middleware/types";
 import {postMiddleware} from "@/middleware/middleware";
+import {addFav} from "@/components/slice/favtoilet";
 
 
 export type ToiletInfo = {
@@ -113,6 +114,7 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
             )))
           } else {
             console.log(r)
+            dispatch(addFav(toilet))
             dispatch(addNoti(createNoti(
               "Added to favourites!",
               "Access your favourite toilets using the favourites menu item!",
@@ -171,7 +173,7 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
           </div>
         </div>
         <div className={"description w-full text-opacity-75 text-shadow mt-2"}>
-          <p>{toilet.Address.Description.description}</p>
+          <p>{toilet.Address?.Description?.description}</p>
         </div>
         <div className={"action flex flex-row justify-end items-center w-full"}>
           <PopupButton name={"review"} action={reviewToilet}>
