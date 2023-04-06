@@ -14,11 +14,6 @@ import {postMiddleware} from "@/middleware/middleware";
 
 export type ToiletInfo = {
   averageRating: number;
-  Description: {
-    locationType: string,
-    isPublic: boolean,
-    description: string,
-  },
   Address: {
     name: string,
     address: string,
@@ -29,8 +24,14 @@ export type ToiletInfo = {
       longitude: number,
       latitude: number,
     },
+    Description: {
+      locationType: string,
+      isPublic: boolean,
+      description: string,
+    },
+    reviews?: [],
+
   },
-  reviews?: [],
 }
 
 
@@ -158,8 +159,8 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
       offset={12}
     >
       <div className={"flex flex-col justify-center items-center max-w-[45ch]"}>
-        <div className={"top flex flex-col justify-start items-start"}>
-          <div className={"flex flex-row justify-start items-start gap-x-2"}>
+        <div className={"top flex flex-col justify-between items-start"}>
+          <div className={"flex flex-row w-full justify-between items-start gap-x-2"}>
             <span className={"text-shadow font-medium text-md"}>{toilet.Address.name.length>0? toilet.Address.name : "Toilet"}</span>
             <span className={"flex-shrink-0 text-xl"}>{toilet.averageRating>0?`${'⭐'.repeat(parseInt(`${toilet.averageRating}`))} `:""}</span>
             {/*<span>{toilet.averageRating}</span>*/}
@@ -170,7 +171,7 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
           </div>
         </div>
         <div className={"description w-full text-opacity-75 text-shadow mt-2"}>
-          <p>{toilet.Description.description}</p>
+          <p>{toilet.Address.Description.description}</p>
         </div>
         <div className={"action flex flex-row justify-end items-center w-full"}>
           <PopupButton name={"review"} action={reviewToilet}>

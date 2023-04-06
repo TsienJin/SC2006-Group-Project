@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from ..models import Review
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Toilet(models.Model):
@@ -64,7 +65,7 @@ class Toilet(models.Model):
     def getIsPublic(self):
         return self.isPublic
     
-    def getDescription(self):
+    def getDescription(self): 
         return self.description
     
     def addToilet(self):
@@ -73,6 +74,15 @@ class Toilet(models.Model):
     def deleteToilet(self):
         toilet = Toilet.objects.get(toiletID=self.toiletID)
         toilet.delete()
+
+    def getAverageRating(self):
+        averageRating = 0.0
+        reviews = Review.Review.retrieveSetByToiletID(toiletID=self.toiletID)
+        for review in reviews:
+            averageRating += review["rating"]
+        if len(reviews) > 0:
+            averageRating = averageRating/(len(reviews))
+        return averageRating
 
     ######################### Helper Functions #######################################
 

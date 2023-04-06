@@ -7,6 +7,37 @@ import {getMiddleWare, postMiddleware} from "@/middleware/middleware";
 import {addToStack, popLatest, sideBarStatesEnum} from "@/components/slice/sideBar";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
 import AccountLoginScreen from "@/components/overlays/sideBar/screens/Account/AccountLogin";
+import toilet, {ToiletInfo} from "@/components/mapbox/Markers/toilet";
+import {AutofillSuggestion} from "@mapbox/search-js-core";
+import {FindCallback} from "@/components/mapbox/Find";
+import {v4} from "uuid";
+import {setToiletInterest} from "@/components/slice/toiletInterest";
+import {update} from "@/components/slice/location";
+
+
+
+
+const ToiletFavourite = ({item, callback=()=>{}}:{item:ToiletInfo, callback?:any}) => {
+
+  const dispatch = useDispatch()
+
+  const clicked = () => {
+    console.log(item)
+    dispatch(update({...item.Address.coordinates, found:true}))
+  }
+
+  return(
+    <div onClick={clicked}
+         className={`transition flex flex-row m-1 p-2 cursor-pointer
+      text-shadow rounded-md
+      md:hover:shadow md:hover:bg-gray-300 md:hover:text-shadow`}>
+      <div className={"flex flex-col justify-items-start items-start"}>
+        <span className={"font-normal"}>{item.Address.name}</span>
+        <span className={"text-sm font-light opacity-50"}>{item.Address.address}</span>
+      </div>
+    </div>
+  )
+}
 
 
 const FavouriteScreen = () => {
@@ -16,11 +47,12 @@ const FavouriteScreen = () => {
   const [userLatch, setUserLatch] = useState<typeof userState>(userState)
   const dispatch = useDispatch()
 
+  const [favToilet, setFavToilet] = useState<ToiletInfo[]>([])
 
 
 
   useEffect(()=>{
-    if(userState.name){
+    if(userState.name.length>0){
       const options: middlewareOptions = {
         endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/retrievefavourite/`,
         params: {
@@ -31,12 +63,13 @@ const FavouriteScreen = () => {
       getMiddleWare(options, )
         .then(r=>{
           console.log(r)
+          setFavToilet(r?.favourite_toilets)
         })
         .catch(e=>{
           console.error(e)
         })
     }
-  },[]) //eslint-disable-line
+  }, [userState]) //eslint-disable-line
 
 
 
@@ -68,7 +101,15 @@ const FavouriteScreen = () => {
 
 
   return(
-    <></>
+    <>
+      {
+        favToilet.map(toilet=>{
+          return(
+            <ToiletFavourite item={toilet} key={v4()} />
+          )
+        })
+      }
+    </>
   )
 }
 

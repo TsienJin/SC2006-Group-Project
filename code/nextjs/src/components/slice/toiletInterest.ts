@@ -9,10 +9,10 @@ const initState:ToiletInfo = {
     floorNumber: "",
     name: "",
     postalCode: "",
-    unitNumber: ""
+    unitNumber: "",
+    Description: {description: "", isPublic: false, locationType: ""},
+    reviews: [],
   },
-  Description: {description: "", isPublic: false, locationType: ""},
-  reviews: [],
   averageRating: 0
 }
 
