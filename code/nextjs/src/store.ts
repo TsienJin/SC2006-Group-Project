@@ -40,7 +40,7 @@ const allReducers = combineReducers({
 const persistConfigDev = {
   key: 'root',
   storage,
-  whitelist: [] // to remove in prod
+  // whitelist: [] // to remove in prod
 }
 
 const persistConfigProd = {
