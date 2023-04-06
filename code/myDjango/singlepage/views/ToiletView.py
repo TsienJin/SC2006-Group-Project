@@ -167,7 +167,7 @@ class RemoveFavouriteToiletView(APIView):
                     payload = {"success_message": "Toilet unfavourited successfully"}
                     return JsonResponse(payload)
                 
-            payload = {"error_message": "Toilet not in favourite list"}
+            payload = {"error_message": "Toilet in favourite list"}
             return JsonResponse(payload)
             
             
