@@ -6,13 +6,13 @@ import {Action} from "@/components/clickeable/types";
 import {addToStack, sideBarStatesEnum} from "@/components/slice/sideBar";
 import Button, {buttonColourRust} from "@/components/clickeable/Button";
 import {middlewareOptions} from "@/middleware/types";
-import {postMiddleware} from "@/middleware/middleware";
+import {getMiddleWare, postMiddleware} from "@/middleware/middleware";
 import * as process from "process";
 
 
 
 async function sendLogout(option:middlewareOptions) {
-  return await postMiddleware(option)
+  return await getMiddleWare(option)
 }
 
 const AccountScreen = () => {
