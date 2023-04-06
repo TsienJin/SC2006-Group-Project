@@ -193,6 +193,13 @@ const ToiletMarker = ({toilet}:{toilet:ToiletInfo}) => {
     setOpen(!open)
   }
 
+  //
+  // useEffect(()=>{
+  //   if(open){
+  //     console.log(toilet)
+  //   }
+  // },[open])
+
   return(
     <>
       <Marker longitude={toilet.Address.coordinates.longitude} latitude={toilet.Address.coordinates.latitude} onClick={toggle}>
