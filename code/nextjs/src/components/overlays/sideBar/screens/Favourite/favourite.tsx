@@ -13,6 +13,7 @@ import {FindCallback} from "@/components/mapbox/Find";
 import {v4} from "uuid";
 import {setToiletInterest} from "@/components/slice/toiletInterest";
 import {update} from "@/components/slice/location";
+// @ts-ignore
 import {addFav, clearFav} from "@/components/slice/favtoilet";
 import Toilet from "@/components/mapbox/Markers/toilet";
 
