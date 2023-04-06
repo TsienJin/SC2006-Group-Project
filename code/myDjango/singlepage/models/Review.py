@@ -4,7 +4,6 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 from ..models.User import User
-from ..models.Toilet import Toilet
 
 class Review(models.Model):
     reviewID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
@@ -19,8 +18,7 @@ class Review(models.Model):
 
     def __str__(self):
         userName = User.retrieveInfo(userID=self.userID).getName()
-        toiletName = Toilet.retrieveByToiletID(toiletID=self.toiletID).getName()
-        return f"{toiletName}-{userName}"  
+        return f"{self.toiletID}-{userName}"  
     
     def addReview(self):
         self.save()

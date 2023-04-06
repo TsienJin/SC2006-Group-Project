@@ -34,7 +34,6 @@ class UpdateToiletView(APIView):
 class RetrieveToiletView(APIView):
     def get(self, request, *args, **kwargs):
         try:
-
             payload = {
                 "toilets": []
             }
@@ -51,26 +50,25 @@ class RetrieveToiletView(APIView):
                 locationType = toilet.getLocationType()
                 isPublic = toilet.getIsPublic()
                 description = toilet.getDescription()
+                averageRating = toilet.getAverageRating()
 
-                initialReview = Review.retrieveSetByToiletID(toiletID=toiletID)
-                averageRating = 0.0
-                for review in initialReview:
-                    averageRating += review["rating"]
-                if len(initialReview) > 0:
-                    averageRating = averageRating/(len(initialReview))
-
-                payload["toilets"].append({"Address": {"name": name,
-                                                        "address": address,
-                                                        "postalCode": postalCode,
-                                                        "floorNumber": floorNumber,
-                                                        "unitNumber": unitNumber,
-                                                        "coordinates": {"longitude": float(longitude),
-                                                                        "latitude": float(latitude)}},
-                                            "Description":{"locationType": locationType,
-                                                            "isPublic": isPublic,
-                                                            "description": description},
-                                            "reviews": initialReview,
-                                            "averageRating": averageRating})
+                payload["toilets"].append({"averageRating": averageRating,
+                                            "Address": {
+                                                "name": name,
+                                                "address": address,
+                                                "postalCode": postalCode,
+                                                "floorNumber": floorNumber,
+                                                "unitNumber": unitNumber, 
+                                                "coordinates": { 
+                                                    "longitude": float(longitude),
+                                                    "latitude": float(latitude)
+                                                },
+                                                "Description": {
+                                                    "locationType": locationType,
+                                                    "isPublic": isPublic,
+                                                    "description": description}
+                                                }
+                                            })
             
             return JsonResponse(payload)
         except:
