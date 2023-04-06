@@ -10,7 +10,7 @@ import {RootState} from "@/store";
 import {setToiletInterest} from "@/components/slice/toiletInterest";
 import {middlewareOptions} from "@/middleware/types";
 import {postMiddleware} from "@/middleware/middleware";
-import {addFav} from "@/components/slice/favtoilet";
+import {addFav, removeFav} from "@/components/slice/favtoilet";
 
 
 export type ToiletInfo = {
@@ -64,15 +64,16 @@ const PopupButton = ({children, name, action=()=>{}}:{children:any, name?:string
 
 const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
 
+  const [isFav, setIsFav] = useState<boolean>(false)
+
 
   const dispatch = useDispatch()
   const sidebarState = useSelector((state:RootState) => state.sideBar)
   const userState = useSelector((state:RootState) => state.user)
+  const favs = useSelector((state:RootState) => state.favToilet.favourites)
 
 
   const reviewToilet:Action = () => {
-
-    console.log(toilet)
 
     if(sidebarState.state == sideBarStatesEnum.None){
       dispatch(popStack())
@@ -84,7 +85,23 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
     dispatch(addToStack(sideBarStatesEnum.Review))
   }
 
+  useEffect(()=>{
+    favs.forEach(favToilet => {
+      let isInside = false
 
+      if(favToilet.Address.address == toilet.Address.address){
+        isInside = true
+      }
+
+      setIsFav(isInside)
+    })
+
+    // if(favs.indexOf(toilet) > -1){
+    //   setIsFav(true)
+    // } else {
+    //   setIsFav(false)
+    // }
+  })
 
   const addFavToilet:Action = () => {
     if(userState.id==""){
@@ -94,7 +111,7 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
         notiType.Warning
       )))
     } else {
-      const options:middlewareOptions = {
+      const optionsAdd:middlewareOptions = {
         endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/addfavourite/`,
         params: {
           userID: userState.id,
@@ -103,33 +120,68 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
         },
       }
 
-      postMiddleware(options)
-        .then(r=>{
-          if(r?.error_message){
-            console.error(r)
-            dispatch(addNoti(createNoti(
-              "Toilet already in favourites!",
-              "Already added to your list.",
-              notiType.Notification
-            )))
-          } else {
+      const optionsRemove:middlewareOptions = {
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/removefavourite/`,
+        params: {
+          userID: userState.id,
+          latitude: toilet.Address.coordinates.latitude,
+          longitude: toilet.Address.coordinates.longitude
+        }
+      }
+
+      if(isFav){
+        postMiddleware(optionsRemove)
+          .then(r=>{
             console.log(r)
-            dispatch(addFav(toilet))
             dispatch(addNoti(createNoti(
-              "Added to favourites!",
-              "Access your favourite toilets using the favourites menu item!",
+              "Removed from favourites!",
+              "Goodbye toilet :(",
               notiType.Notification
             )))
-          }
-        })
-        .catch(e=>{
-          console.error(e)
-          dispatch(addNoti(createNoti(
-            "Oops! Error adding to favourite!",
-            "Lets pretend this didn't happen.",
-            notiType.Warning
-          )))
-        })
+          })
+          .then(()=>{
+            dispatch(removeFav(toilet))
+            setIsFav(false)
+          })
+          .catch(e=>{
+            console.error(e)
+            dispatch(addNoti(createNoti(
+              "Error removing toilet from favourites",
+              e?.error_message || "Something went wrong on the backend",
+              notiType.Warning
+            )))
+          })
+      } else { // add to fav
+        postMiddleware(optionsAdd)
+          .then(r=>{
+            if(r?.error_message){
+              console.error(r)
+              dispatch(addNoti(createNoti(
+                "Toilet already in favourites!",
+                "Already added to your list.",
+                notiType.Notification
+              )))
+            } else {
+              console.log(r)
+              dispatch(addFav(toilet))
+              dispatch(addNoti(createNoti(
+                "Added to favourites!",
+                "Access your favourite toilets using the favourites menu item!",
+                notiType.Notification
+              )))
+              setIsFav(true)
+            }
+          })
+          .catch(e=>{
+            console.error(e)
+            dispatch(addNoti(createNoti(
+              "Oops! Error adding to favourite!",
+              "Lets pretend this didn't happen.",
+              notiType.Warning
+            )))
+          })
+      }
+
     }
   }
 
@@ -182,9 +234,16 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
             </svg>
           </PopupButton>
           <PopupButton action={addFavToilet}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-            </svg>
+            {
+              isFav?
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#D05353" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#D05353" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                </svg>
+                :
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                </svg>
+            }
           </PopupButton>
         </div>
       </div>

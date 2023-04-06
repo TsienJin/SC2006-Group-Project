@@ -20,6 +20,12 @@ import Toilet from "@/components/mapbox/Markers/toilet";
 
 
 
+export function updateFavourites():any {
+
+}
+
+
+
 const ToiletFavourite = ({item, callback=()=>{}}:{item:ToiletInfo, callback?:any}) => {
 
   const dispatch = useDispatch()

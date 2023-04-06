@@ -46,6 +46,11 @@ class AddFavouriteToiletSerializer(serializers.ModelSerializer):
         model = Toilet
         fields = ["userID", "longitude", "latitude"]
 
+class RemoveFavouriteToiletSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Toilet
+        fields = ["longitude", "latitude"] 
+
 class RetrieveReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
