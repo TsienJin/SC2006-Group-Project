@@ -163,6 +163,7 @@ class RemoveFavouriteToiletView(APIView):
             for toiletID in favToilets:
                 if str(toiletToRemoveID) == str(toiletID):
                     favToilets.remove(str(toiletToRemoveID))
+                    user.updateFavToilets(favToilets)
                     payload = {"success_message": "Toilet unfavourited successfully"}
                     return JsonResponse(payload)
                 
