@@ -14,13 +14,15 @@ import FormWrapper from "@/components/fields/FormWrapper";
 import {Required, WTest} from "@/validation/fields/text";
 import {middlewareOptions} from "@/middleware/types";
 import * as process from "process";
-import {postMiddleware} from "@/middleware/middleware";
+import {getMiddleWare, postMiddleware} from "@/middleware/middleware";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
+import {addFav, clearFav} from "@/components/slice/favtoilet";
+import {ToiletInfo} from "@/components/mapbox/Markers/toilet";
 
 export async function sendLogin(email:string, password:string, onErrorCallback=()=>{}):Promise<User|any> {
 
-  const res = await axios.get('https://jsonplaceholder.typicode.com/users/2')
-  const data = await res.data
+  // const res = await axios.get('https://jsonplaceholder.typicode.com/users/2')
+  // const data = await res.data
 
   const options:middlewareOptions = {
     endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/login/`,
@@ -112,19 +114,41 @@ const AccountLoginScreen = () => {
           notiType.Warning
         )))
       }
-      sendLogin(email, password, errCallback).then((e:User|false)=>{
-        if(e){
-          setFormErr("")
-          dispatch(login(e))
-          dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
-        } else {
-          dispatch(addNoti(createNoti(
-            "Error logging in",
-            "Incorrect login credentials!",
-            notiType.Warning
-          )))
-        }
-      })
+      sendLogin(email, password, errCallback)
+        .then((e:User|false)=>{
+          if(e){
+            setFormErr("")
+            dispatch(login(e))
+            dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
+            const options: middlewareOptions = {
+              endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/retrievefavourite/`,
+              params: {
+                userID: e.id
+              }
+            };
+
+            getMiddleWare(options, )
+              .then(r=>{
+                console.log(r)
+                dispatch(clearFav())
+                r?.favourite_toilets.map((toilet:ToiletInfo) => {
+                  dispatch(addFav(toilet))
+                })
+              })
+              .catch(e=>{
+                console.error(e)
+              })
+          } else {
+            dispatch(addNoti(createNoti(
+              "Error logging in",
+              "Incorrect login credentials!",
+              notiType.Warning
+            )))
+          }
+        })
+        .catch(e=>{
+          console.error(e)
+        })
     }
   }
 

@@ -1,7 +1,7 @@
 import FieldContainer from "@/components/fields/FieldContainer";
 import TextInput from "@/components/fields/TextInput";
-import {useCallback, useEffect, useState} from "react";
-import {Address, AddToilet, AddToiletDEPRE, Description, Review} from "@/Structs/toilet";
+import {useEffect, useState} from "react";
+import {Address, AddToilet, Description, Review} from "@/Structs/toilet";
 import {Hoist} from "@/components/fields/types";
 import SelectInput, {Option, ratingOptions, SelectInputOptions} from "@/components/fields/SelectInput";
 import Checkbox from "@/components/clickeable/Checkbox";
@@ -9,7 +9,7 @@ import Find, {FindCallback} from "@/components/mapbox/Find";
 import Tab from "@/components/clickeable/Tab";
 import {Coordinates, emptyCoords} from "@/components/slice/location";
 import {MinNumberZero} from "@/validation/fields/text";
-import Button, {buttonColourBlue, buttonColourGreen} from "@/components/clickeable/Button";
+import Button, {buttonColourGreen} from "@/components/clickeable/Button";
 import {Action} from "@/components/clickeable/types";
 import {postMiddleware} from "@/middleware/middleware";
 import {middlewareOptions} from "@/middleware/types";
@@ -18,7 +18,6 @@ import {RootState} from "@/store";
 import {addToStack, popLatest, sideBarStatesEnum} from "@/components/slice/sideBar";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
 import AccountLoginScreen from "@/components/overlays/sideBar/screens/Account/AccountLogin";
-
 
 
 const AddressInput = ({hoist=()=>{}}:{hoist?:Hoist<Coordinates>}) => {
@@ -274,9 +273,27 @@ const AddToilet = () => {
     postMiddleware(options, true)
       .then(r=>{
         console.log(r)
+        if(r?.success_message){
+          dispatch(addNoti(createNoti(
+            "Toilet added!",
+            r?.success_message,
+            notiType.Notification
+          )))
+        } else {
+          dispatch(addNoti(createNoti(
+            "Error adding toilet",
+            r?.error_message || "Something went wrong :(",
+            notiType.Warning
+          )))
+        }
       })
       .catch(e=>{
         console.error(e)
+        dispatch(addNoti(createNoti(
+          "Error adding toilet",
+          "Something went wrong :(",
+          notiType.Warning
+        )))
       })
   }
 

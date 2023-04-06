@@ -64,15 +64,16 @@ const PopupButton = ({children, name, action=()=>{}}:{children:any, name?:string
 
 const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
 
+  const [isFav, setIsFav] = useState<boolean>(false)
+
 
   const dispatch = useDispatch()
   const sidebarState = useSelector((state:RootState) => state.sideBar)
   const userState = useSelector((state:RootState) => state.user)
+  const favs = useSelector((state:RootState) => state.favToilet.favourites)
 
 
   const reviewToilet:Action = () => {
-
-    console.log(toilet)
 
     if(sidebarState.state == sideBarStatesEnum.None){
       dispatch(popStack())
@@ -84,7 +85,13 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
     dispatch(addToStack(sideBarStatesEnum.Review))
   }
 
-
+  useEffect(()=>{
+    if(favs.indexOf(toilet) > -1){
+      setIsFav(true)
+    } else {
+      setIsFav(false)
+    }
+  }, [favs, toilet])
 
   const addFavToilet:Action = () => {
     if(userState.id==""){
@@ -120,6 +127,7 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
               "Access your favourite toilets using the favourites menu item!",
               notiType.Notification
             )))
+            setIsFav(true)
           }
         })
         .catch(e=>{
@@ -182,9 +190,16 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
             </svg>
           </PopupButton>
           <PopupButton action={addFavToilet}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-            </svg>
+            {
+              isFav?
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#D05353" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#D05353" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                </svg>
+                :
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                </svg>
+            }
           </PopupButton>
         </div>
       </div>
