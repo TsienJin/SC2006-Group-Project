@@ -15,19 +15,21 @@ export const favToiletSlice = createSlice({
   initialState: initialState,
   reducers: {
     addFav: (state, action:PayloadAction<ToiletInfo>) => {
-      state.favourites.push(action.payload)
-
-      state.favourites = Array.from(new Set(state.favourites))
+      if(state.favourites.indexOf(action.payload) < 0){
+        state.favourites.push(action.payload)
+      }
     },
     removeFav: (state, action:PayloadAction<ToiletInfo>) => {
       const index = state.favourites.indexOf(action.payload)
       if(index > -1){
         state.favourites.splice(index, 1)
-        
       }
     },
+    clearFav: (state) => {
+      state.favourites = []
+    }
   }
 })
 
-export const { addFav, removeFav } = favToiletSlice.actions
+export const { addFav, removeFav, clearFav } = favToiletSlice.actions
 export default favToiletSlice.reducer
