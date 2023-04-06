@@ -2,7 +2,7 @@ from django.urls import path, include
 from .views.AccountView import RegisterView, LogoutView, EditNameView, EditEmailAddressView, EditPasswordView, LoginView
 from .views.ReviewView import RetrieveReviewView, AddReviewView
 from .views.ToiletView import AddToiletView, AddFavouriteToiletView, RetrieveFavouriteToiletView
-from .views.SettingsView import RetrieveToiletView, RetrieveTrafficView
+from .views.SettingsView import UpdateToiletView, RetrieveToiletView, RetrieveTrafficView
 from . import view
 
 # TODO: Add versioning for APIS
@@ -20,6 +20,7 @@ urlpatterns = [
     path("toilets/retrievefavourite/", RetrieveFavouriteToiletView.as_view(), name='retrieveFavouriteToilet'),
     path("reviews/create/", AddReviewView.as_view(), name='addReview'), # okay
     # path("reviews/retrievereview/", RetrieveReviewView.as_view(), name='retrieveReview'),
+    path("settings/updatetoilet/", UpdateToiletView.as_view(), name='updateToilet'), # okay
     path("settings/retrievetoilet/", RetrieveToiletView.as_view(), name='retrieveToilet'), # okay
     path("settings/retrievetraffic/", RetrieveTrafficView.as_view(), name='retrieveTraffic'), # okay
 ]

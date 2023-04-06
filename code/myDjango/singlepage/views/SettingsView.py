@@ -17,11 +17,23 @@ from ..models.Toilet import Toilet
 from ..models.Review import Review
 from ..utils import updateToilets
 
+MAX_TOILET_LIMIT = 500
+
+class UpdateToiletView(APIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            updateToilets(MAX_TOILET_LIMIT)
+            payload = {"success_message": "Toilet update successful"}
+            return JsonResponse(payload)
+        except:
+            payload = {"error_message": "Toilet update failed"}
+            return JsonResponse(payload)
+
+
 # changes: add review along with retrieve toilet view
 class RetrieveToiletView(APIView):
     def get(self, request, *args, **kwargs):
         try:
-            updateToilets(500)
 
             payload = {
                 "toilets": []
@@ -63,7 +75,7 @@ class RetrieveToiletView(APIView):
             return JsonResponse(payload)
         except:
             payload = {"error_status": "405",
-                       "error_message": "Toggle nearby toilets unsuccessful"}
+                       "error_message": "Toilet retrieval unsuccessful"}
             return JsonResponse(payload)
         
 
