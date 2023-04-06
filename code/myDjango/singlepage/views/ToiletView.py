@@ -10,6 +10,7 @@ from ..models.User import User
 from ..models.Toilet import Toilet
 from ..serializers import AddToiletSerializer
 from ..serializers import AddFavouriteToiletSerializer
+from ..serializers import RemoveFavouriteToiletSerializer
 from ..utils import forwardGeocoding
 
 class AddToiletView(APIView):
@@ -123,8 +124,8 @@ class RetrieveFavouriteToiletView(APIView):
                                                                     "floorNumber": floorNumber,
                                                                     "unitNumber": unitNumber, 
                                                                     "coordinates": { 
-                                                                        "longitude": longitude,
-                                                                        "latitude": latitude
+                                                                        "longitude": float(longitude),
+                                                                        "latitude": float(latitude)
                                                                     },
                                                                     "Description": {
                                                                         "locationType": locationType,
@@ -137,4 +138,36 @@ class RetrieveFavouriteToiletView(APIView):
             payload = {"error_message": "Unexpected error"}
             return JsonResponse(payload)
 
-# KIV - remove favourite toilet
+
+class RemoveFavouriteToiletView(APIView):
+    serializer_class = RemoveFavouriteToiletSerializer
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            userID = request.session['user']
+            longitude = serializer.data.get("longitude")
+            latitude = serializer.data.get("latitude")
+
+            user = User.retrieveInfo(userID=userID)
+            if user == False:
+                payload = {"error_message": "Invalid user"}
+                return JsonResponse(payload)
+            
+            toiletToRemove = Toilet.retrieveByLongitudeLatitude(longitude=longitude, latitude=latitude)
+            if toiletToRemove == False:
+                payload = {"error_message": "Toilet not found"}
+                return JsonResponse(payload)
+            
+            toiletToRemoveID = toiletToRemove.getToiletID()
+            favToilets = user.getFavToilets()
+            for toiletID in favToilets:
+                if str(toiletToRemoveID) == str(toiletID):
+                    favToilets.remove(str(toiletToRemoveID))
+                    payload = {"success_message": "Toilet unfavourited successfully"}
+                    return JsonResponse(payload)
+                
+            payload = {"error_message": "Toilet in favourite list"}
+            return JsonResponse(payload)
+            
+            
+
