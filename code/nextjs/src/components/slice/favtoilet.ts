@@ -20,10 +20,23 @@ export const favToiletSlice = createSlice({
       }
     },
     removeFav: (state, action:PayloadAction<ToiletInfo>) => {
-      const index = state.favourites.indexOf(action.payload)
-      if(index > -1){
+      // const index = state.favourites.indexOf(action.payload)
+      // if(index > -1){
+      //   console.log(index)
+      //   state.favourites.splice(index, 1)
+      // }
+
+      let index = -1
+      for(let i=0; i<state.favourites.length; i++){
+        if(state.favourites[i].Address.address == action.payload.Address.address){
+          index = i
+        }
+      }
+
+      if(index>=0){
         state.favourites.splice(index, 1)
       }
+
     },
     clearFav: (state) => {
       state.favourites = []

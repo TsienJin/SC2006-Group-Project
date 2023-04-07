@@ -25,6 +25,7 @@ Returns:
 class RegisterView(APIView):
     serializer_class = RegisterSerializer
 
+    
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
@@ -36,10 +37,14 @@ class RegisterView(APIView):
                 return JsonResponse({"error_status": "402",
                                      "error_message": "Email already taken."})
 
+            if User.emailTaken(emailAddress):
+                return JsonResponse({"error_status": "402",
+                                     "error_message": "Email already taken."})
+
             if not checkEmailFormat(emailAddress):
                 return JsonResponse({"error_status": "403",
                                      "error_message": "Invalid email address format."})
-
+            
             # make_password() hashes the password using the hashers we put in settings.py
             # we are using bcrypt SHA256 primarily here
             password = make_password(password)

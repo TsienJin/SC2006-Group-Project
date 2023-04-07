@@ -67,7 +67,7 @@ const AccountCreateScreen = () => {
       name.length!=0 && nameValid &&
       email.length!=0 && emailValid &&
       password.length!=0 && passwordValid &&
-      age>18
+      age>=18
     )
   }
 
@@ -108,13 +108,14 @@ const AccountCreateScreen = () => {
           notiType.Notification
         )))
 
-        sendLogin(email, password, onErrorLogin).then((e:User|false)=>{
-          if(e){
-            dispatch(login(e))
-            dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
-          } else {
-            onErrorLogin()
-          }
+        sendLogin(email, password, onErrorLogin)
+          .then((e:User|false)=>{
+            if(e){
+              dispatch(login(e))
+              dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
+            } else {
+              onErrorLogin()
+            }
         })
 
 
