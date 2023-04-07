@@ -1,6 +1,6 @@
 # SC2006-Group-2 Naviloo
 
-
+![Naviloo](https://user-images.githubusercontent.com/77908956/230631566-ae2ba652-0a43-4d34-b20c-edc4e4ea781e.gif)
 
 ## Software requirements
 
@@ -11,6 +11,7 @@ We utilise a React Meta framework `Next.js` for our front end, and `Django` for 
 1. [Node JS](https://nodejs.org/en/download)
 2. [Python 3](https://www.python.org/downloads/)
 3. [PostgreSQL](https://www.postgresql.org/download/)
+
 
 
 
