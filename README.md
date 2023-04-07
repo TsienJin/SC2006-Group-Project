@@ -1,6 +1,7 @@
 # SC2006-Group-2 Naviloo
 
-![Naviloo](https://user-images.githubusercontent.com/77908956/230631566-ae2ba652-0a43-4d34-b20c-edc4e4ea781e.gif)
+![Naviloo](https://user-images.githubusercontent.com/77908956/230632201-274c5e65-2207-44c5-a8db-307cd286ea50.gif)
+
 
 ## Software requirements
 
