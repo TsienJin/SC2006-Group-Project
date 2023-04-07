@@ -135,7 +135,7 @@ python3 manage.py runserver
 
 
 
-The following steps can be used to flush the database
+The following steps can be used to flush the database and add an admin user for PostgreSQL Database.
 
 ```bash
 cd myDjango
@@ -144,8 +144,6 @@ python3 manage.py makemigrations singlepage
 python3 manage.py migrate singlepage
 python3 manage.py flush --noinput
 python3 manage.py migrate singlepage
-
-# CREATE SUPER USER
-
+DJANGO_SUPERUSER_USERNAME=naviloo DJANGO_SUPERUSER_EMAIL=admin@naviloo.com DJANGO_SUPERUSER_PASSWORD=123 ./manage.py createsuperuser --noinput
 python3 manage.py runserver
 ```
