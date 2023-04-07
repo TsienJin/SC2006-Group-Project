@@ -64,7 +64,6 @@ class AddReviewView(APIView):
                 return JsonResponse(payload)
 
 
-# KIV - remove review
 
             
 
