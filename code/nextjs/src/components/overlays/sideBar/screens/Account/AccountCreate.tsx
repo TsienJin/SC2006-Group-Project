@@ -18,14 +18,15 @@ import {sendLogin} from "@/components/overlays/sideBar/screens/Account/AccountLo
 import user, {login, User} from "@/components/slice/user";
 
 
-async function sendCreate(option:middlewareOptions, onSuccess=()=>{}, onError=()=>{}):Promise<any> {
+async function sendCreate(option:middlewareOptions, onSuccess=()=>{}, onError=(e?:any)=>{}):Promise<any> {
   try{
     const res = await postMiddleware(option)
     console.log(res)
     onSuccess()
+    return res
   } catch (e) {
     console.log("fk")
-    onError()
+    onError(e)
   }
 }
 
@@ -85,18 +86,18 @@ const AccountCreateScreen = () => {
         },
       }
 
-      const onError = () => {
+      const onError = (e?:string) => {
         dispatch(addNoti(createNoti(
-          "WHOOPS!",
-          "Error sending the form. Try again using guest mode!",
+          "Error creating account!",
+          `${e}` || "Error sending the form. Try again using guest mode!",
           notiType.Warning,
         )))
       }
 
-      const onErrorLogin = () => {
+      const onErrorLogin = (e?:any) => {
         dispatch(addNoti(createNoti(
           "Error logging in",
-          "Not sure why we couldn't log you in, so just try again!",
+          e?.error_message || "Not sure why we couldn't log you in, so just try again!",
           notiType.Warning
         )))
       }
@@ -121,7 +122,23 @@ const AccountCreateScreen = () => {
 
       }
 
-      sendCreate(options, onSuccess, onError).then(r => console.log(r))
+      // sendCreate(options, onSuccess, onError).then(r => console.log(r))
+
+      postMiddleware(options, true)
+        .then(r=>{
+          console.log(r)
+          if(r?.error_status){
+            // throw new Error(r?.error_message)
+            onError(r?.error_message)
+            throw new Error()
+          }
+
+          onSuccess()
+        })
+        .catch(e=>{
+          console.error(e)
+          // onError(e)
+        })
 
     }
   }
