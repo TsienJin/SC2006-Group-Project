@@ -91,7 +91,7 @@ make flush_runserver -j 2
 
 
 
-Both of these methods contain the commands required to install dependancies for `Next.js` and `Django`, and also makes the necesarry databse migrations for `Django`. 
+Both of these methods contain the commands required to install dependencies for `Next.js` and `Django`, and also makes the necesarry databse migrations for `Django`. 
 
 
 
@@ -107,7 +107,7 @@ bash ./run.sh
 
 #### 3. Natively starting each component
 
-For this method, two seperate terminal sessions are required.
+For this method, two separate terminal sessions are required.
 
 
 
