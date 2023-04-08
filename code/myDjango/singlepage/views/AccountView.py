@@ -35,11 +35,11 @@ class RegisterView(APIView):
 
             if User.emailTaken(emailAddress):
                 return JsonResponse({"error_status": "402",
-                                     "error_message": "Email already taken."})
+                                     "error_message": "Sorry but this email address is taken!"})
 
             if User.emailTaken(emailAddress):
                 return JsonResponse({"error_status": "402",
-                                     "error_message": "Email already taken."})
+                                     "error_message": "Sorry but this email address is taken!"})
 
             if not checkEmailFormat(emailAddress):
                 return JsonResponse({"error_status": "403",
