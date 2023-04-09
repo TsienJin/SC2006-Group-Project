@@ -13,7 +13,9 @@ We utilise a React Meta framework `Next.js` for our front end, and `Django` for 
 2. [Python 3](https://www.python.org/downloads/)
 3. [PostgreSQL](https://www.postgresql.org/download/)
 
-
+Note: For the installation of [PostgreSQL](https://www.postgresql.org/download/), an
+account must be set up to access the database. The login credentials **must be stored
+in the `.env` file for `Django`.**
 
 
 ## How to run
