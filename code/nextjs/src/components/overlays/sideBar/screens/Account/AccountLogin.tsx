@@ -169,7 +169,7 @@ const AccountLoginScreen = () => {
         <Logo />
         <TextInput placeholder={"Email"} required={true} validateTests={emailValidation} hoist={emailHoist}/>
         <TextInput placeholder={"Password"} type={"password"} required={true} validateTests={passValidation} hoist={passwordHoist}/>
-        <SmallRight preText={"Forgot password?"} actionText={"Reset here"} action={forgetAction} />
+        {/*<SmallRight preText={"Forgot password?"} actionText={"Reset here"} action={forgetAction} />*/}
         <Button text={"Log in"} colour={buttonColourBlue} />
         <span className={"flex flex-row justify-center items-center w-full text-center text-sm text-red-500"}>{formErr}</span>
         <LocalRedirect preText={"Create an account"} actionText={"here!"} action={createAcc} />
