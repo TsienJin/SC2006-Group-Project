@@ -8,6 +8,7 @@ import Button, {buttonColourRust} from "@/components/clickeable/Button";
 import {middlewareOptions} from "@/middleware/types";
 import {getMiddleWare, postMiddleware} from "@/middleware/middleware";
 import * as process from "process";
+import {clearFav} from "@/components/slice/favtoilet";
 
 
 
@@ -27,6 +28,7 @@ const AccountScreen = () => {
     }
     sendLogout(option).then(r => {})
     dispatch(logout())
+    dispatch(clearFav())
   }
 
   return(
