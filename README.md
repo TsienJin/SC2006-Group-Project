@@ -51,7 +51,7 @@ DATABASE_NAME= # as defined for PostgreSQL
 DATABASE_USER= # as defined for PostgreSQL
 DATABASE_PASSWORD= # as defined for PostgreSQL
 DATABASE_HOST=127.0.0.1
-DATABASE_PORT=5432
+DATABASE_PORT=5432 # as defined for PostgreSQL
 
 SECRET_KEY= # Django secret key
 NEXT_PUBLIC_MAPBOX_KEY=
