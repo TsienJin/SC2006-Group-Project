@@ -42,7 +42,7 @@ NEXT_PUBLIC_MAPBOX_STYLE=mapbox://styles/tsienjin/cldedq01h007c01r0t9ctf0ak
 NEXT_PUBLIC_BACKEND=http://localhost:8000  # NOTE no trailing slash
 ```
 
-2. `/code/myDjango/singlepage/.env`
+2. `/code/myDjango/myDjango/.env`
 
 ```dotenv
 DATABASE_NAME= # as defined for PostgreSQL
