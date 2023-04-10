@@ -51,6 +51,18 @@ export const Required:ValidateInputText = input => {
 }
 
 
+export const MaxPassLen:ValidateInputText = input => {
+
+
+  if(typeof(input) == 'string' && input.length > 255){
+    return "Password length cannot be longer than 255 characters"
+  }
+
+
+  return false
+}
+
+
 export const ValidEmail:ValidateInputText = input => {
 
   const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
