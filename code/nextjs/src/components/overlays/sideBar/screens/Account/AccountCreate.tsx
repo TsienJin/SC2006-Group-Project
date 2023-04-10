@@ -13,7 +13,7 @@ import {middlewareOptions} from "@/middleware/types";
 import {postMiddleware} from "@/middleware/middleware";
 import * as process from "process";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
-import {PassMinCharNum, ValidAge, ValidAgeMin, ValidEmail} from "@/validation/fields/text";
+import {MinPassLength, PassMinCharNum, ValidAge, ValidAgeMin, ValidEmail} from "@/validation/fields/text";
 import {sendLogin} from "@/components/overlays/sideBar/screens/Account/AccountLogin";
 import user, {login, User} from "@/components/slice/user";
 
@@ -149,7 +149,7 @@ const AccountCreateScreen = () => {
         <Logo />
         <TextInput placeholder={"Name"} required={true} hoist={nameHoist} hoistValid={setNameValid} />
         <TextInput placeholder={"Email"} required={true} hoist={emailHoist} hoistValid={setEmailValid} validateTests={[ValidEmail]}/>
-        <PasswordGroup hoist={passwordHoist} hoistValid={setPasswordValid} validateTest={[PassMinCharNum]} />
+        <PasswordGroup hoist={passwordHoist} hoistValid={setPasswordValid} validateTest={[PassMinCharNum, MinPassLength]} />
         <TextInput placeholder={"Age"} required={true} hoist={ageHoist} hoistValid={setAgeValid} type={"number"} validateTests={[ValidAge, ValidAgeMin]}/>
         <Button text={"Create account"} colour={buttonColourBlue} allowed={checkSubmittable()} />
         <LocalRedirect preText={"Already have an account?"} actionText={"Login here!"} action={redirectLogin} />
