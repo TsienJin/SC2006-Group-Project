@@ -1,9 +1,52 @@
 import uuid
 from django.db import models
-from ..models import Review
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from ..models import Review
+
 class Toilet(models.Model):
+    ''' User class for registered users of Naviloo
+
+    Attributes
+    ---
+    userID      : UUID          Unique identifier for each user in database
+    name        : String        Name of account
+    emailAddress: Email         Email address of account
+    password    : String        Password of account
+    sessionID   : String        Cookie keeping track of user login 
+    favToilets  : List          List of toiletIDs that user favourited
+    
+    Methods
+    -------
+    register()
+        Saves the User object to the database
+    getName()
+        Returns the name attribute of the User object
+    getEmailAddress()
+        Returns emailAddress attribute of User object
+    getPassword()
+        Returns password attribute of User object
+    getSessionID()
+        Returns sessionID attribute of User object
+    getFavToilets()
+        Returns favToilets attribute of User object
+    login(request)
+        Creates a session and updates sessionID with new sessionID to database
+    logout(request)
+        Clears the session and updates sessionID with NULL to database
+    isAuthenticated(sessionKey)
+        Checks if session belongs to User
+    isFavourite(toiletID)
+        Checks if toilet is favourited by User
+    updateName(newName)
+        Updates name with new name
+    updateEmailAddress(newEmailAddress)
+        Updates email address with new email address
+    updatePassword(newPassword)
+        Updates password with new password
+    updateFavToilets(newFavToilets)
+        Updates favToilets with new favToilets
+    '''
     # unique identifier for toilets
     toiletID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     # address related fields
