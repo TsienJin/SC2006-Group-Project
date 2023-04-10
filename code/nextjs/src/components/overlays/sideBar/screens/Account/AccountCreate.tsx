@@ -151,7 +151,7 @@ const AccountCreateScreen = () => {
         <TextInput placeholder={"Email"} required={true} hoist={emailHoist} hoistValid={setEmailValid} validateTests={[ValidEmail]}/>
         <PasswordGroup hoist={passwordHoist} hoistValid={setPasswordValid} validateTest={[PassMinCharNum]} />
         <TextInput placeholder={"Age"} required={true} hoist={ageHoist} hoistValid={setAgeValid} type={"number"} validateTests={[ValidAge, ValidAgeMin]}/>
-        <Button text={"Create account"} colour={buttonColourBlue} />
+        <Button text={"Create account"} colour={buttonColourBlue} allowed={checkSubmittable()} />
         <LocalRedirect preText={"Already have an account?"} actionText={"Login here!"} action={redirectLogin} />
       </div>
     </FormWrapper>
