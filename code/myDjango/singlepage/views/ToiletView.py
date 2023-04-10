@@ -21,7 +21,7 @@ class AddToiletView(APIView):
         req_data["latitude"] = "{0:.6f}".format(float(req_data["latitude"]))
         serializer = self.serializer_class(data=req_data)
         if serializer.is_valid():
-            name = serializer.data.get("name")
+            name = serializer.data.get("name") + " Toilet"
             address = serializer.data.get("address")
             postalCode = serializer.data.get("postalCode")
             floorNumber = serializer.data.get("floorNumber")
@@ -31,6 +31,12 @@ class AddToiletView(APIView):
             locationType = serializer.data.get("locationType")
             isPublic = serializer.data.get("isPublic")
             description = serializer.data.get("description")
+
+            if floorNumber == "" or floorNumber == 0 or floorNumber == "NaN":
+                floorNumber = "0"
+            
+            if unitNumber == "" or unitNumber == 0 or unitNumber == "NaN":
+                unitNumber = "0"
 
             if Toilet.retrieveByLongitudeLatitude(longitude, latitude) == False:
                 newToilet = Toilet(name=name,
