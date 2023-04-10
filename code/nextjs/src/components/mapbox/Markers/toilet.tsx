@@ -30,8 +30,7 @@ export type ToiletInfo = {
       isPublic: boolean,
       description: string,
     },
-    reviews?: [],
-
+    reviews?: any[],
   },
 }
 
