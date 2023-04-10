@@ -33,10 +33,10 @@ class AddToiletView(APIView):
             description = serializer.data.get("description")
 
             if floorNumber == "" or floorNumber == 0 or floorNumber == "NaN":
-                floorNumber = "0"
+                floorNumber = ""
             
             if unitNumber == "" or unitNumber == 0 or unitNumber == "NaN":
-                unitNumber = "0"
+                unitNumber = ""
 
             if Toilet.retrieveByLongitudeLatitude(longitude, latitude) == False:
                 newToilet = Toilet(name=name,
