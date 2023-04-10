@@ -65,7 +65,7 @@ export const MaxPassLen:ValidateInputText = input => {
 
 export const ValidEmail:ValidateInputText = input => {
 
-  const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  const validRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
 
   // @ts-ignore
   if(!input.match(validRegex)) {
@@ -98,6 +98,13 @@ export const ValidAgeMin:ValidateInputText = input => {
   return false
 }
 
+export const ValidAgeMax:ValidateInputText = input => {
+  if(input>=300){
+    return "You cannot possibly be that old"
+  }
+
+  return false
+}
 
 export const MinNumberZero:ValidateInputText = input => {
   if(input<0){

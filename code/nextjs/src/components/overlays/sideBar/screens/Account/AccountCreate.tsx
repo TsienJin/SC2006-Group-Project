@@ -13,7 +13,15 @@ import {middlewareOptions} from "@/middleware/types";
 import {postMiddleware} from "@/middleware/middleware";
 import * as process from "process";
 import {addNoti, createNoti, notiType} from "@/components/slice/notification";
-import {MaxPassLen, MinPassLength, PassMinCharNum, ValidAge, ValidAgeMin, ValidEmail} from "@/validation/fields/text";
+import {
+  MaxPassLen,
+  MinPassLength,
+  PassMinCharNum,
+  ValidAge,
+  ValidAgeMax,
+  ValidAgeMin,
+  ValidEmail
+} from "@/validation/fields/text";
 import {sendLogin} from "@/components/overlays/sideBar/screens/Account/AccountLogin";
 import user, {login, User} from "@/components/slice/user";
 
@@ -68,7 +76,7 @@ const AccountCreateScreen = () => {
       name.length!=0 && nameValid &&
       email.length!=0 && emailValid &&
       password.length!=0 && passwordValid && password.length<256 &&
-      age>=18
+      age>=18 && age<=300
     )
   }
 
@@ -150,7 +158,7 @@ const AccountCreateScreen = () => {
         <TextInput placeholder={"Name"} required={true} hoist={nameHoist} hoistValid={setNameValid} />
         <TextInput placeholder={"Email"} required={true} hoist={emailHoist} hoistValid={setEmailValid} validateTests={[ValidEmail]}/>
         <PasswordGroup hoist={passwordHoist} hoistValid={setPasswordValid} validateTest={[PassMinCharNum, MinPassLength, MaxPassLen]} />
-        <TextInput placeholder={"Age"} required={true} hoist={ageHoist} hoistValid={setAgeValid} type={"number"} validateTests={[ValidAge, ValidAgeMin]}/>
+        <TextInput placeholder={"Age"} required={true} hoist={ageHoist} hoistValid={setAgeValid} type={"number"} validateTests={[ValidAge, ValidAgeMin, ValidAgeMax]}/>
         <Button text={"Create account"} colour={buttonColourBlue} allowed={checkSubmittable()} />
         <LocalRedirect preText={"Already have an account?"} actionText={"Login here!"} action={redirectLogin} />
       </div>
