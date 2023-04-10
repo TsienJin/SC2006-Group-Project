@@ -85,7 +85,6 @@ const Map = () => {
         mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE}
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
       >
-        <GeolocateControl showAccuracyCircle={true} showUserHeading={true} />
         { plotRoute && routeState?.route?.routes &&
             <Source type={"geojson"} id={"route"} data={{...routeState?.route?.routes[0]?.geometry}}>
               <Layer {...layerStyle} />
@@ -95,6 +94,7 @@ const Map = () => {
         { sysSetting.showToilet && <Toilets /> }
         { sysSetting.showTraffic && <TrafficMarkers /> }
         <RouteLocationMarker />
+        <GeolocateControl showAccuracyCircle={true} showUserHeading={true} />
       </Mapbox>
     </>
   )
