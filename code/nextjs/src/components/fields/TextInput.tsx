@@ -77,7 +77,7 @@ const TextInput = ({placeholder, defaultVal, required=false, type="text", forceE
     if(forceErrorMessage){
       setErrMessage(forceErrorMessage)
     }
-  },[usrVal, hasClicked, forceErrorMessage, required, errMessage]) // eslint-disable-next-line no-use-before-define
+  },[usrVal, hasClicked, forceErrorMessage, required, errMessage]) // eslint-disable-line
 
 
 
