@@ -39,21 +39,27 @@ Within this project, there are a few environment `.env` files that require popul
 1. `/code/nextjs/.env.local`
 
 ```dotenv
-NEXT_PUBLIC_MAPBOX_KEY=  # Mapbox public key
+# Mapbox public key
+NEXT_PUBLIC_MAPBOX_KEY=  
 NEXT_PUBLIC_MAPBOX_STYLE=mapbox://styles/tsienjin/cldedq01h007c01r0t9ctf0ak
-NEXT_PUBLIC_BACKEND=http://localhost:8000  # NOTE no trailing slash
+
+# NOTE no trailing slash
+NEXT_PUBLIC_BACKEND=http://localhost:8000  
 ```
 
 2. `/code/myDjango/myDjango/.env`
 
 ```dotenv
-DATABASE_NAME= # as defined for PostgreSQL
-DATABASE_USER= # as defined for PostgreSQL
-DATABASE_PASSWORD= # as defined for PostgreSQL
+# as defined for PostgreSQL
+DATABASE_NAME= 
+DATABASE_USER= 
+DATABASE_PASSWORD= 
 DATABASE_HOST=127.0.0.1
-DATABASE_PORT=5432 # as defined for PostgreSQL
+DATABASE_PORT=5432
 
-SECRET_KEY= # Django secret key
+# Django secret key
+SECRET_KEY= 
+
 NEXT_PUBLIC_MAPBOX_KEY=
 LTA_API_KEY=
 
@@ -120,7 +126,8 @@ This process is much easier than the backend due to `npm` and packages in the di
 ```bash
 cd code
 npm install
-npm run dev # OR yarn dev
+npm run dev 
+# OR yarn dev
 ```
 
 
