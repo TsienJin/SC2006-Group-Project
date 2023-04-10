@@ -1,6 +1,6 @@
 import FieldContainer from "@/components/fields/FieldContainer";
 import TextInput from "@/components/fields/TextInput";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Address, AddToilet, Description, Review} from "@/Structs/toilet";
 import {Hoist} from "@/components/fields/types";
 import SelectInput, {Option, ratingOptions, SelectInputOptions} from "@/components/fields/SelectInput";
@@ -212,6 +212,8 @@ const AddToilet = () => {
   const userState = useSelector((state:RootState) => state.user)
   const [userLatch, setUserLatch] = useState<typeof userState>(userState)
 
+  const [addrSet, setAddrSet] = useState<boolean>(false)
+
   const dispatch = useDispatch()
 
   useEffect(()=>{
@@ -221,6 +223,14 @@ const AddToilet = () => {
       setUserLatch(userState)
     }
   }, [userState]) //eslint-disable-line
+
+  useEffect(()=>{
+    if(address?.address){
+      setAddrSet(true)
+    } else {
+      setAddrSet(false)
+    }
+  },[address])
 
 
 
@@ -303,7 +313,7 @@ const AddToilet = () => {
       <Address hoist={addressHoist}/>
       <Description hoist={descriptionHoist}/>
       {/*<Review hoist={reviewHoist}/>*/}
-      <Button text={"Add Toilet"} colour={buttonColourGreen} action={sendForm} />
+      <Button text={"Add Toilet"} colour={buttonColourGreen} action={sendForm} allowed={addrSet} />
     </>
   )
 }

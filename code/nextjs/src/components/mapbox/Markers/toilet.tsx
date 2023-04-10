@@ -186,11 +186,17 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
 
 
   const unitLine = ():string => {
+
+    if(toilet.Address.floorNumber=='NaN' && toilet.Address.unitNumber=='NaN'){
+      return ""
+    }
+
+
     if(toilet.Address.floorNumber && toilet.Address.unitNumber){
       return `#${toilet.Address.floorNumber}-${toilet.Address.unitNumber}`
     }
 
-    if(toilet.Address.floorNumber && !toilet.Address.unitNumber){
+    if(toilet.Address.floorNumber && parseInt(toilet.Address.floorNumber)>0 && !toilet.Address.unitNumber){
       return `Level ${toilet.Address.floorNumber}`
     }
 
