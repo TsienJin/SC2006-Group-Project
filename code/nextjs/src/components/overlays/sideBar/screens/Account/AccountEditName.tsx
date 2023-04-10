@@ -43,7 +43,6 @@ const AccountEditName = () => {
     }
 
     if(isValid){
-      // TODO err handling if edit fail
       const options:middlewareOptions = {
         endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editname/`,
         params: {

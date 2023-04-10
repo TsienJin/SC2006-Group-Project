@@ -13,8 +13,6 @@ export async function postMiddleware(options:middlewareOptions, sendCredential:b
         headers:
           {
             'Content-Type': 'multipart/form-data',
-            // 'Access-Control-Allow-Credentials': true,
-            // 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
             ...options.headers,
           },
         withCredentials: sendCredential,
