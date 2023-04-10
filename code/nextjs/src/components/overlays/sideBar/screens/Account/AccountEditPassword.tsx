@@ -31,7 +31,7 @@ const AccountEditPassword = () => {
 
   const submit:Action = () => {
 
-    if(isValid){
+    if(isValid && password.length>0){
       const options:middlewareOptions = {
         endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editpassword/`,
         params: {
@@ -53,7 +53,7 @@ const AccountEditPassword = () => {
   return(
     <div className={"pt-2"}>
       <PasswordGroup hoist={hoistPassword} hoistValid={hoistValid} validateTest={validateTests}/>
-      <Button text={"Save changes"} colour={buttonColourGreen} action={submit}/>
+      <Button text={"Save changes"} colour={buttonColourGreen} action={submit} />
     </div>
   )
 }

@@ -20,13 +20,15 @@ const PasswordGroup = ({validateTest=[], hoist=(value)=>{}, hoistValid=()=>{}}:{
     setCPassVal(value)
   }
 
-  useEffect(()=>{
+  useEffect(()=> {
 
     // ensure that passwords are the same
-    if((passVal!=cPassVal) && passVal.length>0 && cPassVal.length>0){
+    if ((passVal != cPassVal) && passVal.length > 0 && cPassVal.length > 0) {
       setPassErr("Passwords do not match!")
       hoistValid(false)
-    } else if (passVal.length>0 && cPassVal.length==0) {
+    } else if (passVal.length > 0 && cPassVal.length == 0) {
+      hoistValid(false)
+    } else if( passVal.length>255 || cPassVal.length>255) {
       hoistValid(false)
     } else {
       setPassErr("")
