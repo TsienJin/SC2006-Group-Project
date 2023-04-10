@@ -26,13 +26,15 @@ const PasswordGroup = ({validateTest=[], hoist=(value)=>{}, hoistValid=()=>{}}:{
     if((passVal!=cPassVal) && passVal.length>0 && cPassVal.length>0){
       setPassErr("Passwords do not match!")
       hoistValid(false)
+    } else if (passVal.length>0 && cPassVal.length==0) {
+      hoistValid(false)
     } else {
       setPassErr("")
       hoist(passVal)
       hoistValid(true)
     }
 
-  },[passVal, cPassVal])
+  },[passVal, cPassVal]) // eslint-disable-line
 
 
   return(
