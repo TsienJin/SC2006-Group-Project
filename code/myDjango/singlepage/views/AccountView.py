@@ -12,83 +12,96 @@ from ..models.User import User
 from ..serializers import RegisterSerializer, EditNameSerializer, EditEmailAddressSerializer, EditPasswordSerializer, UserSerializer, ResetPasswordEmailSerializer
 from ..utils import checkEmailFormat
 
-''' Registers an account for MoP
-checks for password and confirm password needs to be done at front end since it is not passed to backend
-emailAddress must be unique
-sessionID created and saved once account is registered and redirected to login
-password is hashed before storing into database
-Args:
-
-Returns:
-
-'''
 class RegisterView(APIView):
+    ''' Registers an account for MoP
+    Checks for password and confirm password needs to be done at front end since it is not passed to backend
+    emailAddress must be unique
+    sessionID created and saved once account is registered and redirected to login
+    password is hashed before storing into database
+    Args:
+
+    Returns:
+    
+    '''
     serializer_class = RegisterSerializer
 
-    
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            name = serializer.data.get('name')
-            emailAddress = serializer.data.get('emailAddress')
-            password = serializer.data.get('password') 
+        try:
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                name = serializer.data.get('name')
+                emailAddress = serializer.data.get('emailAddress')
+                password = serializer.data.get('password') 
 
-            if User.emailTaken(emailAddress):
-                return JsonResponse({"error_status": "402",
-                                     "error_message": "Sorry but this email address is taken!"})
+                if User.emailTaken(emailAddress):
+                    return JsonResponse({"error_status": "402",
+                                        "error_message": "Sorry but this email address is taken!"})
 
-            if User.emailTaken(emailAddress):
-                return JsonResponse({"error_status": "402",
-                                     "error_message": "Sorry but this email address is taken!"})
+                if not checkEmailFormat(emailAddress):
+                    return JsonResponse({"error_status": "403",
+                                        "error_message": "Invalid email address format."})
+                
+                # make_password() hashes the password using the hashers we put in settings.py
+                # we are using bcrypt SHA256 primarily here
+                password = make_password(password)
+                user = User(name=name, emailAddress=emailAddress, password=password)
+                user.register()
+                user.login(request)
+                
+                # json.dumps(user.userID, cls=DjangoJSONEncoder)
+                payload = {"userEmail": emailAddress,
+                            "userName": name,
+                            "userID": user.userID,
+                            "sessionID": user.sessionID}
 
-            if not checkEmailFormat(emailAddress):
-                return JsonResponse({"error_status": "403",
-                                     "error_message": "Invalid email address format."})
-            
-            # make_password() hashes the password using the hashers we put in settings.py
-            # we are using bcrypt SHA256 primarily here
-            password = make_password(password)
-            user = User(name=name, emailAddress=emailAddress, password=password)
-            user.register()
-            user.login(request)
-            
-            # json.dumps(user.userID, cls=DjangoJSONEncoder)
-            payload = { "userEmail": emailAddress,
-                        "userName": name,
-                        "userID": user.userID,
-                        "sessionID": user.sessionID }
-
+                return JsonResponse(payload)
+            else:
+                payload = {"error_message": "Invalid request parameters"}
+                return JsonResponse(payload)
+        except:
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
 
 class LoginView(APIView):
+    '''
+    One additional check if emailAddress and password exists
+    Checks database if user with emailAddress and password exists
+    If exists, logs in user and returns information back to frontend
+    '''
     serializer_class = UserSerializer
-    # one additional check if emailAddress and password exists
-    # checks database if user with emailAddress and password exists
-    # if exists, logs in user and returns information back to frontend
+    
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            emailAddress = serializer.data.get('emailAddress')
-            password = serializer.data.get('password')
+        try:
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                emailAddress = serializer.data.get('emailAddress')
+                password = serializer.data.get('password')
 
-            if emailAddress is None or password is None:
-                return JsonResponse({"error_status": "400",
-                                    "error_message": "Invalid parameters passed"})
+                if emailAddress is None or password is None:
+                    return JsonResponse({"error_status": "400",
+                                        "error_message": "Invalid parameters passed"})
 
-            authenticated = User.verifyCredentials(emailAddress, password)
+                authenticated = User.verifyCredentials(emailAddress, password)
 
-            if not authenticated:
-                return JsonResponse({"error_status": "401",
-                                    "error_message": "Wrong email address or password"})
+                if not authenticated:
+                    return JsonResponse({"error_status": "401",
+                                        "error_message": "Wrong email address or password"})
 
-            user = User.retrieveByEmailAddress(emailAddress)
-            user.login(request)
+                user = User.retrieveByEmailAddress(emailAddress)
+                user.login(request)
 
-            payload = { "userEmail": emailAddress,
-                        "userName": user.name,
-                        "userID": user.userID,
-                        "sessionID": user.sessionID }
+                payload = { "userEmail": emailAddress,
+                            "userName": user.name,
+                            "userID": user.userID,
+                            "sessionID": user.sessionID }
+                return JsonResponse(payload)
+            else:
+                payload = {"error_message": "Invalid request parameters"}
+                return JsonResponse(payload)
+        except:
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
+
         
 class LogoutView(APIView):
     def get(self, request, *args, **kwargs):
@@ -98,106 +111,132 @@ class LogoutView(APIView):
             payload = {"logout": True}
             return JsonResponse(payload)
         except:
-            payload = {"logout": False}
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
 
 class EditNameView(APIView):
     serializer_class = EditNameSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            newName = serializer.data.get("name")
-            for key, value in request.session.items():
-                print('{} => {}'.format(key, value))
-            user = User.retrieveInfo(request.session["user"])
+        try:
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                newName = serializer.data.get("name")
+                for key, value in request.session.items():
+                    print('{} => {}'.format(key, value))
+                user = User.retrieveInfo(request.session["user"])
 
-            if user == False:
-                payload = {"error_message": "User not found"}
-                return JsonResponse(payload)
+                if user == False:
+                    payload = {"error_message": "User not found"}
+                    return JsonResponse(payload)
+                    
+                oldName = user.getName()
+
+                if (newName == oldName):
+                    payload = {"edit_name": False,
+                            "detail": "Same name"}
+                    return JsonResponse(payload)
                 
-            oldName = user.getName()
-
-            if (newName == oldName):
-                payload = {"edit_name": False,
-                           "detail": "Same name"}
+                user.updateName(newName)
+                payload = {"edit_name": True,
+                        "detail": "Edit name successful"}
                 return JsonResponse(payload)
-            
-            user.updateName(newName)
-            payload = {"edit_name": True,
-                       "detail": "Edit name successful"}
+            else:
+                payload = {"error_message": "Invalid request parameters"}
+                return JsonResponse(payload)
+        except:
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
-
 
 class EditEmailAddressView(APIView):
     serializer_class = EditEmailAddressSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            newEmailAddress = serializer.data.get("emailAddress")
-            user = User.retrieveInfo(request.session["user"])
-            oldEmailAddress = user.getEmailAddress()
+        try:
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                newEmailAddress = serializer.data.get("emailAddress")
+                user = User.retrieveInfo(request.session["user"])
+                oldEmailAddress = user.getEmailAddress()
 
-            if (newEmailAddress == oldEmailAddress):
-                payload = {"edit_emailAddress": False,
-                           "detail": "Same emailAddress"}
-                return JsonResponse(payload)
-            
-            if User.emailTaken(newEmailAddress):
-                payload = {"edit_emailAddress": False,
-                           "detail": "New emailAddress taken"}
-                return JsonResponse(payload)
+                if (newEmailAddress == oldEmailAddress):
+                    payload = {"edit_emailAddress": False,
+                            "detail": "Same emailAddress"}
+                    return JsonResponse(payload)
+                
+                if User.emailTaken(newEmailAddress):
+                    payload = {"edit_emailAddress": False,
+                            "detail": "New emailAddress taken"}
+                    return JsonResponse(payload)
 
-            user.updateEmailAddress(newEmailAddress)
-            payload = {"edit_emailAddress": True,
-                       "detail": "Edit emailAddress successful"}
+                user.updateEmailAddress(newEmailAddress)
+                payload = {"edit_emailAddress": True,
+                        "detail": "Edit emailAddress successful"}
+                return JsonResponse(payload)
+            else:
+                payload = {"error_message": "Invalid request parameters"}
+                return JsonResponse(payload)
+        except:
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
-
 
 class EditPasswordView(APIView):
     serializer_class = EditPasswordSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            newPassword = serializer.data.get("password")
-            newPassword = make_password(newPassword)
-            user = User.retrieveInfo(request.session["user"])
-            oldPassword = user.getPassword()
+        try:
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                newPassword = serializer.data.get("password")
+                newPassword = make_password(newPassword)
+                user = User.retrieveInfo(request.session["user"])
+                oldPassword = user.getPassword()
 
-            if (newPassword == oldPassword):
-                payload = {"edit_password": False,
-                           "detail": "Same password"}
+                if (newPassword == oldPassword):
+                    payload = {"edit_password": False,
+                            "detail": "Same password"}
+                    return JsonResponse(payload)
+            
+                user.updatePassword(newPassword)
+                payload = {"edit_password": True,
+                        "detail": "Edit password successful"}
                 return JsonResponse(payload)
-        
-            user.updatePassword(newPassword)
-            payload = {"edit_password": True,
-                      "detail": "Edit password successful"}
+            else:
+                payload = {"error_message": "Invalid request parameters"}
+                return JsonResponse(payload)
+        except:
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
 
 class ResetPasswordThroughEmailView(APIView):
     serializer_class = ResetPasswordEmailSerializer
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            emailAddress = serializer.data.get("emailAddress")
-            newPassword = serializer.data.get("password")
-            user = User.retrieveByEmailAddress(emailAddress)
+        try:
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                emailAddress = serializer.data.get("emailAddress")
+                newPassword = serializer.data.get("password")
+                user = User.retrieveByEmailAddress(emailAddress)
 
-            # User not registered
-            if user == False:
-                payload = {"error_message": "Email address not registered"}
+                # User not registered
+                if user == False:
+                    payload = {"error_message": "Email address not registered"}
+                    return JsonResponse(payload)
+                
+                # Same password
+                oldPassword = user.getPassword()
+                if (newPassword == oldPassword):
+                    payload = {"error_message": "Same password"}
+                    return JsonResponse(payload)
+                
+                user.updatePassword(newPassword)
+                payload = {"edit_password": True,
+                        "detail": "Edit password successful"}
                 return JsonResponse(payload)
-            
-            # Same password
-            oldPassword = user.getPassword()
-            if (newPassword == oldPassword):
-                payload = {"error_message": "Same password"}
+            else:
+                payload = {"error_message": "Invalid request parameters"}
                 return JsonResponse(payload)
-            
-            user.updatePassword(newPassword)
-            payload = {"edit_password": True,
-                      "detail": "Edit password successful"}
+        except:
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
                 
