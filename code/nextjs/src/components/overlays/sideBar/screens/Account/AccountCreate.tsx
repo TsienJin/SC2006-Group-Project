@@ -76,7 +76,7 @@ const AccountCreateScreen = () => {
       name.length!=0 && nameValid &&
       email.length!=0 && emailValid &&
       password.length!=0 && passwordValid && password.length<256 &&
-      age>=18 && age<=300
+      age>=18 && age<300
     )
   }
 
