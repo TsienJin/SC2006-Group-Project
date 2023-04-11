@@ -6,15 +6,12 @@ import httplib2 as http
 from urllib.parse import urlparse
 
 import environ
-
 env = environ.Env()
 environ.Env.read_env()
 
 from rest_framework.views import APIView
 from django.http import JsonResponse
-
 from ..models.Toilet import Toilet
-from ..models.Review import Review
 from ..utils import updateToilets
 
 MAX_TOILET_LIMIT = 500
@@ -30,7 +27,6 @@ class UpdateToiletView(APIView):
             return JsonResponse(payload)
 
 
-# changes: add review along with retrieve toilet view
 class RetrieveToiletView(APIView):
     def get(self, request, *args, **kwargs):
         try:
@@ -39,7 +35,6 @@ class RetrieveToiletView(APIView):
             }
             toiletsDatabase = Toilet.objects.all()
             for toilet in toiletsDatabase:
-                toiletID = toilet.getToiletID()
                 name = toilet.getName()
                 address = toilet.getAddress()
                 postalCode = toilet.getPostalCode()
@@ -72,8 +67,7 @@ class RetrieveToiletView(APIView):
             
             return JsonResponse(payload)
         except:
-            payload = {"error_status": "405",
-                       "error_message": "Toilet retrieval unsuccessful"}
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
         
 
@@ -113,7 +107,5 @@ class RetrieveTrafficView(APIView):
             
             return JsonResponse(payload)
         except:
-            payload = {"error_message": "API down"}
+            payload = {"error_message": "Unexpected error has occurred"}
             return JsonResponse(payload)
-
-# UC06 - Report Bug is handled on the front-end
