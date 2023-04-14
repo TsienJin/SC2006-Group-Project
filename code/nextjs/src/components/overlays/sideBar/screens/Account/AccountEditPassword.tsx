@@ -10,7 +10,7 @@ import PasswordGroup from "@/components/fields/PasswordGroup";
 import {middlewareOptions} from "@/middleware/types";
 import * as process from "process";
 import {postMiddleware} from "@/middleware/middleware";
-import {MinPassLength, PassMinCharNum, ValidateInputText} from "@/validation/fields/text";
+import {MaxPassLen, MinPassLength, PassMinCharNum, ValidateInputText} from "@/validation/fields/text";
 
 
 const AccountEditPassword = () => {
@@ -48,6 +48,7 @@ const AccountEditPassword = () => {
   const validateTests:ValidateInputText[] = [
     MinPassLength,
     PassMinCharNum,
+    MaxPassLen
   ]
 
   return(
