@@ -33,7 +33,7 @@ const AccountEditPassword = () => {
 
     if(isValid && password.length>0){
       const options:middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editpassword/`,
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/accounts/editpassword/`,
         params: {
           password: password
         }

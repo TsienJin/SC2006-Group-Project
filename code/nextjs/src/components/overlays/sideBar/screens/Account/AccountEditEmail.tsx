@@ -42,7 +42,7 @@ const AccountEditEmail = () => {
 
     if(isValid){
       const options:middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editemail/`,
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/accounts/editemail/`,
         params: {
           'emailAddress': newUsr.email,
         }

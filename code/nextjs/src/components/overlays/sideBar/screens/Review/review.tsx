@@ -48,7 +48,7 @@ const ReviewScreen = () => {
     console.log(payload)
 
     const options:middlewareOptions = {
-      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/reviews/create/`,
+      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/reviews/create/`,
       params: payload
     }
 

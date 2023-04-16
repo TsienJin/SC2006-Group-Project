@@ -64,7 +64,7 @@ const FavouriteScreen = () => {
   useEffect(()=>{
     if(userState.name.length>0){
       const options: middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/retrievefavourite/`,
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/retrievefavourite/`,
         params: {
           userID: userState.id
         }

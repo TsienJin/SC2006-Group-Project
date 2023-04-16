@@ -276,7 +276,7 @@ const AddToilet = () => {
     console.log(info)
 
     const options:middlewareOptions = {
-      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/create/`,
+      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/toilets/create/`,
       params: {...info}
     }
 

@@ -44,7 +44,7 @@ const AccountEditName = () => {
 
     if(isValid){
       const options:middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/editname/`,
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/accounts/editname/`,
         params: {
           name: newUsr.name
         },

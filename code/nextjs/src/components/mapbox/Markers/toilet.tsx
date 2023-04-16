@@ -40,7 +40,7 @@ export type ToiletInfo = {
 async function getToilets():Promise<ToiletInfo[]> {
 
   try{
-    const {data} = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND}/settings/retrievetoilet/`)
+    const {data} = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/settings/retrievetoilet/`)
     return data.toilets
   } catch (e) {
     console.error(e)
@@ -111,7 +111,7 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
       )))
     } else {
       const optionsAdd:middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/addfavourite/`,
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/toilets/addfavourite/`,
         params: {
           userID: userState.id,
           latitude: toilet.Address.coordinates.latitude,
@@ -120,7 +120,7 @@ const ToiletPopup = ({toilet}:{toilet:ToiletInfo}) => {
       }
 
       const optionsRemove:middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/removefavourite/`,
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/toilets/removefavourite/`,
         params: {
           userID: userState.id,
           latitude: toilet.Address.coordinates.latitude,

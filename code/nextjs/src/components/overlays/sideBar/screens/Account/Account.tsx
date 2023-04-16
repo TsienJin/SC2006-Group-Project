@@ -24,7 +24,7 @@ const AccountScreen = () => {
   const logoutAction:Action = () => {
     // TODO logout action
     const option:middlewareOptions = {
-      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/logout/`,
+      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/accounts/logout/`,
     }
     sendLogout(option).then(r => {})
     dispatch(logout())

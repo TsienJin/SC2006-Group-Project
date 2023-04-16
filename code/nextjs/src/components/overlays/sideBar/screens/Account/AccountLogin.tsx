@@ -25,7 +25,7 @@ export async function sendLogin(email:string, password:string, onErrorCallback=(
   // const data = await res.data
 
   const options:middlewareOptions = {
-    endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/login/`,
+    endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/accounts/login/`,
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -121,7 +121,7 @@ const AccountLoginScreen = () => {
             dispatch(login(e))
             dispatch(clearThenAddToStack(sideBarStatesEnum.Account))
             const options: middlewareOptions = {
-              endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/toilets/retrievefavourite/`,
+              endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/toilets/retrievefavourite/`,
               params: {
                 userID: e.id
               }

@@ -18,10 +18,6 @@ class RegisterView(APIView):
     emailAddress must be unique
     sessionID created and saved once account is registered and redirected to login
     password is hashed before storing into database
-    Args:
-
-    Returns:
-    
     '''
     serializer_class = RegisterSerializer
 

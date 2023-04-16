@@ -19,6 +19,8 @@ class Review(models.Model):
     -------
     addReview()
         Saves the Review object to the database
+    getReviewID()
+        Returns the reviewID attribute of Review object
     getRating()
         Returns rating attribute of Review object
     getComment()
@@ -32,7 +34,7 @@ class Review(models.Model):
         null = False,
         default = 0
     )
-    comment = models.CharField(max_length=255, null = True, default = '')
+    comment = models.CharField(max_length=255, null = True, blank=True, default = '')
 
     def __str__(self):
         ''' Defines string representation of Review in database
@@ -49,6 +51,16 @@ class Review(models.Model):
         ''' Saves Review record to database
         '''
         self.save()
+    
+    def getReviewID(self):
+        ''' Returns the reviewID attribute of Review object
+
+        Returns
+        -------
+        String
+            ReviewID attribute of Review object
+        '''
+        return self.reviewID
 
     def getRating(self):
         ''' Returns rating attribute of Review object

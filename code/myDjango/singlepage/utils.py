@@ -7,13 +7,28 @@ from .models.Toilet import Toilet
 env = environ.Env()
 environ.Env.read_env()
 
-# though models.EmailField already checks for email format, this is for additional restrictions
 def checkEmailFormat(emailAddress):
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
     if(re.fullmatch(regex, emailAddress)):
         return True
     else:
         return False
+
+def checkPasswordComplexity(password):
+    flag = 0
+    while True:
+        if (len(password) < 8 or len(password) > 255):
+            flag = 1
+            break
+        elif not re.search("[A-Za-z]", password):
+            flag = 1
+            break
+        elif not re.search("[0-9]", password):
+            flag = 1
+            break
+        else:
+            return True
+    return False
 
 # PositionStack
 def forwardGeocoding_ps(address):
@@ -74,7 +89,6 @@ def extractToiletInfoOnline():
         toilets = csv.reader(f)
     return toilets
 
-# update database with online scraped toilet data
 def updateToilets(LIMIT:int=-1):
     with open("./data/toilet/output.csv") as f:
         toilets = csv.reader(f)

@@ -51,7 +51,7 @@ const SettingScreen = () => {
   const updateToilet:Action = () => {
     if(allowUpdateToilet){
       const options:middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/settings/updatetoilet/`
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/settings/updatetoilet/`
       }
 
       dispatch(addNoti(createNoti(

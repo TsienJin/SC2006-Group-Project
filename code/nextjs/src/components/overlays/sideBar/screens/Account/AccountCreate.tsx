@@ -83,7 +83,7 @@ const AccountCreateScreen = () => {
   const formSubmit:Action = () => {
     if(checkSubmittable()){
       const options:middlewareOptions = {
-        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/accounts/register/`,
+        endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/accounts/register/`,
         params: {
           "name": name,
           "emailAddress": email,

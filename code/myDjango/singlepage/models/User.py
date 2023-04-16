@@ -19,6 +19,8 @@ class User(models.Model):
     -------
     register()
         Saves the User object to the database
+    getUserID()
+        Returns the userID attribute of the User object
     getName()
         Returns the name attribute of the User object
     getEmailAddress()
@@ -68,6 +70,16 @@ class User(models.Model):
         ''' Saves User record to database
         '''
         self.save()
+    
+    def getUserID(self):
+        ''' Returns userID attribute of User object
+
+        Returns
+        -------
+        String
+            userID attribute of User object
+        '''
+        return self.userID
     
     def getName(self):
         ''' Returns name attribute of User object

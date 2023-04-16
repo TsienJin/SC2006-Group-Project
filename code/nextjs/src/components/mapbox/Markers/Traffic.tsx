@@ -69,7 +69,7 @@ const TrafficMarkers = () => {
 
   useEffect(()=>{ // loading traffic info
     const options:middlewareOptions = {
-      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/settings/retrievetraffic/`,
+      endpoint: `${process.env.NEXT_PUBLIC_BACKEND}/sg/v1/settings/retrievetraffic/`,
     }
 
     getMiddleWare(options) // calls on load
